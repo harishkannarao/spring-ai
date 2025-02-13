@@ -19,3 +19,11 @@ This repository is a playground for learning and experimenting new ideas with AI
     ./mvnw clean install -Dmaven.test.skip=true
 
     java -jar target/spring-ai-0.0.1-SNAPSHOT.jar
+
+### Sample http requests with curl
+
+    curl -X POST 'http://localhost:8080/chat' --data-binary 'Tell me about London, England'
+
+    curl 'http://localhost:8080/stream-joke'
+
+    curl 'http://localhost:8080/joke'

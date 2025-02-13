@@ -5,6 +5,8 @@ import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
@@ -17,8 +19,20 @@ public class ChatController {
 
     @Autowired
     public ChatController(ChatClient.Builder chatClientBuilder) {
-        this.chatClient = chatClientBuilder.build();
+        this.chatClient = chatClientBuilder
+                .defaultSystem("You are a helpful AI Assistant answering questions")
+                .build();
     }
+
+    @PostMapping("chat")
+    public Flux<String> chat(@RequestBody String input) {
+        UserMessage userMessage = new UserMessage(input);
+        Prompt prompt = new Prompt(List.of(userMessage));
+        return chatClient.prompt(prompt)
+                .stream()
+                .content();
+    }
+
 
     @GetMapping("joke")
     public String joke() {
