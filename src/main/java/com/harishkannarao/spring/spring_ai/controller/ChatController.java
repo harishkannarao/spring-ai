@@ -4,6 +4,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @RestController
 public class ChatController {
@@ -19,6 +20,13 @@ public class ChatController {
     public String joke() {
         return chatClient.prompt("Please tell a new dad joke")
                 .call()
+                .content();
+    }
+
+    @GetMapping("stream-joke")
+    public Flux<String> streamJoke() {
+        return chatClient.prompt("Please tell a new dad joke")
+                .stream()
                 .content();
     }
 }
