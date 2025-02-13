@@ -1,10 +1,14 @@
 package com.harishkannarao.spring.spring_ai.controller;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+
+import java.util.List;
 
 @RestController
 public class ChatController {
@@ -18,14 +22,18 @@ public class ChatController {
 
     @GetMapping("joke")
     public String joke() {
-        return chatClient.prompt("Please tell a new dad joke")
+        UserMessage userMessage = new UserMessage("Please tell a new dad joke");
+        Prompt prompt = new Prompt(List.of(userMessage));
+        return chatClient.prompt(prompt)
                 .call()
                 .content();
     }
 
     @GetMapping("stream-joke")
     public Flux<String> streamJoke() {
-        return chatClient.prompt("Please tell a new dad joke")
+        UserMessage userMessage = new UserMessage("Please tell a new dad joke");
+        Prompt prompt = new Prompt(List.of(userMessage));
+        return chatClient.prompt(prompt)
                 .stream()
                 .content();
     }
