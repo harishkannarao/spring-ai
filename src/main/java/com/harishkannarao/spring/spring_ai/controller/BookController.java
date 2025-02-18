@@ -1,6 +1,8 @@
 package com.harishkannarao.spring.spring_ai.controller;
 
 import com.harishkannarao.spring.spring_ai.entity.AuthorResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -21,6 +23,7 @@ import java.util.Objects;
 public class BookController {
 
 	private static final String THINK_END_TAG = "</think>";
+	private final Logger log = LoggerFactory.getLogger(BookController.class);
 	private final ChatClient chatClient;
 
 	@Autowired
@@ -39,16 +42,20 @@ public class BookController {
 			""";
 		BeanOutputConverter<AuthorResult> outputParser = new BeanOutputConverter<>(AuthorResult.class);
 		String format = outputParser.getFormat();
-
+		log.info("format {}", format);
 		PromptTemplate promptTemplate = new PromptTemplate(promptMessage,
 			Map.of("author", author, "format", format));
 		Message userMessage = promptTemplate.createMessage();
 
 		Prompt prompt = new Prompt(List.of(userMessage));
+		log.info("prompt {}", prompt);
 		String content = Objects.requireNonNull(chatClient.prompt(prompt)
 			.call()
 			.content());
-		return outputParser.convert(withoutThink(content));
+		log.info("raw content {}", content);
+		AuthorResult result = outputParser.convert(withoutThink(content));
+		log.info("parsed AuthorResult {}", result);
+		return result;
 	}
 
 	private static String withoutThink(String input) {
