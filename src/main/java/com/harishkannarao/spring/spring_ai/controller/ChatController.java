@@ -15,40 +15,40 @@ import java.util.List;
 @RestController
 public class ChatController {
 
-    private final ChatClient chatClient;
+	private final ChatClient chatClient;
 
-    @Autowired
-    public ChatController(ChatClient.Builder chatClientBuilder) {
-        this.chatClient = chatClientBuilder
-                .defaultSystem("You are a helpful AI Assistant answering questions")
-                .build();
-    }
+	@Autowired
+	public ChatController(ChatClient.Builder chatClientBuilder) {
+		this.chatClient = chatClientBuilder
+			.defaultSystem("You are a helpful AI Assistant answering questions")
+			.build();
+	}
 
-    @PostMapping("chat")
-    public Flux<String> chat(@RequestBody String input) {
-        UserMessage userMessage = new UserMessage(input);
-        Prompt prompt = new Prompt(List.of(userMessage));
-        return chatClient.prompt(prompt)
-                .stream()
-                .content();
-    }
+	@PostMapping("chat")
+	public Flux<String> chat(@RequestBody String input) {
+		UserMessage userMessage = new UserMessage(input);
+		Prompt prompt = new Prompt(List.of(userMessage));
+		return chatClient.prompt(prompt)
+			.stream()
+			.content();
+	}
 
 
-    @GetMapping("joke")
-    public String joke() {
-        UserMessage userMessage = new UserMessage("Please tell a new dad joke");
-        Prompt prompt = new Prompt(List.of(userMessage));
-        return chatClient.prompt(prompt)
-                .call()
-                .content();
-    }
+	@GetMapping("joke")
+	public String joke() {
+		UserMessage userMessage = new UserMessage("Please tell a new dad joke");
+		Prompt prompt = new Prompt(List.of(userMessage));
+		return chatClient.prompt(prompt)
+			.call()
+			.content();
+	}
 
-    @GetMapping("stream-joke")
-    public Flux<String> streamJoke() {
-        UserMessage userMessage = new UserMessage("Please tell a new dad joke");
-        Prompt prompt = new Prompt(List.of(userMessage));
-        return chatClient.prompt(prompt)
-                .stream()
-                .content();
-    }
+	@GetMapping("stream-joke")
+	public Flux<String> streamJoke() {
+		UserMessage userMessage = new UserMessage("Please tell a new dad joke");
+		Prompt prompt = new Prompt(List.of(userMessage));
+		return chatClient.prompt(prompt)
+			.stream()
+			.content();
+	}
 }

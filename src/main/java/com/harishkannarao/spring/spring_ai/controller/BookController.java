@@ -20,43 +20,43 @@ import java.util.Objects;
 @RequestMapping("/books")
 public class BookController {
 
-    private static final String THINK_END_TAG = "</think>";
-    private final ChatClient chatClient;
+	private static final String THINK_END_TAG = "</think>";
+	private final ChatClient chatClient;
 
-    @Autowired
-    public BookController(ChatClient.Builder chatClientBuilder) {
-        this.chatClient = chatClientBuilder
-                .defaultSystem("You are a helpful AI Assistant answering questions")
-                .build();
-    }
+	@Autowired
+	public BookController(ChatClient.Builder chatClientBuilder) {
+		this.chatClient = chatClientBuilder
+			.defaultSystem("You are a helpful AI Assistant answering questions")
+			.build();
+	}
 
-    @GetMapping("by-author")
-    public AuthorResult byAuthor(
-            @RequestParam("author") String author) {
-        String promptMessage = """
-                Generate a list of books written by the author {author}. If you aren't positive that a book belongs to this author please don't include it.
-                {format}
-                """;
-        BeanOutputConverter<AuthorResult> outputParser = new BeanOutputConverter<>(AuthorResult.class);
-        String format = outputParser.getFormat();
+	@GetMapping("by-author")
+	public AuthorResult byAuthor(
+		@RequestParam("author") String author) {
+		String promptMessage = """
+			Generate a list of books written by the author {author}. If you aren't positive that a book belongs to this author please don't include it.
+			{format}
+			""";
+		BeanOutputConverter<AuthorResult> outputParser = new BeanOutputConverter<>(AuthorResult.class);
+		String format = outputParser.getFormat();
 
-        PromptTemplate promptTemplate = new PromptTemplate(promptMessage,
-                Map.of("author", author, "format", format));
-        Message userMessage = promptTemplate.createMessage();
+		PromptTemplate promptTemplate = new PromptTemplate(promptMessage,
+			Map.of("author", author, "format", format));
+		Message userMessage = promptTemplate.createMessage();
 
-        Prompt prompt = new Prompt(List.of(userMessage));
-        String content = Objects.requireNonNull(chatClient.prompt(prompt)
-                .call()
-                .content());
-        return outputParser.convert(withoutThink(content));
-    }
+		Prompt prompt = new Prompt(List.of(userMessage));
+		String content = Objects.requireNonNull(chatClient.prompt(prompt)
+			.call()
+			.content());
+		return outputParser.convert(withoutThink(content));
+	}
 
-    private static String withoutThink(String input) {
-        int index = input.indexOf(THINK_END_TAG);
-        if (index > -1 && input.length() >= index + 8) {
-            return input.substring(index + 8);
-        } else {
-            return input;
-        }
-    }
+	private static String withoutThink(String input) {
+		int index = input.indexOf(THINK_END_TAG);
+		if (index > -1 && input.length() >= index + 8) {
+			return input.substring(index + 8);
+		} else {
+			return input;
+		}
+	}
 }
