@@ -24,6 +24,8 @@ This repository is a playground for learning and experimenting new ideas with AI
 
     curl -X POST 'http://localhost:8080/chat' --data-binary 'Tell me about London, England'
 
+    curl -X GET -G 'http://localhost:8080/books/by-author' --data-urlencode "author=Yuval Noah Harari"
+
     curl 'http://localhost:8080/stream-joke'
 
     curl 'http://localhost:8080/joke'
