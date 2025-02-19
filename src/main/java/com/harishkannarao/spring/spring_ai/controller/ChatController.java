@@ -18,10 +18,8 @@ public class ChatController {
 	private final ChatClient chatClient;
 
 	@Autowired
-	public ChatController(ChatClient.Builder chatClientBuilder) {
-		this.chatClient = chatClientBuilder
-			.defaultSystem("You are a helpful AI Assistant answering questions")
-			.build();
+	public ChatController(ChatClient chatClient) {
+		this.chatClient = chatClient;
 	}
 
 	@PostMapping("chat")

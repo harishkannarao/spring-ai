@@ -27,10 +27,8 @@ public class BookController {
 	private final ChatClient chatClient;
 
 	@Autowired
-	public BookController(ChatClient.Builder chatClientBuilder) {
-		this.chatClient = chatClientBuilder
-			.defaultSystem("You are a helpful AI Assistant answering questions")
-			.build();
+	public BookController(ChatClient chatClient) {
+		this.chatClient = chatClient;
 	}
 
 	@GetMapping("by-author")
