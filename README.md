@@ -22,6 +22,11 @@ This repository is a playground for learning and experimenting new ideas with AI
 
 ### Sample http requests with curl
 
+
+    curl -X POST "http://localhost:8080/chat-with-context" \
+    --header "Content-Type: application/json" \
+    --data-binary '{ "context":"My name is Harish", "question":"What is my name?" }'
+
     curl -X POST 'http://localhost:8080/chat' --data-binary 'Tell me about London, England'
 
     curl -X GET -G 'http://localhost:8080/books/by-author' --data-urlencode "author=Yuval Noah Harari"
