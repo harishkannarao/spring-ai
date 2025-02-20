@@ -25,7 +25,7 @@ This repository is a playground for learning and experimenting new ideas with AI
 ```
 curl -X POST "http://localhost:8080/chat-with-context" \
 -H "Content-Type: application/json" \
---data-binary @- <<- 'EOF'
+--data-binary @- << 'EOF'
 {
     "context":"My name is Harish",
     "question":"What is my name?" 
