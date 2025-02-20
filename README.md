@@ -6,6 +6,16 @@ This repository is a playground for learning and experimenting new ideas with AI
 * Ollama: latest (Execute **ollama -v** in command line after installation)
 * Integrated Development Environment: Any version IntelliJ Idea or Eclipse
 
+### Serve and Run Ollama
+
+In first terminal execute the command and leave it running, press `Ctrl+C` to stop ollama engine
+
+    ollama serve
+
+In second terminal execute the command and leave it running, type `/bye` to exit and stop the LLM
+
+    ollama run deepseek-r1:8b
+
 ### Build command
 
     ./mvnw clean install
