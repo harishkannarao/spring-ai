@@ -16,9 +16,9 @@ In second terminal execute the command and leave it running, type `/bye` to exit
 
     ollama run deepseek-r1:8b
 
-To run LLM in non-interactive mode, in the second terminal execute the command
+To run LLM in non-interactive mode and keep it alive for 60 minutes, in the second terminal execute the command
 
-    ollama run deepseek-r1:8b "Hi"
+    ollama run deepseek-r1:8b "Hi" --keepalive 60m
 
 To explicitly stop an LLM running in non-interactive mode
 
