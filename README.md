@@ -16,6 +16,20 @@ In second terminal execute the command and leave it running, type `/bye` to exit
 
     ollama run deepseek-r1:8b
 
+### Start docker dependencies
+
+Pull the dependencies
+
+    docker compose -f compose.yml pull
+
+Start the dependencies
+
+    docker compose -f compose.yml up --build -d
+
+Stop the dependencies
+
+    docker compose -f compose.yml down -v
+
 ### Build command
 
     ./mvnw clean install

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: "spring-ai"
+  ai:
+    ollama:
+      base-url: "${AI_OLLAMA_BASE_URL:http://localhost:11434}"
+      chat:
+        model: "${AI_OLLAMA_CHAT_MODEL_NAME:deepseek-r1-1.5B:latest}"
