@@ -16,6 +16,14 @@ In second terminal execute the command and leave it running, type `/bye` to exit
 
     ollama run deepseek-r1:8b
 
+To run LLM in non-interactive mode, in the second terminal execute the command
+
+    ollama run deepseek-r1:8b "Hi"
+
+To explicitly stop an LLM running in non-interactive mode
+
+    ollama stop deepseek-r1:8b
+
 ### Start docker dependencies
 
 Pull the dependencies
