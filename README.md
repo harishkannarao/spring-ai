@@ -8,25 +8,9 @@ This repository is a playground for learning and experimenting new ideas with AI
 
 ### Serve and Run Ollama
 
-In first terminal execute the command and leave it running, press `Ctrl+C` to stop ollama engine
+On Mac/Linux as native app [run_ollama_on_mac.md](https://github.com/harishkannarao/spring-ai/blob/main/run_ollama_on_mac.md)
 
-    ollama serve
-
-In second terminal execute the command and leave it running, type `/bye` to exit and stop the LLM
-
-    ollama run deepseek-r1:8b
-
-To run LLM in non-interactive mode and keep it alive for 60 minutes, in the second terminal execute the command
-
-    ollama run deepseek-r1:8b "Hi" --keepalive 60m
-
-To run LLM in non-interactive mode and keep it forever, in the second terminal execute the command
-
-    ollama run deepseek-r1:8b "Hi" --keepalive -1m
-
-To explicitly stop an LLM running in non-interactive mode
-
-    ollama stop deepseek-r1:8b
+Using docker [run_ollama_with_docker.md](https://github.com/harishkannarao/spring-ai/blob/main/run_ollama_with_docker.md)
 
 ### Start docker dependencies
 
