@@ -4,6 +4,8 @@ This repository is a playground for learning and experimenting new ideas with AI
 ### Required Software and Tools
 * Java Version: 21 (Execute **_java -version_** in command line after installation)
 * Ollama: latest (Execute **ollama -v** in command line after installation)
+* Docker: latest (Execute **docker --version** in command line after installation)
+* Docker Compose: latest (Execute **docker compose version** in command line after installation)
 * Integrated Development Environment: Any version IntelliJ Idea or Eclipse
 
 ### Serve and Run Ollama
