@@ -26,3 +26,6 @@ spring:
       driver:
         class:
           name: org.postgresql.Driver
+app:
+  ai:
+    engine: "${APP_AI_ENGINE:ollama}"
