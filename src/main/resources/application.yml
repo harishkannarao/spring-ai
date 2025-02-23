@@ -5,4 +5,24 @@ spring:
     ollama:
       base-url: "${AI_OLLAMA_BASE_URL:http://localhost:11434}"
       chat:
-        model: "${AI_OLLAMA_CHAT_MODEL_NAME:deepseek-r1-1.5B:latest}"
+        model: "${AI_OLLAMA_CHAT_MODEL_NAME:deepseek-r1:8b}"
+      embedding:
+        options:
+          model: "${AI_OLLAMA_EMBEDDING_MODEL_NAME:deepseek-r1:8b}"
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 1536 # same value as defined in the vector column in the table definition
+        batching-strategy: TOKEN_COUNT # Optional: Controls how documents are batched for embedding
+        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+        schema-validation: true
+  datasource:
+    hikari:
+      jdbc-url: "${DATASOURCE_URL:jdbc:postgresql://localhost:5432/mydatabase}"
+      username: "${DATASOURCE_USERNAME:myuser}"
+      password: "${DATASOURCE_PASSWORD:secret}"
+      maximum-pool-size: 30
+      driver:
+        class:
+          name: org.postgresql.Driver
