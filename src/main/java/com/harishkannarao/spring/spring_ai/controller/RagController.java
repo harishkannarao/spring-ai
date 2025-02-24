@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
 public class RagController {
@@ -91,9 +92,17 @@ public class RagController {
 	@PostMapping("ingest-pdf")
 	public ResponseEntity<Void> ingestPdf(@RequestParam("file") MultipartFile file) {
 		PagePdfDocumentReader reader = new PagePdfDocumentReader(file.getResource());
-		List<Document> documents = tokenTextSplitter.apply(reader.read());
-		documents.forEach(document -> log.info("content {}", document.getText()));
-		vectorStore.add(documents);
+		List<Document> rawDocuments = reader.read();
+		log.info("raw documents count: {}", rawDocuments.size());
+		List<Document> documents = tokenTextSplitter.apply(rawDocuments);
+		log.info("documents count after split: {}", documents.size());
+		IntStream.range(0, documents.size())
+			.boxed()
+			.forEachOrdered(index -> {
+				Document document = documents.get(index);
+				log.info("Ingesting document index {} with content {}", index, document.getText());
+				vectorStore.accept(List.of(document));
+			});
 		return ResponseEntity.noContent().build();
 	}
 }
