@@ -11,9 +11,8 @@ spring:
           model: "${AI_OLLAMA_EMBEDDING_MODEL_NAME:deepseek-r1:8b}"
     vectorstore:
       pgvector:
-        index-type: HNSW
+        index-type: NONE
         distance-type: COSINE_DISTANCE
-        dimensions: 1536 # same value as defined in the vector column in the table definition
         batching-strategy: TOKEN_COUNT # Optional: Controls how documents are batched for embedding
         max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
         schema-validation: true

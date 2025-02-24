@@ -2,6 +2,8 @@ package com.harishkannarao.spring.spring_ai.controller;
 
 import com.harishkannarao.spring.spring_ai.entity.InputDocument;
 import com.harishkannarao.spring.spring_ai.entity.InputMetaData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @RestController
 public class RagController {
 
+	private static final Logger log = LoggerFactory.getLogger(RagController.class);
 	private final ChatModel chatModel;
 	private final VectorStore vectorStore;
 	private final TokenTextSplitter tokenTextSplitter;
@@ -37,6 +40,7 @@ public class RagController {
 	public ResponseEntity<Void> ingestDocument(
 		@RequestBody List<InputDocument> input) {
 		List<Document> vectorDocuments = input.stream()
+			.peek(inputDocument -> log.info("Received input {}", inputDocument))
 			.map(inputDocument -> {
 				Map<String, Object> metaData = inputDocument.metaData().stream()
 					.collect(Collectors.toUnmodifiableMap(InputMetaData::key, InputMetaData::value));
