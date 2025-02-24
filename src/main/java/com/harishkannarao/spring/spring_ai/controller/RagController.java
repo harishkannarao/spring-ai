@@ -51,7 +51,7 @@ public class RagController {
 	public Flux<String> chatWithRag(@RequestParam String q) {
 		log.info("Question {}", q);
 		String documents = Objects.requireNonNull(vectorStore
-				.similaritySearch(SearchRequest.builder().query(q).topK(3).build()))
+				.similaritySearch(SearchRequest.builder().query(q).build()))
 			.stream()
 			.map(Document::getText)
 			.collect(Collectors.joining(System.lineSeparator()));
