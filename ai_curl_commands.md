@@ -45,3 +45,5 @@ curl -X POST "http://localhost:8080/ingest-document" \
 ]
 EOF
 ```
+
+    curl -X GET -G 'http://localhost:8080/rag-chat' --data-urlencode "q=What is the best place to live in the UK"
