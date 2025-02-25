@@ -46,6 +46,33 @@ curl -X POST "http://localhost:8080/ingest-document" \
 EOF
 ```
 
+```
+curl -X POST "http://localhost:8080/ingest-json" \
+-H "Content-Type: application/json" \
+--data-binary @- << 'EOF'
+[
+    {
+        "content":"Best place to live in the UK is Slough",
+        "metaData": [
+            {
+                "key": "meta_key_1",
+                "value": "meta_value_1"
+            }
+        ] 
+    },
+    {
+        "content":"Best car to buy in the UK is Jaecoo",
+        "metaData": [
+            {
+                "key": "meta_key_2",
+                "value": "meta_value_2"
+            }
+        ] 
+    }
+]
+EOF
+```
+
     curl -X GET -G 'http://localhost:8080/rag-chat' --data-urlencode "q=What is the best place to live in the UK"
 
     curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/ingest-pdf" -F "file=@$HOME/Downloads/International_Cricket_Council.pdf;type=application/pdf"
