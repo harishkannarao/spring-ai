@@ -34,7 +34,7 @@ Stop the dependencies
 
 ### Run application with maven
 
-    ./mvnw spring-boot:run
+    ./mvnw clean spring-boot:run
 
 ### Run application with java
 
