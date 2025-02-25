@@ -5,10 +5,10 @@ spring:
     ollama:
       base-url: "${AI_OLLAMA_BASE_URL:http://localhost:11434}"
       chat:
-        model: "${AI_OLLAMA_CHAT_MODEL_NAME:deepseek-r1:8b}"
+        model: "${AI_OLLAMA_CHAT_MODEL_NAME:deepseek-r1:1.5b}"
       embedding:
         options:
-          model: "${AI_OLLAMA_EMBEDDING_MODEL_NAME:deepseek-r1:8b}"
+          model: "${AI_OLLAMA_EMBEDDING_MODEL_NAME:mxbai-embed-large}"
     vectorstore:
       pgvector:
         index-type: NONE
