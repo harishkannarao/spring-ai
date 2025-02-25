@@ -46,9 +46,9 @@ curl -X POST "http://localhost:8080/ingest-document" \
 EOF
 ```
 
-    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/ingest-pdf" -F "file=@$HOME/Downloads/International_Cricket_Council.pdf;type=application/pdf"
-
     curl -X GET -G 'http://localhost:8080/rag-chat' --data-urlencode "q=What is the best place to live in the UK"
+
+    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/ingest-pdf" -F "file=@$HOME/Downloads/International_Cricket_Council.pdf;type=application/pdf"
 
 ```
 curl http://localhost:11434/api/embed -d '{
