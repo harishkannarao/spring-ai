@@ -11,11 +11,16 @@ spring:
           model: "${AI_OLLAMA_EMBEDDING_MODEL_NAME:mxbai-embed-large}"
     vectorstore:
       pgvector:
-        index-type: NONE
+        index-type: "${AI_OLLAMA_VECTOR_INDEX_TYPE:HNSW}"
+        dimension: "${AI_OLLAMA_EMBEDDING_DIMENSION:1024}"
         distance-type: COSINE_DISTANCE
         batching-strategy: TOKEN_COUNT # Optional: Controls how documents are batched for embedding
         max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
         schema-validation: true
+  flyway:
+    placeholders:
+      embeddingDimension: ${spring.ai.vectorstore.pgvector.dimension}
+      vectorIndexType: ${spring.ai.vectorstore.pgvector.index-type}
   datasource:
     hikari:
       jdbc-url: "${DATASOURCE_URL:jdbc:postgresql://localhost:5432/mydatabase}"
