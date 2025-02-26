@@ -12,8 +12,8 @@ import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.JsonReader;
 import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
-import org.springframework.ai.reader.pdf.ParagraphPdfDocumentReader;
-import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
+import org.springframework.ai.transformer.KeywordMetadataEnricher;
+import org.springframework.ai.transformer.SummaryMetadataEnricher;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -21,9 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,14 +49,20 @@ public class RagController {
 	private final ChatModel chatModel;
 	private final VectorStore vectorStore;
 	private final TokenTextSplitter tokenTextSplitter;
+	private final KeywordMetadataEnricher keywordMetadataEnricher;
+	private final SummaryMetadataEnricher summaryMetadataEnricher;
 
 	@Autowired
 	public RagController(ChatModel chatModel,
 											 VectorStore vectorStore,
-											 TokenTextSplitter tokenTextSplitter) {
+											 TokenTextSplitter tokenTextSplitter,
+											 KeywordMetadataEnricher keywordMetadataEnricher,
+											 SummaryMetadataEnricher summaryMetadataEnricher) {
 		this.chatModel = chatModel;
 		this.vectorStore = vectorStore;
 		this.tokenTextSplitter = tokenTextSplitter;
+		this.keywordMetadataEnricher = keywordMetadataEnricher;
+		this.summaryMetadataEnricher = summaryMetadataEnricher;
 	}
 
 	@GetMapping("rag-chat")
@@ -93,8 +97,11 @@ public class RagController {
 				return new Document(inputDocument.content(), metaData);
 			})
 			.toList();
-		List<Document> splitDocuments = tokenTextSplitter.apply(vectorDocuments);
-		vectorStore.add(splitDocuments);
+		List<Document> transformedDocuments =
+			tokenTextSplitter.apply(
+				summaryMetadataEnricher.apply(
+					keywordMetadataEnricher.apply(vectorDocuments)));
+		vectorStore.add(transformedDocuments);
 		return ResponseEntity.noContent().build();
 	}
 
@@ -131,7 +138,11 @@ public class RagController {
 			.forEachOrdered(index -> {
 				Document document = documents.get(index);
 				log.info("Ingesting json document index {} with content {}", index, document.getText());
-				vectorStore.accept(List.of(document));
+				vectorStore.accept(
+					tokenTextSplitter.apply(
+						summaryMetadataEnricher.apply(
+							keywordMetadataEnricher.apply(
+								List.of(document)))));
 			});
 		return ResponseEntity.noContent().build();
 	}

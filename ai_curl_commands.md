@@ -52,7 +52,7 @@ curl -X POST "http://localhost:8080/ingest-json" \
 --data-binary @- << 'EOF'
 [
     {
-        "content":"Best place to live in the UK is Slough",
+        "content":"Vellore is a district capital in Tamil Nadu, India",
         "metaData": [
             {
                 "key": "meta_key_1",
@@ -61,7 +61,7 @@ curl -X POST "http://localhost:8080/ingest-json" \
         ] 
     },
     {
-        "content":"Best car to buy in the UK is Jaecoo",
+        "content":"Yamaha RX100 motorcyle was loves by 90s Kids",
         "metaData": [
             {
                 "key": "meta_key_2",
