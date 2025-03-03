@@ -18,6 +18,7 @@ spring:
         max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
         schema-validation: true
   flyway:
+    enabled: ${AI_CREATE_PG_VECTOR_DATABASE:true}
     placeholders:
       embeddingDimension: ${spring.ai.vectorstore.pgvector.dimension}
       vectorIndexType: ${spring.ai.vectorstore.pgvector.index-type}
