@@ -1,6 +1,5 @@
 package com.harishkannarao.spring.spring_ai.controller;
 
-import com.harishkannarao.spring.spring_ai.config.ToolCallbackConfiguration;
 import com.harishkannarao.spring.spring_ai.entity.InputDocument;
 import com.harishkannarao.spring.spring_ai.entity.InputMetaData;
 import org.slf4j.Logger;
@@ -47,16 +46,13 @@ public class RagController {
 
 	private static final Logger log = LoggerFactory.getLogger(RagController.class);
 	private final ClassPathResource questionTemplateResource = new ClassPathResource(
-		"/prompts/rag-question-template.st");
-	private final ClassPathResource rawQuestionTemplateResource = new ClassPathResource(
-		"/prompts/raw-question-template.st");
+		"/prompts/question-template.st");
 	private final ChatModel chatModel;
 	private final ChatClient chatClient;
 	private final VectorStore vectorStore;
 	private final TokenTextSplitter tokenTextSplitter;
 	private final KeywordMetadataEnricher keywordMetadataEnricher;
 	private final SummaryMetadataEnricher summaryMetadataEnricher;
-	private final ToolCallbackConfiguration.ToolNames toolNames;
 
 	@Autowired
 	public RagController(
@@ -65,15 +61,13 @@ public class RagController {
 		VectorStore vectorStore,
 		TokenTextSplitter tokenTextSplitter,
 		KeywordMetadataEnricher keywordMetadataEnricher,
-		SummaryMetadataEnricher summaryMetadataEnricher,
-		ToolCallbackConfiguration.ToolNames toolNames) {
+		SummaryMetadataEnricher summaryMetadataEnricher) {
 		this.chatModel = chatModel;
 		this.chatClient = chatClient;
 		this.vectorStore = vectorStore;
 		this.tokenTextSplitter = tokenTextSplitter;
 		this.keywordMetadataEnricher = keywordMetadataEnricher;
 		this.summaryMetadataEnricher = summaryMetadataEnricher;
-		this.toolNames = toolNames;
 	}
 
 	@GetMapping("rag-chat")
@@ -86,13 +80,9 @@ public class RagController {
 			.collect(Collectors.joining(System.lineSeparator()));
 		log.info("RAG documents: {}", documents);
 		final PromptTemplate promptTemplate;
-		if (documents.isBlank()) {
-			promptTemplate = new PromptTemplate(rawQuestionTemplateResource);
-		} else {
-			promptTemplate = new PromptTemplate(questionTemplateResource);
-			promptTemplate.add("documents", documents);
-		}
-		promptTemplate.add("input", q);
+		promptTemplate = new PromptTemplate(questionTemplateResource);
+		promptTemplate.add("context", documents);
+		promptTemplate.add("question", q);
 		Message userMessage = promptTemplate.createMessage();
 		Message systemMessage = new SystemMessage(
 			"You are a helpful AI Assistant answering questions");
@@ -112,8 +102,8 @@ public class RagController {
 			.collect(Collectors.joining(System.lineSeparator()));
 		log.info("RAG documents: {}", documents);
 		PromptTemplate promptTemplate = new PromptTemplate(questionTemplateResource);
-		promptTemplate.add("input", q);
-		promptTemplate.add("documents", documents);
+		promptTemplate.add("question", q);
+		promptTemplate.add("context", documents);
 		Message userMessage = promptTemplate.createMessage();
 		Message systemMessage = new SystemMessage(
 			"You are a helpful AI Assistant answering questions");

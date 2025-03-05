@@ -20,6 +20,7 @@ EOF
     curl 'http://localhost:8080/joke'
 
 ```
+
 curl -X POST "http://localhost:8080/ingest-document" \
 -H "Content-Type: application/json" \
 --data-binary @- << 'EOF'
@@ -44,6 +45,7 @@ curl -X POST "http://localhost:8080/ingest-document" \
     }
 ]
 EOF
+
 ```
 
 ```

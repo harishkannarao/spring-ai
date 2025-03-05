@@ -6,10 +6,6 @@ import org.springframework.ai.tool.function.FunctionToolCallback;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 @Configuration
 public class ToolCallbackConfiguration {
 
@@ -20,16 +16,5 @@ public class ToolCallbackConfiguration {
 			.description("Get the available ticket count by movie name")
 			.inputType(TicketInventoryService.Request.class)
 			.build();
-	}
-
-	@Bean
-	public ToolNames getToolNames(List<ToolCallback> toolCallbacks) {
-		Set<String> names = toolCallbacks.stream()
-			.map(toolCallback -> toolCallback.getToolDefinition().name())
-			.collect(Collectors.toUnmodifiableSet());
-		return new ToolNames(names);
-	}
-
-	public record ToolNames(Set<String> names) {
 	}
 }
