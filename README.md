@@ -36,6 +36,10 @@ Stop the dependencies
 
     ./mvnw clean spring-boot:run
 
+### Run application with maven local configuration
+
+    ./mvnw clean test-compile exec:java@run-local
+
 ### Run application with java
 
     ./mvnw clean install -Dmaven.test.skip=true
