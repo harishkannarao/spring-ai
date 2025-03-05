@@ -48,6 +48,8 @@ public class RagController {
 	private static final Logger log = LoggerFactory.getLogger(RagController.class);
 	private final ClassPathResource questionTemplateResource = new ClassPathResource(
 		"/prompts/rag-question-template.st");
+	private final ClassPathResource rawQuestionTemplateResource = new ClassPathResource(
+		"/prompts/raw-question-template.st");
 	private final ChatModel chatModel;
 	private final ChatClient chatClient;
 	private final VectorStore vectorStore;
@@ -83,9 +85,14 @@ public class RagController {
 			.map(Document::getText)
 			.collect(Collectors.joining(System.lineSeparator()));
 		log.info("RAG documents: {}", documents);
-		PromptTemplate promptTemplate = new PromptTemplate(questionTemplateResource);
+		final PromptTemplate promptTemplate;
+		if (documents.isBlank()) {
+			promptTemplate = new PromptTemplate(rawQuestionTemplateResource);
+		} else {
+			promptTemplate = new PromptTemplate(questionTemplateResource);
+			promptTemplate.add("documents", documents);
+		}
 		promptTemplate.add("input", q);
-		promptTemplate.add("documents", documents);
 		Message userMessage = promptTemplate.createMessage();
 		Message systemMessage = new SystemMessage(
 			"You are a helpful AI Assistant answering questions");
@@ -128,10 +135,7 @@ public class RagController {
 				return new Document(inputDocument.content(), metaData);
 			})
 			.toList();
-		List<Document> transformedDocuments =
-			tokenTextSplitter.apply(
-				summaryMetadataEnricher.apply(
-					keywordMetadataEnricher.apply(vectorDocuments)));
+		List<Document> transformedDocuments = tokenTextSplitter.apply(vectorDocuments);
 		vectorStore.add(transformedDocuments);
 		return ResponseEntity.noContent().build();
 	}
