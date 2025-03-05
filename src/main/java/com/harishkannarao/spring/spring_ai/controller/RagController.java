@@ -1,9 +1,11 @@
 package com.harishkannarao.spring.spring_ai.controller;
 
+import com.harishkannarao.spring.spring_ai.config.ToolCallbackConfiguration;
 import com.harishkannarao.spring.spring_ai.entity.InputDocument;
 import com.harishkannarao.spring.spring_ai.entity.InputMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.model.ChatModel;
@@ -47,22 +49,29 @@ public class RagController {
 	private final ClassPathResource questionTemplateResource = new ClassPathResource(
 		"/prompts/rag-question-template.st");
 	private final ChatModel chatModel;
+	private final ChatClient chatClient;
 	private final VectorStore vectorStore;
 	private final TokenTextSplitter tokenTextSplitter;
 	private final KeywordMetadataEnricher keywordMetadataEnricher;
 	private final SummaryMetadataEnricher summaryMetadataEnricher;
+	private final ToolCallbackConfiguration.ToolNames toolNames;
 
 	@Autowired
-	public RagController(ChatModel chatModel,
-											 VectorStore vectorStore,
-											 TokenTextSplitter tokenTextSplitter,
-											 KeywordMetadataEnricher keywordMetadataEnricher,
-											 SummaryMetadataEnricher summaryMetadataEnricher) {
+	public RagController(
+		ChatModel chatModel,
+		ChatClient chatClient,
+		VectorStore vectorStore,
+		TokenTextSplitter tokenTextSplitter,
+		KeywordMetadataEnricher keywordMetadataEnricher,
+		SummaryMetadataEnricher summaryMetadataEnricher,
+		ToolCallbackConfiguration.ToolNames toolNames) {
 		this.chatModel = chatModel;
+		this.chatClient = chatClient;
 		this.vectorStore = vectorStore;
 		this.tokenTextSplitter = tokenTextSplitter;
 		this.keywordMetadataEnricher = keywordMetadataEnricher;
 		this.summaryMetadataEnricher = summaryMetadataEnricher;
+		this.toolNames = toolNames;
 	}
 
 	@GetMapping("rag-chat")
@@ -84,6 +93,28 @@ public class RagController {
 		return chatModel
 			.stream(new Prompt(List.of(systemMessage, userMessage)))
 			.map(response -> response.getResult().getOutput().getText());
+	}
+
+	@GetMapping("rag-chat-tools-callback")
+	public String chatWithRagWithTools(@RequestParam String q) {
+		log.info("Question {}", q);
+		String documents = Objects.requireNonNull(vectorStore
+				.similaritySearch(SearchRequest.builder().query(q).build()))
+			.stream()
+			.map(Document::getText)
+			.collect(Collectors.joining(System.lineSeparator()));
+		log.info("RAG documents: {}", documents);
+		PromptTemplate promptTemplate = new PromptTemplate(questionTemplateResource);
+		promptTemplate.add("input", q);
+		promptTemplate.add("documents", documents);
+		Message userMessage = promptTemplate.createMessage();
+		Message systemMessage = new SystemMessage(
+			"You are a helpful AI Assistant answering questions");
+		Prompt prompt = new Prompt(List.of(systemMessage, userMessage));
+		return chatClient
+			.prompt(prompt)
+			.call()
+			.content();
 	}
 
 	@PostMapping("/ingest-document")

@@ -17,15 +17,15 @@ Verify installation of docker engine and docker client using the commands
 
 ### Run a LLM with interactive mode
 
-    docker exec -it ollama-engine ollama run deepseek-r1:1.5b
+    docker exec -it ollama-engine ollama run llama3.2:3b
 
 ### Run a LLM with non-interactive mode and keep running the model forever
 
-    docker exec ollama-engine ollama run deepseek-r1:1.5b "Hi" --keepalive -1m
+    docker exec ollama-engine ollama run llama3.2:3b "Hi" --keepalive -1m
 
 ### Stop a LLM with non-interactive mode
 
-    docker exec ollama-engine ollama stop deepseek-r1:1.5b
+    docker exec ollama-engine ollama stop llama3.2:3b
 
 ### Stop Ollama engine
 

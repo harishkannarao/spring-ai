@@ -8,7 +8,7 @@ In first terminal execute the command and leave it running, press `Ctrl+C` to st
 
 In second terminal, pull the LLM model
 
-    ollama pull deepseek-r1:8b
+    ollama pull llama3.2:3b
 
 In second terminal, pull the embedding model 
 
@@ -16,16 +16,16 @@ In second terminal, pull the embedding model
 
 In second terminal execute the command and leave it running, type `/bye` to exit and stop the LLM
 
-    ollama run deepseek-r1:8b
+    ollama run llama3.2:3b
 
 To run LLM in non-interactive mode and keep it alive for 60 minutes, in the second terminal execute the command
 
-    ollama run deepseek-r1:8b "Hi" --keepalive 60m
+    ollama run llama3.2:3b "Hi" --keepalive 60m
 
 To run LLM in non-interactive mode and keep it forever, in the second terminal execute the command
 
-    ollama run deepseek-r1:8b "Hi" --keepalive -1m
+    ollama run llama3.2:3b "Hi" --keepalive -1m
 
 To explicitly stop an LLM running in non-interactive mode
 
-    ollama stop deepseek-r1:8b
+    ollama stop llama3.2:3b
