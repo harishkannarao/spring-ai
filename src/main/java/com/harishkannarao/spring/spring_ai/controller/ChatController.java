@@ -51,7 +51,6 @@ public class ChatController {
 			.content();
 	}
 
-
 	@GetMapping("joke")
 	public String joke() {
 		UserMessage userMessage = new UserMessage("Please tell a new dad joke");

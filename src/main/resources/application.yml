@@ -46,3 +46,8 @@ logging:
     org:
       springframework:
         ai: INFO
+
+logback.access:
+  enabled: "${ACCESS_LOG_ENABLED:true}"
+  tee-filter:
+    enabled: "${ACCESS_TEE_LOG_ENABLED:true}"
