@@ -43,11 +43,12 @@ public class ChatController {
 	}
 
 	@PostMapping("chat")
-	public Flux<String> chat(@RequestBody String input) {
+	public String chat(@RequestBody String input) {
 		UserMessage userMessage = new UserMessage(input);
 		Prompt prompt = new Prompt(List.of(userMessage));
 		return chatClient.prompt(prompt)
-			.stream()
+			.tools(List.of())
+			.call()
 			.content();
 	}
 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+    <springProperty scope="context" name="accessLogPattern" source="logback-access.pattern" defaultValue="common"/>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%t{yyyy-MM-dd HH:mm:ss.SSS} ACCESS_LOG %D %B %s %i{x-forwarded-for} %reqAttribute{x_request_id} %m %U%q</pattern>
+            <pattern>${accessLogPattern}</pattern>
             <charset>utf8</charset>
         </encoder>
     </appender>

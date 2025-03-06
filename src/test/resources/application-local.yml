@@ -10,3 +10,6 @@ logging:
     org:
       springframework:
         ai: DEBUG
+
+logback-access:
+  pattern: '%t{yyyy-MM-dd HH:mm:ss.SSS} ACCESS_LOG %D %B %s %i{x-forwarded-for} %reqAttribute{x_request_id} %m %U%q %fullRequest %fullResponse'
