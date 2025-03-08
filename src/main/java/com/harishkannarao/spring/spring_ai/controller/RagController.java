@@ -19,6 +19,7 @@ import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
@@ -49,6 +50,7 @@ public class RagController {
 		"/prompts/question-template.st");
 	private final ChatModel chatModel;
 	private final ChatClient chatClient;
+	private final ChatClient chatClientWithTools;
 	private final VectorStore vectorStore;
 	private final TokenTextSplitter tokenTextSplitter;
 	private final KeywordMetadataEnricher keywordMetadataEnricher;
@@ -58,12 +60,14 @@ public class RagController {
 	public RagController(
 		ChatModel chatModel,
 		ChatClient chatClient,
+		@Qualifier("chatClientWithTools") ChatClient chatClientWithTools,
 		VectorStore vectorStore,
 		TokenTextSplitter tokenTextSplitter,
 		KeywordMetadataEnricher keywordMetadataEnricher,
 		SummaryMetadataEnricher summaryMetadataEnricher) {
 		this.chatModel = chatModel;
 		this.chatClient = chatClient;
+		this.chatClientWithTools = chatClientWithTools;
 		this.vectorStore = vectorStore;
 		this.tokenTextSplitter = tokenTextSplitter;
 		this.keywordMetadataEnricher = keywordMetadataEnricher;
@@ -108,7 +112,7 @@ public class RagController {
 		Message systemMessage = new SystemMessage(
 			"You are a helpful AI Assistant answering questions");
 		Prompt prompt = new Prompt(List.of(systemMessage, userMessage));
-		return chatClient
+		return chatClientWithTools
 			.prompt(prompt)
 			.call()
 			.content();
