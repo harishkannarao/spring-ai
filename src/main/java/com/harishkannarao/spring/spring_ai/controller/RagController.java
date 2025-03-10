@@ -60,7 +60,7 @@ public class RagController {
 	public RagController(
 		ChatModel chatModel,
 		ChatClient chatClient,
-		@Qualifier("chatClientWithTools") ChatClient chatClientWithTools,
+		@Qualifier("textChatClientWithTools") ChatClient chatClientWithTools,
 		VectorStore vectorStore,
 		TokenTextSplitter tokenTextSplitter,
 		KeywordMetadataEnricher keywordMetadataEnricher,

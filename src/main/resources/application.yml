@@ -5,13 +5,11 @@ spring:
     virtual:
       enabled: true
   ai:
+    chat:
+      client:
+        enabled: false
     ollama:
       base-url: "${AI_OLLAMA_BASE_URL:http://localhost:11434}"
-      chat:
-        model: "${AI_OLLAMA_CHAT_MODEL_NAME:llama3.2:3b}"
-      embedding:
-        options:
-          model: "${AI_OLLAMA_EMBEDDING_MODEL_NAME:mxbai-embed-large}"
     vectorstore:
       pgvector:
         index-type: "${AI_OLLAMA_VECTOR_INDEX_TYPE:HNSW}"
@@ -36,7 +34,15 @@ spring:
           name: org.postgresql.Driver
 app:
   ai:
-    engine: "${APP_AI_ENGINE:ollama}"
+    chat:
+      provider: "${APP_AI_CHAT_PROVIDER:ollama}"
+      model: "${APP_AI_CHAT_MODEL:llama3.2:3b}"
+    embedding:
+      provider: "${APP_AI_EMBEDDING_PROVIDER:ollama}"
+      model: "${APP_AI_EMBEDDING_MODEL:mxbai-embed-large}"
+    image-extraction:
+      provider: "${APP_AI_IMAGE_EXTRACTION_PROVIDER:ollama}"
+      model: "${APP_AI_IMAGE_EXTRACTION_MODEL:llava:7b}"
 
 logging:
   pattern:
