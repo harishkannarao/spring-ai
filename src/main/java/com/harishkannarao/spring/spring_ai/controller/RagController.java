@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
-import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.document.Document;
@@ -48,7 +47,6 @@ public class RagController {
 	private static final Logger log = LoggerFactory.getLogger(RagController.class);
 	private final ClassPathResource questionTemplateResource = new ClassPathResource(
 		"/prompts/question-template.st");
-	private final ChatModel chatModel;
 	private final ChatClient chatClient;
 	private final ChatClient chatClientWithTools;
 	private final VectorStore vectorStore;
@@ -58,14 +56,12 @@ public class RagController {
 
 	@Autowired
 	public RagController(
-		ChatModel chatModel,
 		ChatClient chatClient,
 		@Qualifier("textChatClientWithTools") ChatClient chatClientWithTools,
 		VectorStore vectorStore,
 		TokenTextSplitter tokenTextSplitter,
 		KeywordMetadataEnricher keywordMetadataEnricher,
 		SummaryMetadataEnricher summaryMetadataEnricher) {
-		this.chatModel = chatModel;
 		this.chatClient = chatClient;
 		this.chatClientWithTools = chatClientWithTools;
 		this.vectorStore = vectorStore;
@@ -90,10 +86,9 @@ public class RagController {
 		Message userMessage = promptTemplate.createMessage();
 		Message systemMessage = new SystemMessage(
 			"You are a helpful AI Assistant answering questions");
-		Prompt prompt = promptTemplate.create();
-		return chatModel
-			.stream(new Prompt(List.of(systemMessage, userMessage)))
-			.map(response -> response.getResult().getOutput().getText());
+		return chatClient.prompt(new Prompt(List.of(systemMessage, userMessage)))
+			.stream()
+			.content();
 	}
 
 	@GetMapping("rag-chat-tools-callback")

@@ -81,6 +81,8 @@ EOF
 
     curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/ingest-pdf" -F "file=@$HOME/Downloads/International_Cricket_Council.pdf;type=application/pdf"
 
+    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/image" -F "q=Explain what do you see on this picture?" -F "file=@$HOME/Downloads/balloon-png-28098.png;type=image/png"
+
 ```
 curl http://localhost:11434/api/embed -d '{
   "model": "mxbai-embed-large",
