@@ -36,9 +36,13 @@ Stop the dependencies
 
     ./mvnw clean spring-boot:run
 
-### Run application with maven local configuration
+### Run application with maven local configuration against ollama
 
     ./mvnw clean test-compile exec:java@run-local
+
+### Run application with maven local configuration against AWS AI
+
+    ./mvnw clean test-compile exec:java@run-local-aws
 
 ### Run application with java
 

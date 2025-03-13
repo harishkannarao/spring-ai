@@ -16,12 +16,27 @@ spring:
     chat:
       client:
         enabled: false
+    bedrock:
+      aws:
+        region: "${AI_BEDROCK_AWS_REGION:eu-west-2}"
+        access-key: "${AWS_AI_ACCESS_KEY_ID}"
+        secret-key: "${AWS_AI_SECRET_ACCESS_KEY}"
+        timeout: "10m"
+      converse:
+        chat:
+          enabled: "${AI_BEDROCK_CHAT_ENABLED:false}"
+          options:
+            model: "${AI_BEDROCK_CHAT_MODEL:meta.llama3-8b-instruct-v1:0}"
+      titan:
+        embedding:
+          enabled: "${AI_BEDROCK_EMBEDDING_ENABLED:false}"
+          model: "${AI_BEDROCK_EMBEDDING_MODEL:amazon.titan-embed-text-v2:0}"
     ollama:
       base-url: "${AI_OLLAMA_BASE_URL:http://localhost:11434}"
     vectorstore:
       pgvector:
-        index-type: "${AI_OLLAMA_VECTOR_INDEX_TYPE:HNSW}"
-        dimension: "${AI_OLLAMA_EMBEDDING_DIMENSION:1024}"
+        index-type: "${AI_VECTOR_INDEX_TYPE:HNSW}"
+        dimensions: "${AI_EMBEDDING_DIMENSIONS:1024}"
         distance-type: COSINE_DISTANCE
         batching-strategy: TOKEN_COUNT # Optional: Controls how documents are batched for embedding
         max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
@@ -29,7 +44,7 @@ spring:
   flyway:
     enabled: ${AI_CREATE_PG_VECTOR_DATABASE:true}
     placeholders:
-      embeddingDimension: ${spring.ai.vectorstore.pgvector.dimension}
+      embeddingDimensions: ${spring.ai.vectorstore.pgvector.dimensions}
       vectorIndexType: ${spring.ai.vectorstore.pgvector.index-type}
   datasource:
     hikari:

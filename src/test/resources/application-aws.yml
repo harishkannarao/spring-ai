@@ -1,0 +1,19 @@
+spring:
+  ai:
+    bedrock:
+      converse:
+        chat:
+          enabled: true
+      titan:
+        embedding:
+          enabled: true
+app:
+  ai:
+    chat:
+      provider: "aws"
+    embedding:
+      provider: "ollama"
+      model: "mxbai-embed-large"
+    image-extraction:
+      provider: "ollama"
+      model: "llava:7b"
