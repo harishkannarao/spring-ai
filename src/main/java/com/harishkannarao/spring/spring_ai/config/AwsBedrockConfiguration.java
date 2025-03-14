@@ -1,7 +1,7 @@
 package com.harishkannarao.spring.spring_ai.config;
 
+import org.springframework.ai.bedrock.cohere.BedrockCohereEmbeddingModel;
 import org.springframework.ai.bedrock.converse.BedrockProxyChatModel;
-import org.springframework.ai.bedrock.titan.BedrockTitanEmbeddingModel;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,7 +31,7 @@ public class AwsBedrockConfiguration {
 	@ConditionalOnProperty(name = "app.ai.embedding.provider", havingValue = "aws")
 	@Primary
 	public EmbeddingModel defaultEmbeddingModel(
-		BedrockTitanEmbeddingModel bedrockTitanEmbeddingModel) {
-		return bedrockTitanEmbeddingModel;
+		BedrockCohereEmbeddingModel bedrockCohereEmbeddingModel) {
+		return bedrockCohereEmbeddingModel;
 	}
 }

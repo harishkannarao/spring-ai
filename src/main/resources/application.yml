@@ -27,10 +27,10 @@ spring:
           enabled: "${AI_BEDROCK_CHAT_ENABLED:false}"
           options:
             model: "${AI_BEDROCK_CHAT_MODEL:meta.llama3-8b-instruct-v1:0}"
-      titan:
+      cohere:
         embedding:
           enabled: "${AI_BEDROCK_EMBEDDING_ENABLED:false}"
-          model: "${AI_BEDROCK_EMBEDDING_MODEL:amazon.titan-embed-text-v2:0}"
+          model: "${AI_BEDROCK_EMBEDDING_MODEL:cohere.embed-multilingual-v3}"
     ollama:
       base-url: "${AI_OLLAMA_BASE_URL:http://localhost:11434}"
     vectorstore:

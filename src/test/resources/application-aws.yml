@@ -4,7 +4,7 @@ spring:
       converse:
         chat:
           enabled: true
-      titan:
+      cohere:
         embedding:
           enabled: true
 app:
@@ -12,8 +12,7 @@ app:
     chat:
       provider: "aws"
     embedding:
-      provider: "ollama"
-      model: "mxbai-embed-large"
+      provider: "aws"
     image-extraction:
       provider: "ollama"
       model: "llava:7b"
