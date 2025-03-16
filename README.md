@@ -42,6 +42,10 @@ Stop the dependencies
 
 ### Run application with maven local configuration against AWS AI
 
+    export AWS_AI_ACCESS_KEY_ID={aws_key_id}
+
+    export AWS_AI_SECRET_ACCESS_KEY={aws_secret_key}
+
     ./mvnw clean test-compile exec:java@run-local-aws
 
 ### Run application with java
