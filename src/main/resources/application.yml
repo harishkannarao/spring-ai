@@ -59,7 +59,7 @@ app:
   ai:
     chat:
       provider: "${APP_AI_CHAT_PROVIDER:ollama}"
-      model: "${APP_AI_CHAT_MODEL:llama3.2:3b}"
+      model: "${APP_AI_CHAT_MODEL:mistral}"
     embedding:
       provider: "${APP_AI_EMBEDDING_PROVIDER:ollama}"
       model: "${APP_AI_EMBEDDING_MODEL:mxbai-embed-large}"
