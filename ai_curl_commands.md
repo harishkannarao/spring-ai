@@ -1,7 +1,7 @@
 ### Sample http requests with curl
 
 ```
-curl -X POST "http://localhost:8080/chat-with-context" \
+curl -X POST "http://localhost:8080/spring-ai/chat-with-context" \
 -H "Content-Type: application/json" \
 --data-binary @- << 'EOF'
 {
@@ -11,17 +11,17 @@ curl -X POST "http://localhost:8080/chat-with-context" \
 EOF
 ```
 
-    curl -X POST 'http://localhost:8080/chat' --data-binary 'Tell me about London, England'
+    curl -X POST 'http://localhost:8080/spring-ai/chat' --data-binary 'Tell me about London, England'
 
-    curl -X GET -G 'http://localhost:8080/books/by-author' --data-urlencode "author=Yuval Noah Harari"
+    curl -X GET -G 'http://localhost:8080/spring-ai/books/by-author' --data-urlencode "author=Yuval Noah Harari"
 
-    curl 'http://localhost:8080/stream-joke'
+    curl 'http://localhost:8080/spring-ai/stream-joke'
 
-    curl 'http://localhost:8080/joke'
+    curl 'http://localhost:8080/spring-ai/joke'
 
 ```
 
-curl -X POST "http://localhost:8080/ingest-document" \
+curl -X POST "http://localhost:8080/spring-ai/ingest-document" \
 -H "Content-Type: application/json" \
 --data-binary @- << 'EOF'
 [
@@ -49,7 +49,7 @@ EOF
 ```
 
 ```
-curl -X POST "http://localhost:8080/ingest-json" \
+curl -X POST "http://localhost:8080/spring-ai/ingest-json" \
 -H "Content-Type: application/json" \
 --data-binary @- << 'EOF'
 [
@@ -75,15 +75,15 @@ curl -X POST "http://localhost:8080/ingest-json" \
 EOF
 ```
 
-    curl -X GET -G 'http://localhost:8080/rag-chat' --data-urlencode "q=What is the best place to live in the UK"
+    curl -X GET -G 'http://localhost:8080/spring-ai/rag-chat' --data-urlencode "q=What is the best place to live in the UK"
 
-    curl -X GET -G 'http://localhost:8080/rag-chat-tools-callback' --data-urlencode "q=How many tickets are available for Avatar Movie?"
+    curl -X GET -G 'http://localhost:8080/spring-ai/rag-chat-tools-callback' --data-urlencode "q=How many tickets are available for Avatar Movie?"
     
-    curl -X GET -G 'http://localhost:8080/rag-chat-tools-callback' --data-urlencode "q=Book 3 tickets for Avatar Movie"
+    curl -X GET -G 'http://localhost:8080/spring-ai/rag-chat-tools-callback' --data-urlencode "q=Book 3 tickets for Avatar Movie"
 
-    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/ingest-pdf" -F "file=@$HOME/Downloads/International_Cricket_Council.pdf;type=application/pdf"
+    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/spring-ai/ingest-pdf" -F "file=@$HOME/Downloads/International_Cricket_Council.pdf;type=application/pdf"
 
-    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/image" -F "q=Explain what do you see on this picture?" -F "file=@$HOME/Downloads/balloon-png-28098.png;type=image/png"
+    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/spring-ai/image" -F "q=Explain what do you see on this picture?" -F "file=@$HOME/Downloads/balloon-png-28098.png;type=image/png"
 
 ```
 curl http://localhost:11434/api/embed -d '{
