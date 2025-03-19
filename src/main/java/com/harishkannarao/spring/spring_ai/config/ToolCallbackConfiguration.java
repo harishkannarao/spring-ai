@@ -1,5 +1,6 @@
 package com.harishkannarao.spring.spring_ai.config;
 
+import com.harishkannarao.spring.spring_ai.tools.TicketBookingService;
 import com.harishkannarao.spring.spring_ai.tools.TicketInventoryService;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.function.FunctionToolCallback;
@@ -15,6 +16,18 @@ public class ToolCallbackConfiguration {
 			.builder("ticketInventoryService", ticketInventoryService)
 			.description("Get the available ticket count by movie name")
 			.inputType(TicketInventoryService.Request.class)
+			.build();
+	}
+
+	@Bean
+	public ToolCallback createTicketBookingService(TicketBookingService ticketBookingService) {
+		return FunctionToolCallback
+			.builder("ticketBookingService", ticketBookingService)
+			.description("""
+				Book tickets for a movie.
+				Input parameters are movie name and total number of tickets to book
+				""")
+			.inputType(TicketBookingService.Request.class)
 			.build();
 	}
 }

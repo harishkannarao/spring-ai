@@ -77,7 +77,9 @@ EOF
 
     curl -X GET -G 'http://localhost:8080/rag-chat' --data-urlencode "q=What is the best place to live in the UK"
 
-    curl -X GET -G 'http://localhost:8080/rag-chat-tools-callback' --data-urlencode "q=How many tickets are available for Mankatha Movie?"
+    curl -X GET -G 'http://localhost:8080/rag-chat-tools-callback' --data-urlencode "q=How many tickets are available for Avatar Movie?"
+    
+    curl -X GET -G 'http://localhost:8080/rag-chat-tools-callback' --data-urlencode "q=Book 3 tickets for Avatar Movie"
 
     curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/ingest-pdf" -F "file=@$HOME/Downloads/International_Cricket_Council.pdf;type=application/pdf"
 
