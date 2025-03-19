@@ -1,5 +1,6 @@
-package com.harishkannarao.spring.spring_ai;
+package com.harishkannarao.spring.spring_ai.runner;
 
+import com.harishkannarao.spring.spring_ai.SpringAiApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

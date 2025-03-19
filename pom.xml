@@ -127,7 +127,7 @@
 							<goal>java</goal>
 						</goals>
 						<configuration>
-							<mainClass>com.harishkannarao.spring.spring_ai.ApplicationLocalRunner</mainClass>
+							<mainClass>com.harishkannarao.spring.spring_ai.runner.ApplicationLocalRunner</mainClass>
 							<classpathScope>test</classpathScope>
 						</configuration>
 					</execution>
@@ -137,7 +137,7 @@
 							<goal>java</goal>
 						</goals>
 						<configuration>
-							<mainClass>com.harishkannarao.spring.spring_ai.ApplicationLocalAwsRunner</mainClass>
+							<mainClass>com.harishkannarao.spring.spring_ai.runner.ApplicationLocalAwsRunner</mainClass>
 							<classpathScope>test</classpathScope>
 						</configuration>
 					</execution>
