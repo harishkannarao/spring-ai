@@ -1,0 +1,13 @@
+tee:
+  filter:
+    enabled: "true"
+
+logging:
+  level:
+    web: INFO
+    org:
+      springframework:
+        ai: INFO
+        ai.chat:
+          client:
+            advisor: DEBUG

@@ -1,20 +1,12 @@
 package com.harishkannarao.spring.spring_ai.integration;
 
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ContextChatIT extends AbstractBaseIT {
-
-	private final TestRestTemplate testRestTemplate;
-
-	@Autowired
-	ContextChatIT(TestRestTemplate testRestTemplate) {
-		this.testRestTemplate = testRestTemplate;
-	}
 
 	@Test
 	void test_chat_with_context() {
@@ -22,11 +14,15 @@ class ContextChatIT extends AbstractBaseIT {
 			"My name is Harish",
 			"What is my name?"
 		);
-		ResponseEntity<String> response = testRestTemplate
-			.postForEntity("/chat-with-context", request, String.class);
+		Response response = given()
+			.contentType(ContentType.JSON)
+			.accept(ContentType.TEXT)
+			.body(toJson(request))
+			.post("/chat-with-context")
+			.andReturn();
 
-		assertThat(response.getStatusCode().value()).isEqualTo(200);
-		assertThat(response.getBody()).contains("Harish");
+		assertThat(response.getStatusCode()).isEqualTo(200);
+		assertThat(response.getBody().asPrettyString()).contains("Harish");
 	}
 
 	public record ChatWithContext(
