@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.harishkannarao.spring.spring_ai.entity.QuestionWithContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.assertArg;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -46,7 +48,11 @@ public class ChatControllerTest {
 		String inputJson = OBJECT_MAPPER.writeValueAsString(input);
 		String expectedResponse = "some-response" + UUID.randomUUID();
 
-		when(chatClient.prompt(any(Prompt.class))).thenReturn(chatClientRequestSpec);
+		when(chatClient.prompt(
+			assertArg((Prompt prompt) -> assertThat(prompt.getContents())
+				.contains(input.context())
+				.contains(input.question()))
+		)).thenReturn(chatClientRequestSpec);
 		when(chatClientRequestSpec.stream()).thenReturn(streamResponseSpec);
 		when(streamResponseSpec.content()).thenReturn(Flux.just(expectedResponse));
 
