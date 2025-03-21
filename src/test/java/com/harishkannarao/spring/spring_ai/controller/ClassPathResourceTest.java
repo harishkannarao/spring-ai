@@ -1,4 +1,4 @@
-package com.harishkannarao.spring.spring_ai;
+package com.harishkannarao.spring.spring_ai.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
