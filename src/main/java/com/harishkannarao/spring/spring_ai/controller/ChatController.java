@@ -30,25 +30,25 @@ public class ChatController {
 		this.chatClient = chatClient;
 	}
 
+	@PostMapping("chat")
+	public String chat(@RequestBody String input) {
+		UserMessage userMessage = new UserMessage(input);
+		Prompt prompt = new Prompt(List.of(userMessage));
+		return chatClient.prompt(prompt)
+			.tools(List.of())
+			.call()
+			.content();
+	}
+
 	@PostMapping("chat-with-context")
-	public Flux<String> chatWithContext(@RequestBody QuestionWithContext input) {
+	public String chatWithContext(@RequestBody QuestionWithContext input) {
 		log.info("Input {}", input);
 		PromptTemplate promptTemplate = new PromptTemplate(questionTemplateResource);
 		promptTemplate.add("context", input.context());
 		promptTemplate.add("question", input.question());
 		Prompt prompt = promptTemplate.create();
 		return chatClient.prompt(prompt)
-			.stream()
-			.content();
-	}
-
-	@PostMapping("chat")
-	public Flux<String> chat(@RequestBody String input) {
-		UserMessage userMessage = new UserMessage(input);
-		Prompt prompt = new Prompt(List.of(userMessage));
-		return chatClient.prompt(prompt)
-			.tools(List.of())
-			.stream()
+			.call()
 			.content();
 	}
 

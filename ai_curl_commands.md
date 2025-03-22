@@ -1,5 +1,7 @@
 ### Sample http requests with curl
 
+    curl -X POST 'http://localhost:8080/spring-ai/chat' --data-binary 'Tell me about London, England'
+
 ```
 curl -X POST "http://localhost:8080/spring-ai/chat-with-context" \
 -H "Content-Type: application/json" \
@@ -11,7 +13,27 @@ curl -X POST "http://localhost:8080/spring-ai/chat-with-context" \
 EOF
 ```
 
-    curl -X POST 'http://localhost:8080/spring-ai/chat' --data-binary 'Tell me about London, England'
+```
+curl -X POST "http://localhost:8080/spring-ai/chat-with-memory" \
+-H "Content-Type: application/json" \
+--data-binary @- << 'EOF'
+{
+    "chat":"My name is Harish",
+    "conversationId":"D35D3365-4F45-4EE2-900D-67B5D8563EFC" 
+}
+EOF
+```
+
+```
+curl -X POST "http://localhost:8080/spring-ai/chat-with-memory" \
+-H "Content-Type: application/json" \
+--data-binary @- << 'EOF'
+{
+    "chat":"What is my name?",
+    "conversationId":"D35D3365-4F45-4EE2-900D-67B5D8563EFC" 
+}
+EOF
+```
 
     curl -X GET -G 'http://localhost:8080/spring-ai/books/by-author' --data-urlencode "author=Yuval Noah Harari"
 
