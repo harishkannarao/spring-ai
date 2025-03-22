@@ -14,7 +14,7 @@ class ContextChatIT extends AbstractBaseIT {
 			"My name is Harish",
 			"What is my name?"
 		);
-		Response response = given()
+		Response response = restClient()
 			.contentType(ContentType.JSON)
 			.accept(ContentType.TEXT)
 			.body(toJson(request))
