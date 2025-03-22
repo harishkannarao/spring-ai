@@ -2,8 +2,10 @@ package com.harishkannarao.spring.spring_ai.controller;
 
 import com.harishkannarao.spring.spring_ai.entity.InputDocument;
 import com.harishkannarao.spring.spring_ai.entity.InputMetaData;
+import com.harishkannarao.spring.spring_ai.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
@@ -109,6 +111,7 @@ public class RagController {
 		Prompt prompt = new Prompt(List.of(systemMessage, userMessage));
 		return chatClientWithTools
 			.prompt(prompt)
+			.toolContext(Map.of(Constants.X_REQUEST_ID, MDC.get(Constants.X_REQUEST_ID)))
 			.call()
 			.content();
 	}
