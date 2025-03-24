@@ -40,6 +40,8 @@ spring:
       base-url: "${AI_OLLAMA_BASE_URL:http://localhost:11434}"
     vectorstore:
       pgvector:
+        schema-name: "public"
+        table-name: "vector_store"
         index-type: "${AI_VECTOR_INDEX_TYPE:HNSW}"
         dimensions: "${AI_EMBEDDING_DIMENSIONS:1024}"
         distance-type: COSINE_DISTANCE
