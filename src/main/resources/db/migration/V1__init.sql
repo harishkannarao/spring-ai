@@ -2,7 +2,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 CREATE EXTENSION IF NOT EXISTS hstore;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE IF NOT EXISTS vector_store (
+CREATE TABLE IF NOT EXISTS rag_vector_store (
 	id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
     created_time timestamptz DEFAULT (timezone('utc', now())) NOT NULL,
 	content text,
@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS vector_store (
 	embedding vector(${embeddingDimensions})
 );
 
-CREATE INDEX ON vector_store USING ${vectorIndexType} (embedding vector_cosine_ops);
+CREATE INDEX ON rag_vector_store USING ${vectorIndexType} (embedding vector_cosine_ops);
