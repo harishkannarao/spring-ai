@@ -1,6 +1,7 @@
 package com.harishkannarao.spring.spring_ai.config;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.client.advisor.VectorStoreChatMemoryAdvisor;
 import org.springframework.ai.chat.model.ChatModel;
@@ -56,8 +57,12 @@ public class ChatClientConfiguration {
 		VectorStoreChatMemoryAdvisor vectorStoreChatMemoryAdvisor = VectorStoreChatMemoryAdvisor
 			.builder(chatHistoryVectorStore)
 			.build();
+		SafeGuardAdvisor safeGuardAdvisor = new SafeGuardAdvisor(
+			List.of("ACME", "acme", "Acme"),
+			"Sorry, I can't respond to this request",
+			0);
 		return ChatClient.builder(chatModel)
-			.defaultAdvisors(List.of(vectorStoreChatMemoryAdvisor, new SimpleLoggerAdvisor()))
+			.defaultAdvisors(List.of(safeGuardAdvisor, vectorStoreChatMemoryAdvisor, new SimpleLoggerAdvisor()))
 			.defaultSystem("You are a helpful AI Assistant answering questions")
 			.build();
 	}
