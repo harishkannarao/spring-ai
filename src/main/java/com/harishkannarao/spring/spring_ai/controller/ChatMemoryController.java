@@ -22,6 +22,7 @@ import java.util.UUID;
 
 @RestController
 public class ChatMemoryController {
+	public static final String CONVERSATION_ID = "conversationId";
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	private final ClassPathResource questionTemplateResource = new ClassPathResource(
 		"/prompts/question-template.st");
@@ -48,7 +49,7 @@ public class ChatMemoryController {
 			.call()
 			.content();
 		return ResponseEntity.ok()
-			.header("conversationId", conversationId)
+			.header(CONVERSATION_ID, conversationId)
 			.body(content);
 	}
 }
