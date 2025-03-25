@@ -50,9 +50,11 @@ public class ChatClientConfiguration {
 
 	@Bean
 	@Qualifier("textChatClientWithMemory")
-	public ChatClient chatClientWithMemory(ChatModel chatModel, VectorStore vectorStore) {
+	public ChatClient chatClientWithMemory(
+		ChatModel chatModel,
+		@Qualifier("chatHistoryVectorStore") VectorStore chatHistoryVectorStore) {
 		VectorStoreChatMemoryAdvisor vectorStoreChatMemoryAdvisor = VectorStoreChatMemoryAdvisor
-			.builder(vectorStore)
+			.builder(chatHistoryVectorStore)
 			.build();
 		return ChatClient.builder(chatModel)
 			.defaultAdvisors(List.of(vectorStoreChatMemoryAdvisor, new SimpleLoggerAdvisor()))

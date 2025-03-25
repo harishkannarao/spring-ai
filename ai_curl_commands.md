@@ -29,6 +29,16 @@ curl -X POST "http://localhost:8080/spring-ai/chat-with-memory" \
 -H "Content-Type: application/json" \
 --data-binary @- << 'EOF'
 {
+    "chat":"My name is Harish"
+}
+EOF
+```
+
+```
+curl -X POST "http://localhost:8080/spring-ai/chat-with-memory" \
+-H "Content-Type: application/json" \
+--data-binary @- << 'EOF'
+{
     "chat":"What is my name?",
     "conversationId":"D35D3365-4F45-4EE2-900D-67B5D8563EFC" 
 }

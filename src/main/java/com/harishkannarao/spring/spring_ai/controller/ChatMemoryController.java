@@ -10,6 +10,7 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +33,7 @@ public class ChatMemoryController {
 	}
 
 	@PostMapping("chat-with-memory")
-	public String chatWithContext(@RequestBody ChatWithMemory input) {
+	public ResponseEntity<String> chatWithContext(@RequestBody ChatWithMemory input) {
 		log.info("Input {}", input);
 		PromptTemplate promptTemplate = new PromptTemplate(questionTemplateResource);
 		promptTemplate.add("context", "");
@@ -40,11 +41,14 @@ public class ChatMemoryController {
 		Prompt prompt = promptTemplate.create();
 		String conversationId = Objects.requireNonNullElseGet(input.conversationId(), UUID::randomUUID)
 			.toString();
-		return chatClientWithMemory.prompt(prompt)
+		String content = chatClientWithMemory.prompt(prompt)
 			.advisors(advisorSpec -> advisorSpec.params(Map.ofEntries(
 				Map.entry(Constants.CONVERSATION_ID, conversationId)
 			)))
 			.call()
 			.content();
+		return ResponseEntity.ok()
+			.header("conversationId", conversationId)
+			.body(content);
 	}
 }
