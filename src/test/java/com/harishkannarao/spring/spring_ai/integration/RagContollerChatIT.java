@@ -2,12 +2,14 @@ package com.harishkannarao.spring.spring_ai.integration;
 
 import com.harishkannarao.spring.spring_ai.entity.InputDocument;
 import com.harishkannarao.spring.spring_ai.entity.InputMetaData;
+import com.harishkannarao.spring.spring_ai.entity.RagVectorEntity;
+import com.harishkannarao.spring.spring_ai.repository.RagVectorRepository;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.simple.JdbcClient;
 
 import java.time.Instant;
 import java.util.List;
@@ -16,20 +18,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RagContollerChatIT extends AbstractBaseIT {
 
-	private final JdbcClient jdbcClient;
+	private final RagVectorRepository ragVectorRepository;
 
 	@Autowired
-	public RagContollerChatIT(JdbcClient jdbcClient) {
-		this.jdbcClient = jdbcClient;
+	public RagContollerChatIT(
+		RagVectorRepository ragVectorRepository) {
+		this.ragVectorRepository = ragVectorRepository;
 	}
 
 	@BeforeEach
+	@AfterEach
 	public void cleanVectorStore() {
-		jdbcClient.sql("TRUNCATE rag_vector_store").update();
+		ragVectorRepository.deleteAll();
 	}
 
 	@Test
 	public void ingest_and_query_by_RAG() {
+
+		assertThat(ragVectorRepository.count()).isEqualTo(0);
+
 		InputDocument inputDocument = new InputDocument(
 			"""
 				Slough is the best place to live in the UK
@@ -47,6 +54,13 @@ public class RagContollerChatIT extends AbstractBaseIT {
 			.andReturn();
 
 		assertThat(ingestionResponse.getStatusCode()).isEqualTo(204);
+
+		List<RagVectorEntity> ragEntries = ragVectorRepository.findAll();
+
+		assertThat(ragEntries)
+			.hasSize(1)
+			.anySatisfy(entity ->
+				assertThat(entity.content()).containsIgnoringWhitespaces(inputDocument.content()));
 
 		Response aiResponse = restClient()
 			.contentType(ContentType.JSON)
