@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.document.Document;
+import org.springframework.ai.vectorstore.SearchRequest;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,7 @@ import reactor.core.publisher.Flux;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 public class ChatMemoryController {
@@ -27,17 +31,26 @@ public class ChatMemoryController {
 	private final ClassPathResource questionTemplateResource = new ClassPathResource(
 		"/prompts/question-template.st");
 	private final ChatClient chatClientWithMemory;
+	private final VectorStore vectorStore;
 
 	public ChatMemoryController(
-		@Qualifier("textChatClientWithMemory") ChatClient chatClientWithMemory) {
+		@Qualifier("textChatClientWithMemory") ChatClient chatClientWithMemory,
+		VectorStore vectorStore) {
 		this.chatClientWithMemory = chatClientWithMemory;
+		this.vectorStore = vectorStore;
 	}
 
 	@PostMapping("chat-with-memory")
 	public ResponseEntity<String> chatWithContext(@RequestBody ChatWithMemory input) {
 		log.info("Input {}", input);
+		String documents = Objects.requireNonNull(vectorStore
+				.similaritySearch(SearchRequest.builder().query(input.chat()).build()))
+			.stream()
+			.map(Document::getText)
+			.collect(Collectors.joining(System.lineSeparator()));
+		log.info("RAG documents: {}", documents);
 		PromptTemplate promptTemplate = new PromptTemplate(questionTemplateResource);
-		promptTemplate.add("context", "");
+		promptTemplate.add("context", documents);
 		promptTemplate.add("question", input.chat());
 		Prompt prompt = promptTemplate.create();
 		String conversationId = Objects.requireNonNullElseGet(input.conversationId(), UUID::randomUUID)
