@@ -1,6 +1,9 @@
 # Spring AI
 This repository is a playground for learning and experimenting new ideas with AI/LLMs using Spring AI
 
+### Github Actions Build status
+[![Build Status](https://github.com/harishkannarao/spring-ai/workflows/CI-main/badge.svg)](https://github.com/harishkannarao/spring-ai/actions?query=workflow%3ACI-main)
+
 ### Required Software and Tools
 * Java Version: 21 (Execute **_java -version_** in command line after installation)
 * Ollama: latest (Execute **ollama -v** in command line after installation)
