@@ -14,6 +14,10 @@ In second terminal, pull the embedding model
 
     ollama pull mxbai-embed-large
 
+In third terminal, pull the multimodal LLM model 
+
+    ollama pull llava:7b
+
 In second terminal execute the command and leave it running, type `/bye` to exit and stop the LLM
 
     ollama run llama3.2:3b

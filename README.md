@@ -28,6 +28,14 @@ Stop the dependencies
 
     docker compose -f compose.yml down -v
 
+### Pull Ollama Models
+
+    ollama pull llama3.2:3b
+
+    ollama pull mxbai-embed-large
+
+    ollama pull llava:7b
+
 ### Build command
 
     ./mvnw clean install
