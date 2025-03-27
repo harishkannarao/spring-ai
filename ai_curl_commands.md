@@ -117,6 +117,10 @@ EOF
 
     curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/spring-ai/image" -F "q=Explain what do you see on this picture?" -F "file=@$HOME/Downloads/balloon-png-28098.png;type=image/png"
 
+    curl -X GET -G 'http://localhost:8080/spring-ai/validate-vehicle' --data-urlencode "registration=XXX YYY"
+
+    curl -X GET -G 'http://localhost:8080/spring-ai/validate-vehicle' --data-urlencode "registration=ZZZ YYY"
+
 ```
 curl http://localhost:11434/api/embed -d '{
   "model": "mxbai-embed-large",

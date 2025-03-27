@@ -1,7 +1,5 @@
 package com.harishkannarao.spring.spring_ai.integration;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.harishkannarao.spring.spring_ai.configuration.IntegrationConfiguration;
 import io.restassured.RestAssured;
@@ -32,29 +30,5 @@ public abstract class AbstractBaseIT {
 		return RestAssured.given()
 			.filters(new RequestLoggingFilter(), new ResponseLoggingFilter())
 			.baseUri("http://localhost:%s/spring-ai".formatted(port));
-	}
-
-	protected String toJson(Object input) {
-		try {
-			return objectMapper.writeValueAsString(input);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected <T> T fromJson(String content, Class<T> valueType) {
-		try {
-			return objectMapper.readValue(content, valueType);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected JsonNode toJsonNode(String content) {
-		try {
-			return objectMapper.readTree(content);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
 	}
 }

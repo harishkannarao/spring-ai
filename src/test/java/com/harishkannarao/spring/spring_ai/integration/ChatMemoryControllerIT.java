@@ -6,9 +6,9 @@ import com.harishkannarao.spring.spring_ai.entity.InputDocument;
 import com.harishkannarao.spring.spring_ai.entity.InputMetaData;
 import com.harishkannarao.spring.spring_ai.repository.ChatHistoryVectorRepository;
 import com.harishkannarao.spring.spring_ai.repository.RagVectorRepository;
+import com.harishkannarao.spring.spring_ai.util.JsonUtil;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +24,17 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 
 	private final ChatHistoryVectorRepository chatHistoryVectorRepository;
 	private final RagVectorRepository ragVectorRepository;
+	private final JsonUtil jsonUtil;
+
 
 	@Autowired
 	public ChatMemoryControllerIT(
 		ChatHistoryVectorRepository chatHistoryVectorRepository,
-		RagVectorRepository ragVectorRepository) {
+		RagVectorRepository ragVectorRepository, 
+		JsonUtil jsonUtil) {
 		this.chatHistoryVectorRepository = chatHistoryVectorRepository;
 		this.ragVectorRepository = ragVectorRepository;
+		this.jsonUtil = jsonUtil;
 	}
 
 	@BeforeEach
@@ -51,7 +55,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 		Response response1 = restClient()
 			.contentType(ContentType.JSON)
 			.accept(ContentType.TEXT)
-			.body(toJson(input1))
+			.body(jsonUtil.toJson(input1))
 			.post("/chat-with-memory")
 			.andReturn();
 
@@ -77,7 +81,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 		Response response2 = restClient()
 			.contentType(ContentType.JSON)
 			.accept(ContentType.TEXT)
-			.body(toJson(input2))
+			.body(jsonUtil.toJson(input2))
 			.post("/chat-with-memory")
 			.andReturn();
 
@@ -91,7 +95,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 		Response response3 = restClient()
 			.contentType(ContentType.JSON)
 			.accept(ContentType.TEXT)
-			.body(toJson(input3))
+			.body(jsonUtil.toJson(input3))
 			.post("/chat-with-memory")
 			.andReturn();
 
@@ -111,7 +115,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 
 		Response ingestionResponse = restClient()
 			.contentType(ContentType.JSON)
-			.body(toJson(List.of(inputDocument)))
+			.body(jsonUtil.toJson(List.of(inputDocument)))
 			.post("/ingest-document")
 			.andReturn();
 
@@ -124,7 +128,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 		Response response4 = restClient()
 			.contentType(ContentType.JSON)
 			.accept(ContentType.TEXT)
-			.body(toJson(input4))
+			.body(jsonUtil.toJson(input4))
 			.post("/chat-with-memory")
 			.andReturn();
 

@@ -4,6 +4,7 @@ import com.harishkannarao.spring.spring_ai.entity.InputDocument;
 import com.harishkannarao.spring.spring_ai.entity.InputMetaData;
 import com.harishkannarao.spring.spring_ai.entity.RagVectorEntity;
 import com.harishkannarao.spring.spring_ai.repository.RagVectorRepository;
+import com.harishkannarao.spring.spring_ai.util.JsonUtil;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterEach;
@@ -19,11 +20,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RagContollerChatIT extends AbstractBaseIT {
 
 	private final RagVectorRepository ragVectorRepository;
+	private final JsonUtil jsonUtil;
 
 	@Autowired
 	public RagContollerChatIT(
-		RagVectorRepository ragVectorRepository) {
+		RagVectorRepository ragVectorRepository, JsonUtil jsonUtil) {
 		this.ragVectorRepository = ragVectorRepository;
+		this.jsonUtil = jsonUtil;
 	}
 
 	@BeforeEach
@@ -49,7 +52,7 @@ public class RagContollerChatIT extends AbstractBaseIT {
 
 		Response ingestionResponse = restClient()
 			.contentType(ContentType.JSON)
-			.body(toJson(List.of(inputDocument)))
+			.body(jsonUtil.toJson(List.of(inputDocument)))
 			.post("/ingest-document")
 			.andReturn();
 
