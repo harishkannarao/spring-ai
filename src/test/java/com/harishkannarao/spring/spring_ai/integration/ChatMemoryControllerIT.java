@@ -50,7 +50,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 		ChatWithMemory input1 = new ChatWithMemory(null,
 			"""
 						My name is Harish.
-						I love to watch Horse Race.""");
+						I love to play Cricket.""");
 
 		Response response1 = restClient()
 			.contentType(ContentType.JSON)
@@ -101,7 +101,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 
 		assertThat(response3.getStatusCode()).isEqualTo(200);
 		assertThat(response3.getBody().asPrettyString()).doesNotContainIgnoringCase("Slough");
-		assertThat(response3.getBody().asPrettyString()).containsIgnoringCase("Horse");
+		assertThat(response3.getBody().asPrettyString()).containsIgnoringCase("Cricket");
 
 		InputDocument inputDocument = new InputDocument(
 			"""
@@ -134,6 +134,6 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 
 		assertThat(response4.getStatusCode()).isEqualTo(200);
 		assertThat(response4.getBody().asPrettyString()).containsIgnoringCase("Slough");
-		assertThat(response4.getBody().asPrettyString()).containsIgnoringCase("Horse");
+		assertThat(response4.getBody().asPrettyString()).containsIgnoringCase("Cricket");
 	}
 }
