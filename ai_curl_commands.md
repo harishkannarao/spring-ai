@@ -136,6 +136,16 @@ EOF
     curl -X GET -G 'http://localhost:8080/spring-ai/validate-vehicle' --data-urlencode "registration=ZZZ YYY"
 
 ```
+curl -X POST "http://localhost:8080/spring-ai/chat-with-memory" \
+-H "Content-Type: application/json" \
+--data-binary @- << 'EOF'
+{
+    "chat":"Tell me about Acme Limited" 
+}
+EOF
+```
+
+```
 curl http://localhost:11434/api/embed -d '{
   "model": "mxbai-embed-large",
   "input": "Llamas are members of the camelid family"
