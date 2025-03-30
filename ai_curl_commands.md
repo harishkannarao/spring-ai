@@ -82,6 +82,8 @@ EOF
 
 ```
 
+    curl -X DELETE "http://localhost:8080/spring-ai/clear-vector-db"
+
 ```
 curl -X POST "http://localhost:8080/spring-ai/ingest-json" \
 -H "Content-Type: application/json" \

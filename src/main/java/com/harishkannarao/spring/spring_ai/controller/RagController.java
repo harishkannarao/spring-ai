@@ -2,6 +2,7 @@ package com.harishkannarao.spring.spring_ai.controller;
 
 import com.harishkannarao.spring.spring_ai.entity.InputDocument;
 import com.harishkannarao.spring.spring_ai.entity.InputMetaData;
+import com.harishkannarao.spring.spring_ai.repository.RagVectorRepository;
 import com.harishkannarao.spring.spring_ai.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,6 +57,7 @@ public class RagController {
 	private final TokenTextSplitter tokenTextSplitter;
 	private final KeywordMetadataEnricher keywordMetadataEnricher;
 	private final SummaryMetadataEnricher summaryMetadataEnricher;
+	private final RagVectorRepository ragVectorRepository;
 
 	@Autowired
 	public RagController(
@@ -63,13 +66,15 @@ public class RagController {
 		VectorStore vectorStore,
 		TokenTextSplitter tokenTextSplitter,
 		KeywordMetadataEnricher keywordMetadataEnricher,
-		SummaryMetadataEnricher summaryMetadataEnricher) {
+		SummaryMetadataEnricher summaryMetadataEnricher,
+		RagVectorRepository ragVectorRepository) {
 		this.chatClient = chatClient;
 		this.chatClientWithTools = chatClientWithTools;
 		this.vectorStore = vectorStore;
 		this.tokenTextSplitter = tokenTextSplitter;
 		this.keywordMetadataEnricher = keywordMetadataEnricher;
 		this.summaryMetadataEnricher = summaryMetadataEnricher;
+		this.ragVectorRepository = ragVectorRepository;
 	}
 
 	@GetMapping("rag-chat")
@@ -131,6 +136,13 @@ public class RagController {
 		vectorStore.add(transformedDocuments);
 		return ResponseEntity.noContent().build();
 	}
+
+	@DeleteMapping("/clear-vector-db")
+	public ResponseEntity<Void> deleteVectorDb() {
+		ragVectorRepository.deleteAll();
+		return ResponseEntity.noContent().build();
+	}
+
 
 	@PostMapping("ingest-pdf")
 	public ResponseEntity<Void> ingestPdf(@RequestParam("file") MultipartFile file) {
