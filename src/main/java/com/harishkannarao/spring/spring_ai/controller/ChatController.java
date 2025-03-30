@@ -32,23 +32,12 @@ public class ChatController {
 		this.chatClient = chatClient;
 	}
 
-	@PostMapping("chat")
-	public String chat(@RequestBody String input) {
-		UserMessage userMessage = new UserMessage(input);
-		Prompt prompt = new Prompt(List.of(userMessage));
-		return chatClient.prompt(prompt)
-			.tools(List.of())
-			.call()
-			.content();
-	}
-
 	@PostMapping("/simple-chat")
 	public ResponseEntity<String> simpleChat(
 		@RequestParam("input") String input) {
 		UserMessage userMessage = new UserMessage(input);
 		Prompt prompt = new Prompt(List.of(userMessage));
 		String result = chatClient.prompt(prompt)
-			.tools(List.of())
 			.call()
 			.content();
 		return ResponseEntity.ok(result);
