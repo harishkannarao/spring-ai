@@ -27,8 +27,6 @@ public class VehicleValidationController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	private final ClassPathResource vehicleValidationTemplate =
 		new ClassPathResource("/prompts/vehicle-evaluation-rules-template.st");
-	private final BeanOutputConverter<VehicleValidationResponse> outputParser =
-		new BeanOutputConverter<>(VehicleValidationResponse.class);
 
 	private final ChatClient chatClient;
 	private final JsonUtil jsonUtil;
@@ -69,6 +67,8 @@ public class VehicleValidationController {
 		VehicleDetails vehicleDetails = vehicleDetailsMap.get(registration);
 		String vehicleJson = jsonUtil.toJson(vehicleDetails);
 		log.info("Vehicle Json: {}", vehicleJson);
+		BeanOutputConverter<VehicleValidationResponse> outputParser =
+			new BeanOutputConverter<>(VehicleValidationResponse.class);
 		String format = outputParser.getFormat();
 		log.info("output format {}", format);
 		PromptTemplate promptTemplate = new PromptTemplate(
