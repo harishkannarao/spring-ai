@@ -288,6 +288,76 @@
             "variables": ""
           }
         }
+      },
+      {
+        "name": "RAG Question",
+        "url": "localhost:8080/spring-ai/rag-chat",
+        "method": "GET",
+        "headers": [],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "What is the best place to live in the UK",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Vector Document Ingestion",
+        "url": "http://localhost:8080/spring-ai/ingest-document",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "[\n  {\n    \"content\": \"Best place to live in the UK is Slough\",\n    \"metaData\": [\n      {\n        \"key\": \"meta_key_1\",\n        \"value\": \"meta_value_1\"\n      }\n    ]\n  },\n  {\n    \"content\": \"Best car to buy in the UK is Jaecoo\",\n    \"metaData\": [\n      {\n        \"key\": \"meta_key_2\",\n        \"value\": \"meta_value_2\"\n      }\n    ]\n  }\n]",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
       }
     ]
   }
