@@ -25,7 +25,10 @@ public class TicketInventoryService
 			Optional.ofNullable(toolContext.getContext().get(X_REQUEST_ID))
 				.ifPresent(o -> MDC.put(X_REQUEST_ID, String.valueOf(o)));
 			log.info("request {}", request);
-			Response response = new Response(Math.abs(new SecureRandom().nextLong()));
+			long randomPositiveLong = new SecureRandom().longs(0, 200)
+				.findAny()
+				.orElse(0);
+			Response response = new Response(randomPositiveLong);
 			log.info("response {}", response);
 			return response;
 		} finally {
