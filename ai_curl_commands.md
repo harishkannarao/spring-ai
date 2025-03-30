@@ -117,7 +117,7 @@ EOF
 
     curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/spring-ai/ingest-pdf" -F "file=@$HOME/Downloads/International_Cricket_Council.pdf;type=application/pdf"
 
-    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/spring-ai/image" -F "q=Explain what do you see on this picture?" -F "file=@$HOME/Downloads/balloon-png-28098.png;type=image/png"
+    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/spring-ai/image" -F "q=Explain what do you see on this picture?" -F "file=@$HOME/Documents/llama_image.jpeg;type=image/jpeg"
 
     curl -X GET -G 'http://localhost:8080/spring-ai/validate-vehicle' --data-urlencode "registration=XXX YYY"
 
