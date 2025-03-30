@@ -43,6 +43,17 @@ public class ChatController {
 		return ResponseEntity.ok(result);
 	}
 
+	@PostMapping("/simple-stream-chat")
+	public ResponseEntity<Flux<String>> simpleStreamChat(
+		@RequestParam("input") String input) {
+		UserMessage userMessage = new UserMessage(input);
+		Prompt prompt = new Prompt(List.of(userMessage));
+		Flux<String> result = chatClient.prompt(prompt)
+			.stream()
+			.content();
+		return ResponseEntity.ok(result);
+	}
+
 	@PostMapping("chat-with-context")
 	public String chatWithContext(@RequestBody QuestionWithContext input) {
 		log.info("Input {}", input);
