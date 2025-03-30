@@ -399,7 +399,7 @@
             "enabled": true
           },
           {
-            "name": "Accep",
+            "name": "Accept",
             "value": "text/plain",
             "enabled": true
           }
@@ -439,7 +439,7 @@
             "enabled": true
           },
           {
-            "name": "Accep",
+            "name": "Accept",
             "value": "text/plain",
             "enabled": true
           }
@@ -456,6 +456,168 @@
           },
           "text": {
             "value": "{\n  \"conversationId\": \"bae1b56f-b7ed-48cc-8378-539a4774bb90\",\n  \"chat\": \"My name is Harish.\\nI love to play Cricket.\"\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Conversation Request 2",
+        "url": "http://localhost:8080/spring-ai/chat-with-memory",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          },
+          {
+            "name": "Accept",
+            "value": "text/plain",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"conversationId\": \"bae1b56f-b7ed-48cc-8378-539a4774bb90\",\n  \"chat\": \"What is my name?\"\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Conversation Request 3",
+        "url": "http://localhost:8080/spring-ai/chat-with-memory",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          },
+          {
+            "name": "Accept",
+            "value": "text/plain",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"conversationId\": \"bae1b56f-b7ed-48cc-8378-539a4774bb90\",\n  \"chat\": \"What is the best place to live in the UK based on my interest?\"\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Tool Calling - Get Real Time Info",
+        "url": "http://localhost:8080/spring-ai/rag-chat-tools-callback",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Accept",
+            "value": "text/plain",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "How many tickets are available for Avatar Movie?",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "none",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Tool Calling - Take Real Time Action",
+        "url": "http://localhost:8080/spring-ai/rag-chat-tools-callback",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Accept",
+            "value": "text/plain",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "Book 3 tickets for Avatar Movie",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "none",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
             "format": "application/json"
           },
           "form": {
