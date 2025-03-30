@@ -27,6 +27,16 @@ EOF
 ```
 
 ```
+curl -X DELETE "http://localhost:8080/spring-ai/delete-conversation-id" \
+-H "Content-Type: application/json" \
+--data-binary @- << 'EOF'
+{
+    "conversationId":"D35D3365-4F45-4EE2-900D-67B5D8563EFC" 
+}
+EOF
+```
+
+```
 curl -X POST "http://localhost:8080/spring-ai/chat-with-memory" \
 -H "Content-Type: application/json" \
 --data-binary @- << 'EOF'

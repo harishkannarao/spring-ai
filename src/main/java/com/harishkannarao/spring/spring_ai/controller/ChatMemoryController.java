@@ -1,7 +1,7 @@
 package com.harishkannarao.spring.spring_ai.controller;
 
 import com.harishkannarao.spring.spring_ai.entity.ChatWithMemory;
-import com.harishkannarao.spring.spring_ai.entity.QuestionWithContext;
+import com.harishkannarao.spring.spring_ai.entity.DeleteConversationRequest;
 import com.harishkannarao.spring.spring_ai.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +11,15 @@ import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.vectorstore.filter.Filter;
+import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 
 import java.util.Map;
 import java.util.Objects;
@@ -31,19 +33,22 @@ public class ChatMemoryController {
 	private final ClassPathResource questionTemplateResource = new ClassPathResource(
 		"/prompts/question-template.st");
 	private final ChatClient chatClientWithMemory;
-	private final VectorStore vectorStore;
+	private final VectorStore ragVectorStore;
+	private final VectorStore chatVectorStore;
 
 	public ChatMemoryController(
 		@Qualifier("textChatClientWithMemory") ChatClient chatClientWithMemory,
-		VectorStore vectorStore) {
+		VectorStore ragVectorStore,
+		@Qualifier("chatHistoryVectorStore") VectorStore chatVectorStore) {
 		this.chatClientWithMemory = chatClientWithMemory;
-		this.vectorStore = vectorStore;
+		this.ragVectorStore = ragVectorStore;
+		this.chatVectorStore = chatVectorStore;
 	}
 
 	@PostMapping("chat-with-memory")
 	public ResponseEntity<String> chatWithContext(@RequestBody ChatWithMemory input) {
 		log.info("Input {}", input);
-		String documents = Objects.requireNonNull(vectorStore
+		String documents = Objects.requireNonNull(ragVectorStore
 				.similaritySearch(SearchRequest.builder().query(input.chat()).build()))
 			.stream()
 			.map(Document::getText)
@@ -64,5 +69,15 @@ public class ChatMemoryController {
 		return ResponseEntity.ok()
 			.header(CONVERSATION_ID, conversationId)
 			.body(content);
+	}
+
+	@DeleteMapping("/delete-conversation-id")
+	public ResponseEntity<Void> deleteConversationId(
+		@RequestBody DeleteConversationRequest request
+		) {
+		FilterExpressionBuilder b = new FilterExpressionBuilder();
+		Filter.Expression expression = b.eq("conversationId", request.conversationId().toString()).build();
+		chatVectorStore.delete(expression);
+		return ResponseEntity.noContent().build();
 	}
 }

@@ -387,6 +387,86 @@
             "variables": ""
           }
         }
+      },
+      {
+        "name": "Delete Conversation By Id",
+        "url": "http://localhost:8080/spring-ai/delete-conversation-id",
+        "method": "DELETE",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          },
+          {
+            "name": "Accep",
+            "value": "text/plain",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"conversationId\": \"bae1b56f-b7ed-48cc-8378-539a4774bb90\"\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Conversation Request 1",
+        "url": "http://localhost:8080/spring-ai/chat-with-memory",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          },
+          {
+            "name": "Accep",
+            "value": "text/plain",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"conversationId\": \"bae1b56f-b7ed-48cc-8378-539a4774bb90\",\n  \"chat\": \"My name is Harish.\\nI love to play Cricket.\"\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
       }
     ]
   }
