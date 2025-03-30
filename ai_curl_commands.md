@@ -2,6 +2,8 @@
 
     curl -X POST 'http://localhost:8080/spring-ai/chat' --data-binary 'Tell me about London, England'
 
+    curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/spring-ai/simple-chat" -F "input=Tell me about London, England"
+
 ```
 curl -X POST "http://localhost:8080/spring-ai/chat-with-context" \
 -H "Content-Type: application/json" \

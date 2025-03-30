@@ -9,9 +9,11 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
@@ -38,6 +40,18 @@ public class ChatController {
 			.tools(List.of())
 			.call()
 			.content();
+	}
+
+	@PostMapping("/simple-chat")
+	public ResponseEntity<String> simpleChat(
+		@RequestParam("input") String input) {
+		UserMessage userMessage = new UserMessage(input);
+		Prompt prompt = new Prompt(List.of(userMessage));
+		String result = chatClient.prompt(prompt)
+			.tools(List.of())
+			.call()
+			.content();
+		return ResponseEntity.ok(result);
 	}
 
 	@PostMapping("chat-with-context")
