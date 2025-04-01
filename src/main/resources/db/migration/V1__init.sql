@@ -10,4 +10,6 @@ CREATE TABLE IF NOT EXISTS rag_vector_store (
 	embedding vector(${embeddingDimensions})
 );
 
-CREATE INDEX ON rag_vector_store USING ${vectorIndexType} (embedding vector_cosine_ops);
+CREATE INDEX rag_vector_store_embedding_index ON rag_vector_store USING ${vectorIndexType} (embedding vector_cosine_ops);
+
+CREATE INDEX rag_vector_store_gin_index ON rag_vector_store USING GIN (metadata);

@@ -10,4 +10,6 @@ CREATE TABLE IF NOT EXISTS chat_history_vector_store (
 	embedding vector(${embeddingDimensions})
 );
 
-CREATE INDEX ON chat_history_vector_store USING ${vectorIndexType} (embedding vector_cosine_ops);
+CREATE INDEX chat_history_vector_store_embedding_index ON chat_history_vector_store USING ${vectorIndexType} (embedding vector_cosine_ops);
+
+CREATE INDEX chat_history_vector_store_gin_index ON chat_history_vector_store USING GIN (metadata);
