@@ -65,13 +65,15 @@ Stop the dependencies
 
     java -jar target/spring-ai-0.0.1-SNAPSHOT.jar
 
-### Debug or Run integration test from IDE pointing to AWS
+### Debug or Run integration test using Maven or IDE pointing to AWS Bedrock
 
 Set the following environment variables to debug or run tests from IDE pointing to AWS
 
-    AI_BEDROCK_CHAT_ENABLED=true
-    AI_BEDROCK_EMBEDDING_ENABLED=true
-    APP_AI_CHAT_PROVIDER=aws
-    APP_AI_EMBEDDING_PROVIDER=aws
-    AWS_AI_ACCESS_KEY_ID={aws_key_id}
-    AWS_AI_SECRET_ACCESS_KEY={aws_secret_key}
+    export AI_BEDROCK_CHAT_ENABLED=true
+    export AI_BEDROCK_EMBEDDING_ENABLED=true
+    export APP_AI_CHAT_PROVIDER=aws
+    export APP_AI_EMBEDDING_PROVIDER=aws
+    export AWS_AI_ACCESS_KEY_ID={aws_key_id}
+    export AWS_AI_SECRET_ACCESS_KEY={aws_secret_key}
+
+    ./mvnw clean install
