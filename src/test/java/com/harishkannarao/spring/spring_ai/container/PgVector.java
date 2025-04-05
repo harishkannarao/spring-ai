@@ -1,6 +1,7 @@
 package com.harishkannarao.spring.spring_ai.container;
 
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
 public final class PgVector {
@@ -16,7 +17,8 @@ public final class PgVector {
 		.withExposedPorts(port)
 		.withEnv(dbEnvVar, "mydatabase")
 		.withEnv(userEnvVar, "myuser")
-		.withEnv(passEnvVar, "secret");
+		.withEnv(passEnvVar, "secret")
+		.waitingFor(Wait.forLogMessage(".*database system is ready to accept connections.*", 1));;
 
 	public GenericContainer<?> getContainer() {
 		return container;

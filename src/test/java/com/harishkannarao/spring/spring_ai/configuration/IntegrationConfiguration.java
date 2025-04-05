@@ -25,6 +25,14 @@ public class IntegrationConfiguration {
 		log.info("Starting PgVector");
 		PgVector pgVector = new PgVector();
 		pgVector.getContainer().start();
+		try {
+			Thread.sleep(Duration.ofSeconds(1));
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+		await()
+			.atMost(Duration.ofMinutes(2))
+			.untilAsserted(() -> assertThat(pgVector.getContainer().getLogs()).contains("database system is ready to accept connections"));
 		log.info("Started PgVector on port {}", pgVector.getMappedPort());
 		return pgVector;
 	}
