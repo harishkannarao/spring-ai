@@ -31,6 +31,10 @@ Stop the dependencies
 
     docker compose -f compose.yml down -v
 
+Restart dependencies
+
+    docker compose -f compose.yml down -v && docker compose -f compose.yml up --build -d
+
 ### Pull Ollama Models
 
     ollama pull llama3.2:3b

@@ -127,6 +127,8 @@ EOF
     
     curl -X GET -G 'http://localhost:8080/spring-ai/rag-chat-tools-callback' --data-urlencode "q=Book 3 tickets for Avatar Movie"
 
+    curl -X GET -G 'http://localhost:8080/spring-ai/secure-rag-chat' --header "Authorization: Bearer user-token-1" --data-urlencode "q=What is the best place to live in the UK"
+
     curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/spring-ai/ingest-pdf" -F "file=@$HOME/Downloads/International_Cricket_Council.pdf;type=application/pdf"
 
     curl --header "Content-Type: multipart/form-data" -X POST "http://localhost:8080/spring-ai/image" -F "q=Explain what do you see on this picture?" -F "file=@$HOME/Documents/llama_image.jpeg;type=image/jpeg"
