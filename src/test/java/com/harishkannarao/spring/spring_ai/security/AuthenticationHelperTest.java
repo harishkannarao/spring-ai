@@ -32,8 +32,11 @@ public class AuthenticationHelperTest {
 		HttpServletRequest httpServletRequest = mock();
 		when(httpServletRequest.getUserPrincipal())
 			.thenReturn(authentication);
-		String result = authenticationHelper.getCurrentUsername(httpServletRequest);
+		UserDetails result = authenticationHelper.getCurrentUsername(httpServletRequest);
 
-		assertThat(result).isEqualTo(user.getUsername());
+		assertThat(result)
+			.usingRecursiveComparison()
+			.ignoringCollectionOrder()
+			.isEqualTo(user);
 	}
 }

@@ -10,10 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationHelper {
 
-	public String getCurrentUsername(HttpServletRequest request) {
+	public UserDetails getCurrentUsername(HttpServletRequest request) {
 		Authentication authentication =
 			(UsernamePasswordAuthenticationToken) request.getUserPrincipal();
-		UserDetails principal = (UserDetails) authentication.getPrincipal();
-		return principal.getUsername();
+		return (UserDetails) authentication.getPrincipal();
 	}
 }
