@@ -1,27 +1,20 @@
 package com.harishkannarao.spring.spring_ai.security;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class AuthenticationHelperTest {
 
 	private final AuthenticationHelper authenticationHelper = new AuthenticationHelper();
-
-	@BeforeEach
-	@AfterEach
-	public void cleanUp() {
-		SecurityContextHolder.clearContext();
-	}
 
 	@Test
 	void getCurrentUsername_returns_username() {
@@ -34,10 +27,12 @@ public class AuthenticationHelperTest {
 			.accountLocked(false)
 			.authorities(Collections.emptyList())
 			.build();
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		String result = authenticationHelper.getCurrentUsername();
+		UsernamePasswordAuthenticationToken authentication =
+			new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+		HttpServletRequest httpServletRequest = mock();
+		when(httpServletRequest.getUserPrincipal())
+			.thenReturn(authentication);
+		String result = authenticationHelper.getCurrentUsername(httpServletRequest);
 
 		assertThat(result).isEqualTo(user.getUsername());
 	}

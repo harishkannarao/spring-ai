@@ -2,6 +2,7 @@ package com.harishkannarao.spring.spring_ai.controller;
 
 import com.harishkannarao.spring.spring_ai.security.AuthenticationHelper;
 import com.harishkannarao.spring.spring_ai.util.Constants;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -48,8 +49,10 @@ public class SecureRagController {
 
 	@GetMapping("/secure-rag-chat")
 	@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String chatWithRagWithTools(@RequestParam String q) {
-		String username = authenticationHelper.getCurrentUsername();
+	public String chatWithRagWithTools(
+		HttpServletRequest httpServletRequest,
+		@RequestParam String q) {
+		String username = authenticationHelper.getCurrentUsername(httpServletRequest);
 		log.info("User: {} Question {}", username, q);
 		String documents = Objects.requireNonNull(vectorStore
 				.similaritySearch(SearchRequest.builder().query(q).build()))
