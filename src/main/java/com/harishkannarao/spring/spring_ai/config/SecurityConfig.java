@@ -49,6 +49,7 @@ public class SecurityConfig {
 	private void configureUrlAuthorization(
 		AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth) {
 		auth.requestMatchers(
+			"/error",
 			"/books/by-author",
 			"/chat-with-context",
 			"/chat-with-memory",
