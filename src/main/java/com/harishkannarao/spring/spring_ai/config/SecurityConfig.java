@@ -65,7 +65,8 @@ public class SecurityConfig {
 			"/rag-chat",
 			"/simple-stream-chat",
 			"/stream-joke",
-			"/secure-rag-chat"
+			"/secure-rag-chat",
+			"/ingest-secure-document"
 		).permitAll();
 
 		auth.anyRequest().denyAll();

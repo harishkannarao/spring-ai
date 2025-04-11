@@ -148,46 +148,38 @@ EOF
 ```
 
 ```
-curl -X POST "http://localhost:8080/spring-ai/ingest-document" \
+curl -X POST "http://localhost:8080/spring-ai/ingest-secure-document" \
 -H "Content-Type: application/json" \
 --data-binary @- << 'EOF'
 [
-    {
-        "content":"I like to play and watch Cricket",
-        "metaData": [
-            {
-                "id": "user-name-1",
-                "type": "USER"
-            }
-        ] 
-    },
-    {
-        "content":"I like to play and watch Football",
-        "metaData": [
-            {
-                "id": "user-name-2",
-                "type": "USER"
-            }
-        ] 
-    },
-    {
-        "content":"Total sales of Store 01 in 2024 is £5000",
-        "metaData": [
-            {
-                "id": "store-01",
-                "type": "STORE"
-            }
-        ] 
-    },
-    {
-        "content":"Total sales of Store 02 in 2024 is £3000",
-        "metaData": [
-            {
-                "id": "store-02",
-                "type": "STORE"
-            }
-        ] 
+  {
+    "content": "I like to play and watch Cricket",
+    "metaData": {
+      "id": "user-name-1",
+      "type": "USER"
     }
+  },
+  {
+    "content": "I like to play and watch Football",
+    "metaData": {
+      "id": "user-name-2",
+      "type": "USER"
+    }
+  },
+  {
+    "content": "Total sales of Store 01 in 2024 is £5000",
+    "metaData": {
+      "id": "store-01",
+      "type": "STORE"
+    }
+  },
+  {
+    "content": "Total sales of Store 02 in 2024 is £3000",
+    "metaData": {
+      "id": "store-02",
+      "type": "STORE"
+    }
+  }
 ]
 EOF
 ```

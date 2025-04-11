@@ -672,7 +672,7 @@
       },
       {
         "name": "Vector User and Store Document Ingestion",
-        "url": "http://localhost:8080/spring-ai/ingest-document",
+        "url": "http://localhost:8080/spring-ai/ingest-secure-document",
         "method": "POST",
         "headers": [
           {
@@ -692,7 +692,7 @@
             "name": ""
           },
           "text": {
-            "value": "[\n  {\n    \"content\": \"I like to play and watch Cricket\",\n    \"metaData\": [\n      {\n        \"id\": \"user-name-1\",\n        \"type\": \"USER\"\n      }\n    ]\n  },\n  {\n    \"content\": \"I like to play and watch Football\",\n    \"metaData\": [\n      {\n        \"id\": \"user-name-2\",\n        \"type\": \"USER\"\n      }\n    ]\n  },\n  {\n    \"content\": \"Total sales of Store 01 in 2024 is £5000\",\n    \"metaData\": [\n      {\n        \"id\": \"store-01\",\n        \"type\": \"STORE\"\n      }\n    ]\n  },\n  {\n    \"content\": \"Total sales of Store 02 in 2024 is £3000\",\n    \"metaData\": [\n      {\n        \"id\": \"store-02\",\n        \"type\": \"STORE\"\n      }\n    ]\n  }\n]",
+            "value": "[\n  {\n    \"content\": \"I like to play and watch Cricket\",\n    \"metaData\": {\n      \"id\": \"user-name-1\",\n      \"type\": \"USER\"\n    }\n  },\n  {\n    \"content\": \"I like to play and watch Football\",\n    \"metaData\": {\n      \"id\": \"user-name-2\",\n      \"type\": \"USER\"\n    }\n  },\n  {\n    \"content\": \"Total sales of Store 01 in 2024 is £5000\",\n    \"metaData\": {\n      \"id\": \"store-01\",\n      \"type\": \"STORE\"\n    }\n  },\n  {\n    \"content\": \"Total sales of Store 02 in 2024 is £3000\",\n    \"metaData\": {\n      \"id\": \"store-02\",\n      \"type\": \"STORE\"\n    }\n  }\n]",
             "format": "application/json"
           },
           "form": {
@@ -837,6 +837,129 @@
           {
             "name": "q",
             "value": "What is the best place to live in the UK",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Secure RAG Question — store manager 1",
+        "url": "localhost:8080/spring-ai/secure-rag-chat",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer manager-token-1",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "What is the total sales in 2024?",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Secure RAG Question — store manager 2",
+        "url": "localhost:8080/spring-ai/secure-rag-chat",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer manager-token-2",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "What is the total sales in 2024?",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Secure RAG Question — regional manager",
+        "url": "localhost:8080/spring-ai/secure-rag-chat",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer region-manager-token-1",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "What is the total sales in 2024?",
             "enabled": true
           }
         ],

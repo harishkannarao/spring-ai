@@ -1,5 +1,6 @@
 package com.harishkannarao.spring.spring_ai.controller;
 
+import com.harishkannarao.spring.spring_ai.entity.InputSecureDocument;
 import com.harishkannarao.spring.spring_ai.security.AuthenticationHelper;
 import com.harishkannarao.spring.spring_ai.util.Constants;
 import com.harishkannarao.spring.spring_ai.util.ExpressionCreator;
@@ -13,14 +14,18 @@ import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.document.Document;
+import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.filter.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,21 +45,43 @@ public class SecureRagController {
 	private final VectorStore vectorStore;
 	private final AuthenticationHelper authenticationHelper;
 	private final ExpressionCreator expressionCreator;
+	private final TokenTextSplitter tokenTextSplitter;
 
 	@Autowired
 	public SecureRagController(
 		ChatClient chatClientWithTools,
 		VectorStore vectorStore,
 		AuthenticationHelper authenticationHelper,
-		ExpressionCreator expressionCreator) {
+		ExpressionCreator expressionCreator,
+		TokenTextSplitter tokenTextSplitter) {
 		this.chatClientWithTools = chatClientWithTools;
 		this.vectorStore = vectorStore;
 		this.authenticationHelper = authenticationHelper;
 		this.expressionCreator = expressionCreator;
+		this.tokenTextSplitter = tokenTextSplitter;
+	}
+
+	@PostMapping("/ingest-secure-document")
+	public ResponseEntity<Void> ingestDocument(
+		@RequestBody List<InputSecureDocument> input) {
+		List<Document> vectorDocuments = input.stream()
+			.peek(inputDocument -> log.info("Received input {}", inputDocument))
+			.map(inputDocument ->
+				new Document(inputDocument.content(), inputDocument.metaData()))
+			.toList();
+		List<Document> transformedDocuments = tokenTextSplitter.apply(vectorDocuments);
+		vectorStore.add(transformedDocuments);
+		return ResponseEntity.noContent().build();
 	}
 
 	@GetMapping("/secure-rag-chat")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
+	@PreAuthorize("""
+	hasAuthority('ROLE_USER')
+	or
+	hasAuthority('ROLE_STORE_MANAGER')
+	or
+	hasAuthority('ROLE_REGIONAL_MANAGER')
+	""")
 	public String chatWithRagWithTools(
 		HttpServletRequest httpServletRequest,
 		@RequestParam String q) {
