@@ -48,8 +48,11 @@ public class SecurityConfig {
 
 	private void configureUrlAuthorization(
 		AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth) {
+		// this /error mapping is required to return 400 or 500 or other statuses.
+		// otherwise 401 is returned for all errors
+		auth.requestMatchers("/error").permitAll();
+
 		auth.requestMatchers(
-			"/error",
 			"/books/by-author",
 			"/chat-with-context",
 			"/chat-with-memory",
