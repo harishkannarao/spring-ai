@@ -66,6 +66,8 @@ app:
   ai:
     chat_history:
       table_name: "chat_history_vector_store"
+    secure_rag:
+      table_name: "secure_rag_vector_store"
     chat:
       provider: "${APP_AI_CHAT_PROVIDER:ollama}"
       model: "${APP_AI_CHAT_MODEL:llama3.2:3b}"

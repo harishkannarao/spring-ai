@@ -19,6 +19,7 @@ import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.filter.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,7 +51,7 @@ public class SecureRagController {
 	@Autowired
 	public SecureRagController(
 		ChatClient chatClientWithTools,
-		VectorStore vectorStore,
+		@Qualifier("secureRagVectorStore") VectorStore vectorStore,
 		AuthenticationHelper authenticationHelper,
 		ExpressionCreator expressionCreator,
 		TokenTextSplitter tokenTextSplitter) {
