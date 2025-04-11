@@ -70,7 +70,8 @@ public class SecurityConfig {
 			"/simple-stream-chat",
 			"/stream-joke",
 			"/secure-rag-chat",
-			"/ingest-secure-document"
+			"/ingest-secure-document",
+			"/clear-secure-rag-vector-db"
 		).permitAll();
 
 		auth.anyRequest().denyAll();

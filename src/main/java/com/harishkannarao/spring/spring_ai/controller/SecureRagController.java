@@ -1,6 +1,7 @@
 package com.harishkannarao.spring.spring_ai.controller;
 
 import com.harishkannarao.spring.spring_ai.entity.InputSecureDocument;
+import com.harishkannarao.spring.spring_ai.repository.SecureRagVectorRepository;
 import com.harishkannarao.spring.spring_ai.security.AuthenticationHelper;
 import com.harishkannarao.spring.spring_ai.util.Constants;
 import com.harishkannarao.spring.spring_ai.util.ExpressionCreator;
@@ -24,6 +25,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,6 +49,7 @@ public class SecureRagController {
 	private final AuthenticationHelper authenticationHelper;
 	private final ExpressionCreator expressionCreator;
 	private final TokenTextSplitter tokenTextSplitter;
+	private final SecureRagVectorRepository secureRagVectorRepository;
 
 	@Autowired
 	public SecureRagController(
@@ -54,12 +57,14 @@ public class SecureRagController {
 		@Qualifier("secureRagVectorStore") VectorStore vectorStore,
 		AuthenticationHelper authenticationHelper,
 		ExpressionCreator expressionCreator,
-		TokenTextSplitter tokenTextSplitter) {
+		TokenTextSplitter tokenTextSplitter,
+		SecureRagVectorRepository secureRagVectorRepository) {
 		this.chatClientWithTools = chatClientWithTools;
 		this.vectorStore = vectorStore;
 		this.authenticationHelper = authenticationHelper;
 		this.expressionCreator = expressionCreator;
 		this.tokenTextSplitter = tokenTextSplitter;
+		this.secureRagVectorRepository = secureRagVectorRepository;
 	}
 
 	@PostMapping("/ingest-secure-document")
@@ -112,5 +117,10 @@ public class SecureRagController {
 			.content();
 	}
 
+	@DeleteMapping("/clear-secure-rag-vector-db")
+	public ResponseEntity<Void> deleteVectorDb() {
+		secureRagVectorRepository.deleteAll();
+		return ResponseEntity.noContent().build();
+	}
 
 }
