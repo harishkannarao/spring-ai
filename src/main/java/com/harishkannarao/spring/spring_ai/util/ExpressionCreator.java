@@ -14,8 +14,8 @@ import java.util.Map;
 public class ExpressionCreator {
 
 	private final Map<String, String> storeManagerMap = Map.ofEntries(
-		Map.entry("manager-01", "store-01"),
-		Map.entry("manager-02", "store-02")
+		Map.entry("manager-name-1", "store-01"),
+		Map.entry("manager-name-2", "store-02")
 	);
 
 	public Filter.Expression create(UserDetails userDetails) {

@@ -40,6 +40,33 @@ public class UserDetailsResolver {
 			.credentialsExpired(false)
 			.accountLocked(false)
 			.authorities(List.of(new SimpleGrantedAuthority("ROLE_USER")))
+			.build()),
+		Map.entry("manager-token-1", User.builder()
+			.username("manager-name-1")
+			.password("")
+			.disabled(false)
+			.accountExpired(false)
+			.credentialsExpired(false)
+			.accountLocked(false)
+			.authorities(List.of(new SimpleGrantedAuthority("ROLE_STORE_MANAGER")))
+			.build()),
+		Map.entry("manager-token-2", User.builder()
+			.username("manager-name-2")
+			.password("")
+			.disabled(false)
+			.accountExpired(false)
+			.credentialsExpired(false)
+			.accountLocked(false)
+			.authorities(List.of(new SimpleGrantedAuthority("ROLE_STORE_MANAGER")))
+			.build()),
+		Map.entry("region-manager-token-1", User.builder()
+			.username("region-manager-name-2")
+			.password("")
+			.disabled(false)
+			.accountExpired(false)
+			.credentialsExpired(false)
+			.accountLocked(false)
+			.authorities(List.of(new SimpleGrantedAuthority("ROLE_REGIONAL_MANAGER")))
 			.build())
 	);
 

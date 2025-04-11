@@ -148,6 +148,51 @@ EOF
 ```
 
 ```
+curl -X POST "http://localhost:8080/spring-ai/ingest-document" \
+-H "Content-Type: application/json" \
+--data-binary @- << 'EOF'
+[
+    {
+        "content":"I like to play and watch Cricket",
+        "metaData": [
+            {
+                "id": "user-name-1",
+                "type": "USER"
+            }
+        ] 
+    },
+    {
+        "content":"I like to play and watch Football",
+        "metaData": [
+            {
+                "id": "user-name-2",
+                "type": "USER"
+            }
+        ] 
+    },
+    {
+        "content":"Total sales of Store 01 in 2024 is £5000",
+        "metaData": [
+            {
+                "id": "store-01",
+                "type": "STORE"
+            }
+        ] 
+    },
+    {
+        "content":"Total sales of Store 02 in 2024 is £3000",
+        "metaData": [
+            {
+                "id": "store-02",
+                "type": "STORE"
+            }
+        ] 
+    }
+]
+EOF
+```
+
+```
 curl http://localhost:11434/api/embed -d '{
   "model": "mxbai-embed-large",
   "input": "Llamas are members of the camelid family"

@@ -671,6 +671,41 @@
         }
       },
       {
+        "name": "Vector User and Store Document Ingestion",
+        "url": "http://localhost:8080/spring-ai/ingest-document",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "[\n  {\n    \"content\": \"I like to play and watch Cricket\",\n    \"metaData\": [\n      {\n        \"id\": \"user-name-1\",\n        \"type\": \"USER\"\n      }\n    ]\n  },\n  {\n    \"content\": \"I like to play and watch Football\",\n    \"metaData\": [\n      {\n        \"id\": \"user-name-2\",\n        \"type\": \"USER\"\n      }\n    ]\n  },\n  {\n    \"content\": \"Total sales of Store 01 in 2024 is £5000\",\n    \"metaData\": [\n      {\n        \"id\": \"store-01\",\n        \"type\": \"STORE\"\n      }\n    ]\n  },\n  {\n    \"content\": \"Total sales of Store 02 in 2024 is £3000\",\n    \"metaData\": [\n      {\n        \"id\": \"store-02\",\n        \"type\": \"STORE\"\n      }\n    ]\n  }\n]",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
         "name": "Secure RAG Question — no authentication",
         "url": "localhost:8080/spring-ai/secure-rag-chat",
         "method": "GET",
