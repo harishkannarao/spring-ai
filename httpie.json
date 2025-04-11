@@ -671,6 +671,35 @@
         }
       },
       {
+        "name": "Delete All Secure Vector Documents",
+        "url": "localhost:8080/spring-ai/clear-secure-rag-vector-db",
+        "method": "DELETE",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "none",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
         "name": "Vector User and Store Document Ingestion",
         "url": "http://localhost:8080/spring-ai/ingest-secure-document",
         "method": "POST",
