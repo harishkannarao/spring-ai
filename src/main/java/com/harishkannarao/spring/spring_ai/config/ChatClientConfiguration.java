@@ -3,7 +3,7 @@ package com.harishkannarao.spring.spring_ai.config;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
-import org.springframework.ai.chat.client.advisor.VectorStoreChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.VectorStoreChatMemoryAdvisor;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.vectorstore.VectorStore;
