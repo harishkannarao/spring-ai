@@ -18,6 +18,24 @@ spring:
     virtual:
       enabled: true
   ai:
+    mcp:
+      server:
+        enabled: true
+        name: "spring-ai-mcp-server"
+        version: 1.0.0
+        type: SYNC
+        sse-message-endpoint: "/mcp/message"
+        sse-endpoint: "/sse"
+      client:
+        enabled: true
+        name: "spring-ai-mcp-client"
+        version: 1.0.0
+        type: SYNC
+        sse:
+          connections:
+            spring-ai-mcp-server:
+              url: "http://localhost:${server.port}/spring-ai"
+              sse-endpoint: "/sse"
     chat:
       client:
         enabled: false

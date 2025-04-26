@@ -71,7 +71,9 @@ public class SecurityConfig {
 			"/stream-joke",
 			"/secure-rag-chat",
 			"/ingest-secure-document",
-			"/clear-secure-rag-vector-db"
+			"/clear-secure-rag-vector-db",
+			"/mcp/message",
+			"/sse"
 		).permitAll();
 
 		auth.anyRequest().denyAll();
