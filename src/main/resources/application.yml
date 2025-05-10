@@ -85,6 +85,11 @@ logging:
     web: INFO
     org:
       springframework:
+        boot:
+          autoconfigure:
+            security:
+              servlet:
+                UserDetailsServiceAutoConfiguration: OFF
         ai: INFO
 
 logback-access:
