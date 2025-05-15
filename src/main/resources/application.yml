@@ -23,8 +23,7 @@ spring:
         enabled: false
     bedrock:
       aws:
-        # Ireland region
-        region: "${AI_BEDROCK_AWS_REGION:eu-west-1}"
+        region: "${AI_BEDROCK_AWS_REGION:eu-west-2}"
         access-key: "${AWS_AI_ACCESS_KEY_ID}"
         secret-key: "${AWS_AI_SECRET_ACCESS_KEY}"
         timeout: "10m"
@@ -32,7 +31,7 @@ spring:
         chat:
           enabled: "${AI_BEDROCK_CHAT_ENABLED:false}"
           options:
-            model: "${AI_BEDROCK_CHAT_MODEL:eu.mistral.pixtral-large-2502-v1:0}"
+            model: "${AI_BEDROCK_CHAT_MODEL:meta.llama3-8b-instruct-v1:0}"
       cohere:
         embedding:
           enabled: "${AI_BEDROCK_EMBEDDING_ENABLED:false}"

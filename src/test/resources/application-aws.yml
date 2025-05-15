@@ -14,4 +14,5 @@ app:
     embedding:
       provider: "aws"
     image-extraction:
-      provider: "aws"
+      provider: "ollama"
+      model: "llava:7b"
