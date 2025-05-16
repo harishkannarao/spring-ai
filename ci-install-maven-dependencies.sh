@@ -6,4 +6,6 @@ set -e
 # Print the commands as it is executed. Useful for debugging
 set -x
 
-./mvnw clean install --batch-mode
+./mvnw --version
+
+./mvnw clean install -DskipTests

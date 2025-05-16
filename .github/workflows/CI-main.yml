@@ -22,6 +22,9 @@ jobs:
     - name: 'Install dependencies'
       run: |
         ./ci-install-dependencies.sh
+    - name: 'Install Maven dependencies'
+      run: |
+        ./ci-install-maven-dependencies.sh
     - name: 'CI Build Command'
       timeout-minutes: 20
       env:

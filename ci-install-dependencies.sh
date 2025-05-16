@@ -8,6 +8,8 @@ set -x
 
 docker --version
 
+docker pull pgvector/pgvector:pg16
+
 curl -fsSL https://ollama.com/install.sh | sh
 
 ollama --version
