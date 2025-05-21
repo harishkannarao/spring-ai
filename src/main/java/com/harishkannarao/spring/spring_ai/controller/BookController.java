@@ -41,9 +41,9 @@ public class BookController {
 		BeanOutputConverter<AuthorResult> outputParser = new BeanOutputConverter<>(AuthorResult.class);
 		String format = outputParser.getFormat();
 		log.info("format {}", format);
-		PromptTemplate promptTemplate = new PromptTemplate(promptMessage,
+		PromptTemplate promptTemplate = new PromptTemplate(promptMessage);
+		Message userMessage = promptTemplate.createMessage(
 			Map.of("author", author, "format", format));
-		Message userMessage = promptTemplate.createMessage();
 
 		Prompt prompt = new Prompt(List.of(userMessage));
 		log.info("prompt {}", prompt);

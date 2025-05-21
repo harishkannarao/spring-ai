@@ -29,8 +29,10 @@ public class ImageController {
 	public ResponseEntity<String> imageChat(
 		@RequestParam("q") String input,
 		@RequestParam("file") MultipartFile file) {
-		UserMessage userMessage = new UserMessage(input,
-			new Media(MimeType.valueOf(requireNonNull(file.getContentType())), file.getResource()));
+		UserMessage userMessage = UserMessage.builder()
+			.text(input)
+			.media(new Media(MimeType.valueOf(requireNonNull(file.getContentType())), file.getResource()))
+			.build();
 		String result = imageChatClient.prompt(new Prompt(userMessage))
 			.call()
 			.content();

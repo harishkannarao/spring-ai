@@ -43,7 +43,7 @@ public class ChatClientConfiguration {
 		ChatModel chatModel,
 		List<ToolCallback> tools) {
 		return ChatClient.builder(chatModel)
-			.defaultTools(tools)
+			.defaultToolCallbacks(tools)
 			.defaultAdvisors(List.of(new SimpleLoggerAdvisor()))
 			.defaultSystem("You are a helpful AI Assistant answering questions")
 			.build();

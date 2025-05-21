@@ -2,6 +2,7 @@ package com.harishkannarao.spring.spring_ai.tools;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +11,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class WeatherService implements Function<WeatherService.Request, WeatherService.Response> {
+public class WeatherService
+	implements AiTool, Function<WeatherService.Request, WeatherService.Response> {
 
-	private final Logger log = LoggerFactory.getLogger(TicketInventoryService.class);
+	private final Logger log = LoggerFactory.getLogger(WeatherService.class);
 
 	private final Map<String, BigDecimal> weather = Map.ofEntries(
 		Map.entry("london", new BigDecimal("20")),
@@ -20,6 +22,12 @@ public class WeatherService implements Function<WeatherService.Request, WeatherS
 	);
 
 	@Override
+	@Tool(
+		name = "weatherService",
+		description = """
+			Get the weather for the given location or village or town or city.
+			The request takes location along with unit in Celsius or Fahrenheit.
+			""")
 	public Response apply(Request request) {
 		log.info("request {}", request);
 		BigDecimal value = weather.getOrDefault(request.location().toLowerCase(), new BigDecimal("25"));

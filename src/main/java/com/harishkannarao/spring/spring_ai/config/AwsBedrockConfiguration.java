@@ -14,21 +14,21 @@ import org.springframework.context.annotation.Primary;
 public class AwsBedrockConfiguration {
 
 	@Bean
-	@ConditionalOnProperty(name = "app.ai.chat.provider", havingValue = "aws")
+	@ConditionalOnProperty(name = "app.ai.chat.provider", havingValue = "bedrock-converse")
 	@Primary
 	public ChatModel defaultChatModel(BedrockProxyChatModel bedrockProxyChatModel) {
 		return bedrockProxyChatModel;
 	}
 
 	@Bean
-	@ConditionalOnProperty(name = "app.ai.image-extraction.provider", havingValue = "aws")
+	@ConditionalOnProperty(name = "app.ai.image-extraction.provider", havingValue = "bedrock-converse")
 	@Qualifier("imageExtractionModel")
 	public ChatModel defaultImageExtractionModel(BedrockProxyChatModel bedrockProxyChatModel) {
 		return bedrockProxyChatModel;
 	}
 
 	@Bean
-	@ConditionalOnProperty(name = "app.ai.embedding.provider", havingValue = "aws")
+	@ConditionalOnProperty(name = "app.ai.embedding.provider", havingValue = "bedrock-converse")
 	@Primary
 	public EmbeddingModel defaultEmbeddingModel(
 		BedrockCohereEmbeddingModel bedrockCohereEmbeddingModel) {

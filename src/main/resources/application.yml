@@ -18,6 +18,8 @@ spring:
     virtual:
       enabled: true
   ai:
+    model:
+      chat: "${APP_AI_CHAT_PROVIDER:ollama}"
     chat:
       client:
         enabled: false
@@ -29,7 +31,6 @@ spring:
         timeout: "10m"
       converse:
         chat:
-          enabled: "${AI_BEDROCK_CHAT_ENABLED:false}"
           options:
             model: "${AI_BEDROCK_CHAT_MODEL:amazon.nova-pro-v1:0}"
       cohere:

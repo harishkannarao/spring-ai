@@ -71,14 +71,12 @@ public class VehicleValidationController {
 			new BeanOutputConverter<>(VehicleValidationResponse.class);
 		String format = outputParser.getFormat();
 		log.info("output format {}", format);
-		PromptTemplate promptTemplate = new PromptTemplate(
-			vehicleValidationTemplate,
-			Map.of(
-				"registrationCutOff", LocalDate.now(ZoneOffset.UTC).minusYears(20),
-				"vehicleDetails", vehicleJson,
-				"format", format
-			));
-		Message userMessage = promptTemplate.createMessage();
+		PromptTemplate promptTemplate = new PromptTemplate(vehicleValidationTemplate);
+		Message userMessage = promptTemplate.createMessage(Map.of(
+			"registrationCutOff", LocalDate.now(ZoneOffset.UTC).minusYears(20),
+			"vehicleDetails", vehicleJson,
+			"format", format
+		));
 		Prompt prompt = new Prompt(List.of(userMessage));
 		log.info("prompt {}", prompt);
 		String content = Objects.requireNonNull(chatClient.prompt(prompt)

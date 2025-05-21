@@ -1,17 +1,13 @@
 spring:
   ai:
-    bedrock:
-      converse:
-        chat:
-          enabled: true
-      cohere:
-        embedding:
-          enabled: true
+    model:
+      chat: "bedrock-converse"
+
 app:
   ai:
     chat:
-      provider: "aws"
+      provider: "bedrock-converse"
     embedding:
-      provider: "aws"
+      provider: "bedrock-converse"
     image-extraction:
-      provider: "aws"
+      provider: "bedrock-converse"
