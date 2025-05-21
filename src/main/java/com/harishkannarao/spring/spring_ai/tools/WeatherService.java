@@ -8,11 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Map;
-import java.util.function.Function;
 
 @Component
-public class WeatherService
-	implements AiTool, Function<WeatherService.Request, WeatherService.Response> {
+public class WeatherService implements AiTool {
 
 	private final Logger log = LoggerFactory.getLogger(WeatherService.class);
 
@@ -21,7 +19,6 @@ public class WeatherService
 		Map.entry("chennai", new BigDecimal("37"))
 	);
 
-	@Override
 	@Tool(
 		name = "weatherService",
 		description = """

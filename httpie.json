@@ -562,7 +562,7 @@
         "queryParams": [
           {
             "name": "q",
-            "value": "How many tickets are available for Avatar Movie?",
+            "value": "How many tickets are available for Avatar Movie? And what is the weather in London?",
             "enabled": true
           }
         ],
