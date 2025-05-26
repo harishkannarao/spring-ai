@@ -71,7 +71,7 @@ app:
       table_name: "secure_rag_vector_store"
     chat:
       provider: "${APP_AI_CHAT_PROVIDER:ollama}"
-      model: "${APP_AI_CHAT_MODEL:llama3.2:3b}"
+      model: "${APP_AI_CHAT_MODEL:zongwei/gemma3-translator:1b}"
     embedding:
       provider: "${APP_AI_EMBEDDING_PROVIDER:ollama}"
       model: "${APP_AI_EMBEDDING_MODEL:mxbai-embed-large}"

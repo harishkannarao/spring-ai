@@ -290,6 +290,46 @@
         }
       },
       {
+        "name": "Translate Bengali to English",
+        "url": "http://localhost:8080/spring-ai/translate",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [
+          {
+            "name": "sourceLang",
+            "value": "Bengali",
+            "enabled": true
+          },
+          {
+            "name": "targetLang",
+            "value": "English",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "শুভ সকাল",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
         "name": "RAG Question",
         "url": "localhost:8080/spring-ai/rag-chat",
         "method": "GET",

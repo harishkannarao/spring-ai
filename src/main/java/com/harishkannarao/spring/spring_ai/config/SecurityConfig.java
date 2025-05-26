@@ -55,6 +55,7 @@ public class SecurityConfig {
 		auth.requestMatchers(
 			"/books/by-author",
 			"/chat-with-context",
+			"/translate",
 			"/chat-with-memory",
 			"/clear-vector-db",
 			"/delete-conversation-id",
