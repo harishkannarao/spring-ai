@@ -35,6 +35,24 @@ public class OllamaConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnProperty(name = "app.ai.translator.provider", havingValue = "ollama")
+	@Qualifier("translatorModel")
+	public ChatModel defaultTranslatorModel(
+		OllamaApi ollamaApi,
+		@Value("${app.ai.translator.model}") String ollamaTranslatorModel
+	) {
+		return OllamaChatModel.builder()
+			.ollamaApi(ollamaApi)
+			.defaultOptions(
+				OllamaOptions.builder()
+					.model(ollamaTranslatorModel)
+					.temperature(0.9)
+					.build()
+			)
+			.build();
+	}
+
+	@Bean
 	@ConditionalOnProperty(name = "app.ai.image-extraction.provider", havingValue = "ollama")
 	@Qualifier("imageExtractionModel")
 	public ChatModel defaultImageExtractionModel(

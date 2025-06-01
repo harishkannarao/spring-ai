@@ -28,6 +28,15 @@ public class ChatClientConfiguration {
 	}
 
 	@Bean
+	@Qualifier("translatorChatClient")
+	public ChatClient defaultTranslatorChatClient(
+		@Qualifier("translatorModel") ChatModel chatModel) {
+		return ChatClient.builder(chatModel)
+			.defaultAdvisors(List.of(new SimpleLoggerAdvisor()))
+			.build();
+	}
+
+	@Bean
 	@Qualifier("imageExtractionChatClient")
 	public ChatClient defaultImageExtractionChatClient(
 		@Qualifier("imageExtractionModel") ChatModel chatModel) {

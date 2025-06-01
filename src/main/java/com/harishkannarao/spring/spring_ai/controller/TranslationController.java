@@ -10,6 +10,7 @@ import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class TranslationController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	public TranslationController(ChatClient chatClient) {
+	public TranslationController(@Qualifier("translatorChatClient") ChatClient chatClient) {
 		this.chatClient = chatClient;
 	}
 

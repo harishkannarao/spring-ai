@@ -21,6 +21,13 @@ public class AwsBedrockConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnProperty(name = "app.ai.translator.provider", havingValue = "bedrock-converse")
+	@Qualifier("translatorModel")
+	public ChatModel defaultTranslatorModel(BedrockProxyChatModel bedrockProxyChatModel) {
+		return bedrockProxyChatModel;
+	}
+
+	@Bean
 	@ConditionalOnProperty(name = "app.ai.image-extraction.provider", havingValue = "bedrock-converse")
 	@Qualifier("imageExtractionModel")
 	public ChatModel defaultImageExtractionModel(BedrockProxyChatModel bedrockProxyChatModel) {

@@ -290,19 +290,19 @@
         }
       },
       {
-        "name": "Translate Bengali to English",
+        "name": "Translate",
         "url": "http://localhost:8080/spring-ai/translate",
         "method": "POST",
         "headers": [],
         "queryParams": [
           {
             "name": "sourceLang",
-            "value": "Bengali",
+            "value": "English",
             "enabled": true
           },
           {
             "name": "targetLang",
-            "value": "English",
+            "value": "Tamil",
             "enabled": true
           }
         ],
@@ -316,7 +316,7 @@
             "name": ""
           },
           "text": {
-            "value": "শুভ সকাল",
+            "value": "How are you?",
             "format": "application/json"
           },
           "form": {
