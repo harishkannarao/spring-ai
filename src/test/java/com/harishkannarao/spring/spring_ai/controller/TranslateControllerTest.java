@@ -1,29 +1,22 @@
 package com.harishkannarao.spring.spring_ai.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.harishkannarao.spring.spring_ai.entity.QuestionWithContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.UUID;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.assertArg;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-public class ChatControllerTest {
-
-	private static final ObjectMapper OBJECT_MAPPER = new Jackson2ObjectMapperBuilder().build();
+public class TranslateControllerTest {
 
 	private final ChatClient chatClient = mock();
 	private final ChatClient.ChatClientRequestSpec chatClientRequestSpec = mock();
@@ -34,29 +27,36 @@ public class ChatControllerTest {
 	@BeforeEach
 	public void setUp() {
 		mockMvc = MockMvcBuilders
-			.standaloneSetup(new ChatController(chatClient))
+			.standaloneSetup(new TranslationController(chatClient))
 			.build();
 	}
 
 	@Test
-	public void chatWithContext_returns_response_successfully() throws Exception {
-		QuestionWithContext input = new QuestionWithContext(
-			"some-context" + UUID.randomUUID(), "some-question" + UUID.randomUUID());
-		String inputJson = OBJECT_MAPPER.writeValueAsString(input);
-		String expectedResponse = "some-response" + UUID.randomUUID();
+	public void translate_returns_response_successfully() throws Exception {
+		String input = "How are you?";
+		String expectedResponse = "Output";
+		String sourceLanguage = "English";
+		String targetLanguage = "Tamil";
 
-		when(chatClient.prompt(
-			assertArg((Prompt prompt) -> assertThat(prompt.getContents())
-				.contains(input.context())
-				.contains(input.question()))
-		)).thenReturn(chatClientRequestSpec);
+		when(chatClient.prompt(assertArg((Prompt prompt) -> {
+			String contents = prompt.getContents();
+			assertThat(contents).contains(input);
+			assertThat(contents).contains("Translate from " + sourceLanguage);
+			assertThat(contents).contains("to " + targetLanguage);
+		}))).thenReturn(chatClientRequestSpec);
+		when(chatClientRequestSpec.system(assertArg((String systemText) -> {
+			assertThat(systemText)
+				.contains("You are a professional translator specializing in literal translation");
+		}))).thenReturn(chatClientRequestSpec);
 		when(chatClientRequestSpec.call()).thenReturn(callResponseSpec);
 		when(callResponseSpec.content()).thenReturn(expectedResponse);
 
 		MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders
-				.post("/chat-with-context")
-				.content(inputJson)
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.post("/translate")
+				.content(input)
+				.queryParam("sourceLang", sourceLanguage)
+				.queryParam("targetLang", targetLanguage)
+				.contentType(MediaType.TEXT_PLAIN)
 				.accept(MediaType.TEXT_PLAIN)
 			)
 			.andDo(print())
@@ -65,5 +65,10 @@ public class ChatControllerTest {
 
 		assertThat(response.getStatus()).isEqualTo(200);
 		assertThat(response.getContentAsString()).isEqualTo(expectedResponse);
+
+		verify(chatClient, times(1)).prompt(any(Prompt.class));
+		verify(chatClientRequestSpec, times(1)).system(any(String.class));
+		verify(chatClientRequestSpec, times(1)).call();
+		verify(callResponseSpec, times(1)).content();
 	}
 }
