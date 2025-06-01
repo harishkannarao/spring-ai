@@ -6,6 +6,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ public class TranslationController {
 		TokenTextSplitter tokenTextSplitter = new TokenTextSplitter();
 		Document inputDocument = new Document(request);
 		List<Document> splitDocuments = tokenTextSplitter.apply(List.of(inputDocument));
+		SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(systemTemplateResource);
+		String systemMessage = systemPromptTemplate.createMessage().getText();
 		PromptTemplate promptTemplate = new PromptTemplate(userTemplateResource);
 		List<String> transformed = splitDocuments.stream()
 			.map(document -> {
@@ -51,7 +54,7 @@ public class TranslationController {
 				Prompt prompt = new Prompt(userMessage);
 				String translatedText = chatClient
 					.prompt(prompt)
-					.system(systemTemplateResource)
+					.system(systemMessage)
 					.call()
 					.content();
 				log.info("Input {} Output {}", document.getText(), translatedText);
