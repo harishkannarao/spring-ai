@@ -2,7 +2,9 @@ spring:
   ai:
     model:
       chat: "openai"
-
+    vectorstore:
+      pgvector:
+        dimensions: "1536"
 app:
   ai:
     chat:
