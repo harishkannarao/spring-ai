@@ -23,6 +23,13 @@ spring:
     chat:
       client:
         enabled: false
+    openai:
+      api-key: ${OPEN_AI_KEY}
+      base-url: ${OPEN_AI_BASE_URL:https://api.openai.com}
+      chat:
+        completions-path: "/v1/chat/completions"
+        options:
+          model: ${OPEN_AI_CHAT_MODEL:gpt-4o-mini}
     bedrock:
       aws:
         region: "${AI_BEDROCK_AWS_REGION:us-east-1}"

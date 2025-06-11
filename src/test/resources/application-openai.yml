@@ -1,0 +1,15 @@
+spring:
+  ai:
+    model:
+      chat: "openai"
+
+app:
+  ai:
+    chat:
+      provider: "openai"
+    translator:
+      provider: "openai"
+    embedding:
+      provider: "openai"
+    image-extraction:
+      provider: "openai"

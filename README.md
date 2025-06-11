@@ -63,6 +63,12 @@ Restart dependencies
 
     ./mvnw clean test-compile exec:java@run-local-aws
 
+### Run application with maven local configuration against Open AI
+
+    export OPEN_AI_KEY={open_ai_key}
+
+    ./mvnw clean test-compile exec:java@run-local-openai
+
 ### Run application with java
 
     ./mvnw clean install -Dmaven.test.skip=true
