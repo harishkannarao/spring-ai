@@ -29,6 +29,8 @@ public class OllamaConfiguration {
 				OllamaOptions.builder()
 					.model(ollamaChatModel)
 					.temperature(0.9)
+// runs this model forever. default is 5 minutes
+//					.keepAlive("-1m")
 					.build()
 			)
 			.build();
@@ -47,6 +49,8 @@ public class OllamaConfiguration {
 				OllamaOptions.builder()
 					.model(ollamaTranslatorModel)
 					.temperature(0.9)
+// runs this model forever. default is 5 minutes
+//					.keepAlive("-1m")
 					.build()
 			)
 			.build();
@@ -65,6 +69,8 @@ public class OllamaConfiguration {
 				OllamaOptions.builder()
 					.model(ollamaImageExtractionModel)
 					.temperature(0.9)
+// runs this model forever. default is 5 minutes
+//					.keepAlive("-1m")
 					.build()
 			)
 			.build();
@@ -83,6 +89,8 @@ public class OllamaConfiguration {
 				OllamaOptions.builder()
 					.model(ollamaEmbeddingModel)
 					.temperature(0.9)
+// runs this model forever. default is 5 minutes
+//					.keepAlive("-1m")
 					.build()
 			)
 			.build();
