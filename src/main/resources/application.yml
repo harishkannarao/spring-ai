@@ -81,8 +81,8 @@ app:
       model: "${APP_AI_CHAT_MODEL:llama3.2:3b}"
     translator:
       provider: "${APP_AI_TRANSLATOR_PROVIDER:ollama}"
-      model: "${APP_AI_TRANSLATOR_MODEL:zongwei/gemma3-translator:1b}"
-      chunk-size: "${APP_AI_TRANSLATOR_CHUNK_SIZE:800}"
+      model: "${APP_AI_TRANSLATOR_MODEL:zongwei/gemma3-translator:4b}"
+      chunk-size: "${APP_AI_TRANSLATOR_CHUNK_SIZE:250}"
     embedding:
       provider: "${APP_AI_EMBEDDING_PROVIDER:ollama}"
       model: "${APP_AI_EMBEDDING_MODEL:mxbai-embed-large}"
