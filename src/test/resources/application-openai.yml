@@ -11,6 +11,7 @@ app:
       provider: "openai"
     translator:
       provider: "openai"
+      chunk-size: "10000"
     embedding:
       provider: "openai"
     image-extraction:

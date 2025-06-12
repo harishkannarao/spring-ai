@@ -27,7 +27,7 @@ public class TranslateControllerTest {
 	@BeforeEach
 	public void setUp() {
 		mockMvc = MockMvcBuilders
-			.standaloneSetup(new TranslationController(chatClient))
+			.standaloneSetup(new TranslationController(chatClient, 800))
 			.build();
 	}
 

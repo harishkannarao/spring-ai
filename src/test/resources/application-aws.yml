@@ -9,6 +9,7 @@ app:
       provider: "bedrock-converse"
     translator:
       provider: "bedrock-converse"
+      chunk-size: "1000"
     embedding:
       provider: "bedrock-converse"
     image-extraction:

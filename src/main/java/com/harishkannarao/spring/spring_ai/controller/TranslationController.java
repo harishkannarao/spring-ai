@@ -11,6 +11,7 @@ import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 @RestController
 public class TranslationController {
 	private final ChatClient chatClient;
+	private final int chunkSize;
 	private final ClassPathResource systemTemplateResource = new ClassPathResource(
 		"/prompts/translate-system-template.st");
 	private final ClassPathResource userTemplateResource = new ClassPathResource(
@@ -33,8 +35,11 @@ public class TranslationController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	public TranslationController(@Qualifier("translatorChatClient") ChatClient chatClient) {
+	public TranslationController(
+		@Qualifier("translatorChatClient") ChatClient chatClient,
+		@Value("${app.ai.translator.chunk-size}") int chunkSize) {
 		this.chatClient = chatClient;
+		this.chunkSize = chunkSize;
 	}
 
 	@PostMapping("/translate")
@@ -42,7 +47,9 @@ public class TranslationController {
 		@RequestBody String request,
 		@RequestParam String sourceLang,
 		@RequestParam String targetLang) {
-		TokenTextSplitter tokenTextSplitter = new TokenTextSplitter();
+		TokenTextSplitter tokenTextSplitter = TokenTextSplitter.builder()
+			.withChunkSize(chunkSize)
+			.build();
 		Document inputDocument = new Document(request);
 		List<Document> splitDocuments = tokenTextSplitter.apply(List.of(inputDocument));
 		SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(systemTemplateResource);
