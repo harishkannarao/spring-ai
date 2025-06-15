@@ -28,8 +28,7 @@ jobs:
     - name: 'CI Build Command'
       timeout-minutes: 20
       env:
-        APP_AI_CHAT_PROVIDER: 'ollama'
-        APP_AI_EMBEDDING_PROVIDER: 'ollama'
-        APP_AI_IMAGE_EXTRACTION_PROVIDER: 'ollama'
+        OPEN_AI_KEY: ${{ secrets.OPEN_AI_KEY }}
+        INTEGRATION_TEST_ACTIVE_PROFILES: 'it,openai'
       run: |
         ./ci-build.sh

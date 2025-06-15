@@ -16,7 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 @Import(value = {
 	IntegrationConfiguration.class
 })
-@ActiveProfiles({"it"})
+@ActiveProfiles(resolver = CustomActiveProfilesResolver.class)
 public abstract class AbstractBaseIT {
 
 	@LocalServerPort

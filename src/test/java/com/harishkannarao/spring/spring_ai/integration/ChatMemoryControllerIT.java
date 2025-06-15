@@ -90,7 +90,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 
 		ChatWithMemory input3 = new ChatWithMemory(
 			UUID.fromString(conversationId),
-			"What is the best place to live in the UK based on my interest?");
+			"What is my favorite sports?");
 
 		Response response3 = restClient()
 			.contentType(ContentType.JSON)
@@ -105,7 +105,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 
 		InputDocument inputDocument = new InputDocument(
 			"""
-				Slough is the best place to live in the UK
+				Slough is the best place to live in the UK. It has got a cricket club and football club.
 				""",
 			List.of(
 				new InputMetaData("key", "value"),
@@ -123,7 +123,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 
 		ChatWithMemory input4 = new ChatWithMemory(
 			UUID.fromString(conversationId),
-			"What is the best place to live in the UK based on my interest?");
+			"What is the best place to live in the UK based on my favorite sports?");
 
 		Response response4 = restClient()
 			.contentType(ContentType.JSON)
