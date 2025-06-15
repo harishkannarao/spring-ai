@@ -17,9 +17,3 @@ ollama --version
 ollama serve &
 
 curl --retry 300 --retry-delay 1 --retry-all-errors "http://localhost:11434"
-
-ollama pull llama3.2:3b
-
-ollama pull mxbai-embed-large
-
-ollama pull llava:7b
