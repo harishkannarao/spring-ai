@@ -29,7 +29,7 @@ spring:
       chat:
         completions-path: "/v1/chat/completions"
         options:
-          model: ${OPEN_AI_CHAT_MODEL:gpt-4o-mini}
+          model: ${OPEN_AI_CHAT_MODEL:gpt-4o}
     bedrock:
       aws:
         region: "${AI_BEDROCK_AWS_REGION:us-east-1}"
