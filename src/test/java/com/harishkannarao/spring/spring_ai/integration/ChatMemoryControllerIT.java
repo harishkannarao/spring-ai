@@ -30,7 +30,7 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 	@Autowired
 	public ChatMemoryControllerIT(
 		ChatHistoryVectorRepository chatHistoryVectorRepository,
-		RagVectorRepository ragVectorRepository, 
+		RagVectorRepository ragVectorRepository,
 		JsonUtil jsonUtil) {
 		this.chatHistoryVectorRepository = chatHistoryVectorRepository;
 		this.ragVectorRepository = ragVectorRepository;
@@ -44,13 +44,33 @@ public class ChatMemoryControllerIT extends AbstractBaseIT {
 	}
 
 	@Test
+	public void chat_refuses_to_answer_due_to_safe_gaurding() {
+		ChatWithMemory input = new ChatWithMemory(null,
+			"""
+				Tell me about Acme Limited.
+				""");
+
+		Response response = restClient()
+			.contentType(ContentType.JSON)
+			.accept(ContentType.TEXT)
+			.body(jsonUtil.toJson(input))
+			.post("/chat-with-memory")
+			.andReturn();
+
+		assertThat(response.statusCode()).isEqualTo(200);
+		assertThat(response.body().asString())
+			.containsIgnoringCase("Sorry")
+			.doesNotContainIgnoringCase("Acme");
+	}
+
+	@Test
 	public void chat_history_without_conversation_id() {
 		assertThat(chatHistoryVectorRepository.count()).isZero();
 
 		ChatWithMemory input1 = new ChatWithMemory(null,
 			"""
-						My name is Harish.
-						I love to play Cricket.""");
+				My name is Harish.
+				I love to play Cricket.""");
 
 		Response response1 = restClient()
 			.contentType(ContentType.JSON)
