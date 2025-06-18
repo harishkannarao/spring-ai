@@ -17,13 +17,13 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RagContollerChatIT extends AbstractBaseIT {
+public class RagControllerIT extends AbstractBaseIT {
 
 	private final RagVectorRepository ragVectorRepository;
 	private final JsonUtil jsonUtil;
 
 	@Autowired
-	public RagContollerChatIT(
+	public RagControllerIT(
 		RagVectorRepository ragVectorRepository, JsonUtil jsonUtil) {
 		this.ragVectorRepository = ragVectorRepository;
 		this.jsonUtil = jsonUtil;
