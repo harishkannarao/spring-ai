@@ -92,4 +92,43 @@ public class RagControllerIT extends AbstractBaseIT {
 		assertThat(aiResponse.statusCode()).isEqualTo(200);
 		assertThat(aiResponse.getBody().asPrettyString()).doesNotContain("Slough");
 	}
+
+	@Test
+	public void get_real_time_info_from_multiple_tools() {
+		Response aiResponse = restClient()
+			.contentType(ContentType.TEXT)
+			.accept(ContentType.TEXT)
+			.queryParam("q", """
+				How many tickets are available for Avatar Movie?
+				 And what is the weather in London?
+				""")
+			.get("/rag-chat-tools-callback")
+			.andReturn();
+
+		assertThat(aiResponse.statusCode()).isEqualTo(200);
+		assertThat(aiResponse.getBody().asPrettyString())
+			.containsIgnoringCase("tickets available")
+			.containsIgnoringCase("Avatar")
+			.containsIgnoringCase("weather")
+			.containsIgnoringCase("London")
+			.containsIgnoringCase("20 degrees");
+	}
+
+	@Test
+	public void take_real_time_action_using_tools() {
+		Response aiResponse = restClient()
+			.contentType(ContentType.TEXT)
+			.accept(ContentType.TEXT)
+			.queryParam("q", """
+				Book 3 tickets for Avatar Movie
+				""")
+			.get("/rag-chat-tools-callback")
+			.andReturn();
+
+		assertThat(aiResponse.statusCode()).isEqualTo(200);
+		assertThat(aiResponse.getBody().asPrettyString())
+			.containsIgnoringCase("3 tickets")
+			.containsIgnoringCase("success")
+			.containsIgnoringCase("Avatar");
+	}
 }
