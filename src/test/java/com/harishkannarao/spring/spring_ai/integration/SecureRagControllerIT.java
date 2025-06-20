@@ -95,4 +95,42 @@ public class SecureRagControllerIT extends AbstractBaseIT {
 		assertThat(aiResponseAfterRag.body().asString())
 			.containsIgnoringCase("Cricket");
 	}
+
+	@Test
+	public void verify_user2_response_with_rag() throws IOException {
+		String token = "user-token-2";
+		Response aiResponseBeforeRag = restClient()
+			.accept(ContentType.TEXT)
+			.headers(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+			.queryParam("q", """
+				What is the best place to live in the UK
+				""")
+			.get("/secure-rag-chat")
+			.andReturn();
+
+		assertThat(aiResponseBeforeRag.statusCode()).isEqualTo(200);
+		assertThat(aiResponseBeforeRag.body().asString())
+			.doesNotContainIgnoringCase("Football");
+
+		Response docIngestionResponse = restClient()
+			.contentType(ContentType.JSON)
+			.body(secureRagDocument.getContentAsString(StandardCharsets.UTF_8))
+			.post("/ingest-secure-document")
+			.andReturn();
+
+		assertThat(docIngestionResponse.getStatusCode()).isEqualTo(204);
+
+		Response aiResponseAfterRag = restClient()
+			.accept(ContentType.TEXT)
+			.headers(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+			.queryParam("q", """
+				What is the best place to live in the UK
+				""")
+			.get("/secure-rag-chat")
+			.andReturn();
+
+		assertThat(aiResponseAfterRag.statusCode()).isEqualTo(200);
+		assertThat(aiResponseAfterRag.body().asString())
+			.containsIgnoringCase("Football");
+	}
 }
