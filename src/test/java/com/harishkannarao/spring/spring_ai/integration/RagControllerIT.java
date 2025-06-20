@@ -111,7 +111,11 @@ public class RagControllerIT extends AbstractBaseIT {
 			.containsIgnoringCase("Avatar")
 			.containsIgnoringCase("weather")
 			.containsIgnoringCase("London")
-			.containsIgnoringCase("20 degrees");
+			.satisfiesAnyOf(
+				resp -> assertThat(resp).containsIgnoringCase("20 degrees"),
+				resp -> assertThat(resp).containsIgnoringCase("20C"),
+				resp -> assertThat(resp).containsIgnoringCase("20°C")
+			);
 	}
 
 	@Test
