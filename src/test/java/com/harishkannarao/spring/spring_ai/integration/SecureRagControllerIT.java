@@ -156,7 +156,12 @@ public class SecureRagControllerIT extends AbstractBaseIT {
 
 		assertThat(manager1Response.statusCode()).isEqualTo(200);
 		assertThat(manager1Response.body().asString())
-			.contains("£5000");
+			.satisfiesAnyOf(
+				resp -> assertThat(resp).contains("£5000"),
+				resp -> assertThat(resp).contains("£5,000"),
+				resp -> assertThat(resp).contains("£5000.00"),
+				resp -> assertThat(resp).contains("£5,000.00")
+			);
 
 		String managerToken2 = "manager-token-2";
 		Response manager2Response = restClient()
@@ -170,7 +175,12 @@ public class SecureRagControllerIT extends AbstractBaseIT {
 
 		assertThat(manager2Response.statusCode()).isEqualTo(200);
 		assertThat(manager2Response.body().asString())
-			.contains("£3000");
+			.satisfiesAnyOf(
+				resp -> assertThat(resp).contains("£3000"),
+				resp -> assertThat(resp).contains("£3,000"),
+				resp -> assertThat(resp).contains("£3000.00"),
+				resp -> assertThat(resp).contains("£3,000.00")
+			);
 
 		String regionalManagerToken = "region-manager-token-1";
 		Response regionalManagerResponse = restClient()
@@ -184,6 +194,11 @@ public class SecureRagControllerIT extends AbstractBaseIT {
 
 		assertThat(regionalManagerResponse.statusCode()).isEqualTo(200);
 		assertThat(regionalManagerResponse.body().asString())
-			.contains("£8000");
+			.satisfiesAnyOf(
+				resp -> assertThat(resp).contains("£8000"),
+				resp -> assertThat(resp).contains("£8,000"),
+				resp -> assertThat(resp).contains("£8000.00"),
+				resp -> assertThat(resp).contains("£8,000.00")
+			);
 	}
 }
