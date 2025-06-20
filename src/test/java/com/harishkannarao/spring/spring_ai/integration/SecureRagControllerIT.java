@@ -133,4 +133,57 @@ public class SecureRagControllerIT extends AbstractBaseIT {
 		assertThat(aiResponseAfterRag.body().asString())
 			.containsIgnoringCase("Football");
 	}
+
+	@Test
+	public void verify_rag_response_by_roles() throws IOException {
+		Response docIngestionResponse = restClient()
+			.contentType(ContentType.JSON)
+			.body(secureRagDocument.getContentAsString(StandardCharsets.UTF_8))
+			.post("/ingest-secure-document")
+			.andReturn();
+
+		assertThat(docIngestionResponse.getStatusCode()).isEqualTo(204);
+
+		String managerToken1 = "manager-token-1";
+		Response manager1Response = restClient()
+			.accept(ContentType.TEXT)
+			.headers(HttpHeaders.AUTHORIZATION, "Bearer " + managerToken1)
+			.queryParam("q", """
+				What is the total sales in 2024?
+				""")
+			.get("/secure-rag-chat")
+			.andReturn();
+
+		assertThat(manager1Response.statusCode()).isEqualTo(200);
+		assertThat(manager1Response.body().asString())
+			.contains("£5000");
+
+		String managerToken2 = "manager-token-2";
+		Response manager2Response = restClient()
+			.accept(ContentType.TEXT)
+			.headers(HttpHeaders.AUTHORIZATION, "Bearer " + managerToken2)
+			.queryParam("q", """
+				What is the total sales in 2024?
+				""")
+			.get("/secure-rag-chat")
+			.andReturn();
+
+		assertThat(manager2Response.statusCode()).isEqualTo(200);
+		assertThat(manager2Response.body().asString())
+			.contains("£3000");
+
+		String regionalManagerToken = "region-manager-token-1";
+		Response regionalManagerResponse = restClient()
+			.accept(ContentType.TEXT)
+			.headers(HttpHeaders.AUTHORIZATION, "Bearer " + regionalManagerToken)
+			.queryParam("q", """
+				What is the total sales in 2024?
+				""")
+			.get("/secure-rag-chat")
+			.andReturn();
+
+		assertThat(regionalManagerResponse.statusCode()).isEqualTo(200);
+		assertThat(regionalManagerResponse.body().asString())
+			.contains("£8000");
+	}
 }
