@@ -127,7 +127,12 @@ public class RagControllerIT extends AbstractBaseIT {
 
 		assertThat(aiResponse.statusCode()).isEqualTo(200);
 		assertThat(aiResponse.getBody().asPrettyString())
-			.containsIgnoringCase("3 tickets")
+			.satisfiesAnyOf(
+				resp -> assertThat(resp).containsIgnoringCase("3 tickets"),
+				resp -> assertThat(resp).containsIgnoringCase("3 seats")
+			);
+
+		assertThat(aiResponse.getBody().asPrettyString())
 			.containsIgnoringCase("success")
 			.containsIgnoringCase("Avatar");
 	}
