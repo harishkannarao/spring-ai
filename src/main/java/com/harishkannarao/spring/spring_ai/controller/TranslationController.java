@@ -28,10 +28,14 @@ import java.util.stream.Collectors;
 public class TranslationController {
 	private final ChatClient chatClient;
 	private final int chunkSize;
-	private final ClassPathResource systemTemplateResource = new ClassPathResource(
+	private final ClassPathResource translateSystemTemplate = new ClassPathResource(
 		"/prompts/translate-system-template.st");
-	private final ClassPathResource userTemplateResource = new ClassPathResource(
+	private final ClassPathResource translateUserTemplate = new ClassPathResource(
 		"/prompts/translate-user-template.st");
+	private final ClassPathResource transliterateSystemTemplate = new ClassPathResource(
+		"/prompts/transliterate-system-template.st");
+	private final ClassPathResource transliterateUserTemplate = new ClassPathResource(
+		"/prompts/transliterate-user-template.st");
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -52,9 +56,40 @@ public class TranslationController {
 			.build();
 		Document inputDocument = new Document(request);
 		List<Document> splitDocuments = tokenTextSplitter.apply(List.of(inputDocument));
-		SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(systemTemplateResource);
+		SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(translateSystemTemplate);
 		String systemMessage = systemPromptTemplate.createMessage().getText();
-		PromptTemplate promptTemplate = new PromptTemplate(userTemplateResource);
+		PromptTemplate promptTemplate = new PromptTemplate(translateUserTemplate);
+		List<String> transformed = splitDocuments.stream()
+			.map(document -> {
+				Message userMessage = promptTemplate.createMessage(
+					Map.of("text", Objects.requireNonNull(document.getText()), "source_lang", sourceLang, "target_lang", targetLang));
+				Prompt prompt = new Prompt(userMessage);
+				String translatedText = chatClient
+					.prompt(prompt)
+					.system(systemMessage)
+					.call()
+					.content();
+				log.info("Input {} Output {}", document.getText(), translatedText);
+				return translatedText;
+			})
+			.toList();
+		String result = transformed.stream().collect(Collectors.joining(System.lineSeparator()));
+		return ResponseEntity.ok(result);
+	}
+
+	@PostMapping("/transliterate")
+	public ResponseEntity<String> transliterate(
+		@RequestBody String request,
+		@RequestParam String sourceLang,
+		@RequestParam String targetLang) {
+		TokenTextSplitter tokenTextSplitter = TokenTextSplitter.builder()
+			.withChunkSize(chunkSize)
+			.build();
+		Document inputDocument = new Document(request);
+		List<Document> splitDocuments = tokenTextSplitter.apply(List.of(inputDocument));
+		SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(transliterateSystemTemplate);
+		String systemMessage = systemPromptTemplate.createMessage().getText();
+		PromptTemplate promptTemplate = new PromptTemplate(transliterateUserTemplate);
 		List<String> transformed = splitDocuments.stream()
 			.map(document -> {
 				Message userMessage = promptTemplate.createMessage(

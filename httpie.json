@@ -330,6 +330,46 @@
         }
       },
       {
+        "name": "Transliterate",
+        "url": "http://localhost:8080/spring-ai/transliterate",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [
+          {
+            "name": "sourceLang",
+            "value": "Tamil",
+            "enabled": true
+          },
+          {
+            "name": "targetLang",
+            "value": "English",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "அகர முதல எழுத்தெல்லாம் ஆதி",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
         "name": "RAG Question",
         "url": "localhost:8080/spring-ai/rag-chat",
         "method": "GET",

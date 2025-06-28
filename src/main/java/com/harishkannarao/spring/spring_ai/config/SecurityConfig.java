@@ -56,6 +56,7 @@ public class SecurityConfig {
 			"/books/by-author",
 			"/chat-with-context",
 			"/translate",
+			"/transliterate",
 			"/chat-with-memory",
 			"/clear-vector-db",
 			"/delete-conversation-id",

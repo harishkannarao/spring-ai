@@ -2,8 +2,11 @@ package com.harishkannarao.spring.spring_ai.integration;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TranslationControllerIT extends AbstractBaseIT {
 
@@ -20,12 +23,34 @@ public class TranslationControllerIT extends AbstractBaseIT {
 			.post("/translate")
 			.andReturn();
 
-		Assertions.assertThat(response.body().asString())
+		assertThat(response.body().asString())
 			.containsAnyOf(
 				"Comment es-tu ?",
 				"Comment êtes-vous ?",
 				"Comment vas-tu ?",
 				"Comment ça va ?"
+			);
+	}
+
+	@Test
+	public void transliterate_from_tamil_to_english() {
+		String input = "அகர முதல எழுத்தெல்லாம் ஆதி";
+
+		Response response = restClient()
+			.accept(ContentType.TEXT)
+			.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+			.body(input)
+			.queryParam("sourceLang", "Tamil")
+			.queryParam("targetLang", "English")
+			.post("/transliterate")
+			.andReturn();
+
+		assertThat(response.body().asString())
+			.containsAnyOf(
+				"Agaram",
+				"Mudhala",
+				"Ezhuththellaam",
+				"Aadhi"
 			);
 	}
 }
