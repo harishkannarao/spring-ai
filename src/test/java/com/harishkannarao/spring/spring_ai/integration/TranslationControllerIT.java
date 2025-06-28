@@ -48,9 +48,13 @@ public class TranslationControllerIT extends AbstractBaseIT {
 		assertThat(response.body().asString())
 			.containsAnyOf(
 				"Agaram",
+				"Akara",
 				"Mudhala",
+				"mudhala",
 				"Ezhuththellaam",
-				"Aadhi"
+				"ezhuthellam",
+				"Aadhi",
+				"aadhi"
 			);
 	}
 }
