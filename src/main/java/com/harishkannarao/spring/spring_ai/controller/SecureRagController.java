@@ -97,6 +97,7 @@ public class SecureRagController {
 		String documents = Objects.requireNonNull(vectorStore
 				.similaritySearch(SearchRequest.builder()
 					.query(q)
+					.topK(3) // number to top matching vector documents to retrieve
 					.filterExpression(expression)
 					.build()))
 			.stream()

@@ -81,7 +81,10 @@ public class RagController {
 	public Flux<String> chatWithRag(@RequestParam String q) {
 		log.info("Question {}", q);
 		String documents = Objects.requireNonNull(vectorStore
-				.similaritySearch(SearchRequest.builder().query(q).build()))
+				.similaritySearch(SearchRequest.builder()
+					.query(q)
+					.topK(2) // number to top matching vector documents to retrieve
+					.build()))
 			.stream()
 			.map(Document::getText)
 			.collect(Collectors.joining(System.lineSeparator()));
@@ -102,7 +105,10 @@ public class RagController {
 	public String chatWithRagWithTools(@RequestParam String q) {
 		log.info("Question {}", q);
 		String documents = Objects.requireNonNull(vectorStore
-				.similaritySearch(SearchRequest.builder().query(q).build()))
+				.similaritySearch(SearchRequest.builder()
+					.query(q)
+					.topK(2) // number to top matching vector documents to retrieve
+					.build()))
 			.stream()
 			.map(Document::getText)
 			.collect(Collectors.joining(System.lineSeparator()));
