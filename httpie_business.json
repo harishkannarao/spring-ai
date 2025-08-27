@@ -1,0 +1,476 @@
+{
+  "meta": {
+    "format": "httpie",
+    "version": "1.0.0",
+    "contentType": "collection",
+    "schema": "https://schema.httpie.io/1.0.0.json",
+    "docs": "https://httpie.io/r/help/export-from-httpie",
+    "source": "HTTPie Desktop 2025.2.0"
+  },
+  "entry": {
+    "name": "spring-ai-business",
+    "icon": {
+      "name": "default",
+      "color": "gray"
+    },
+    "auth": {
+      "type": "none"
+    },
+    "requests": [
+      {
+        "name": "Simple Stateless Chat",
+        "url": "localhost:8080/spring-ai/simple-chat",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "multipart/form-data",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": true,
+            "fields": [
+              {
+                "name": "input",
+                "value": "Tell me about London, England",
+                "enabled": true,
+                "type": "text"
+              }
+            ]
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Multimodal Chat - Image",
+        "url": "localhost:8080/spring-ai/image",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "multipart/form-data",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": true,
+            "fields": [
+              {
+                "name": "q",
+                "value": "Explain what do you see on this picture?",
+                "enabled": true,
+                "type": "text"
+              },
+              {
+                "name": "file",
+                "value": "",
+                "enabled": true,
+                "type": "file"
+              }
+            ]
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "No History Chat - Tell Name",
+        "url": "localhost:8080/spring-ai/simple-chat",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "multipart/form-data",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": true,
+            "fields": [
+              {
+                "name": "input",
+                "value": "My name is Harish",
+                "enabled": true,
+                "type": "text"
+              }
+            ]
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "No History Chat - Ask Name",
+        "url": "localhost:8080/spring-ai/simple-chat",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "multipart/form-data",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": true,
+            "fields": [
+              {
+                "name": "input",
+                "value": "What is my name?",
+                "enabled": true,
+                "type": "text"
+              }
+            ]
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Contextual Chat",
+        "url": "http://localhost:8080/spring-ai/chat-with-context",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"context\": \"My name is Harish\",\n  \"question\": \"What is my name?\"\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Clear Vector DB",
+        "url": "localhost:8080/spring-ai/clear-vector-db",
+        "method": "DELETE",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "none",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Phone Reviews Ingestion",
+        "url": "http://localhost:8080/spring-ai/ingest-document",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "[\n  {\n    \"content\": \"Review: Google Pixel 10 Pro: Best phone I ever had\",\n    \"metaData\": []\n  },\n  {\n    \"content\": \"Review: Google Pixel 10 Pro: Very crisp display and good quality sound\",\n    \"metaData\": []\n  },\n  {\n    \"content\": \"Review: Google Pixel 10 Pro: Long battery life\",\n    \"metaData\": []\n  },\n  {\n    \"content\": \"Review: Google Pixel 10 Pro: Battery drains quickly while playing games\",\n    \"metaData\": []\n  },\n  {\n    \"content\": \"Review: Google Pixel 10 Pro: Had a dead pixel and had to return it\",\n    \"metaData\": []\n  },\n  {\n    \"content\": \"Review: Apple iPhone 14: Good build quality and rugged\",\n    \"metaData\": []\n  },\n  {\n    \"content\": \"Review: Apple iPhone 14: Sharp display and quick charging\",\n    \"metaData\": []\n  },\n  {\n    \"content\": \"Review: Apple iPhone 14: Sound is not very load\",\n    \"metaData\": []\n  }\n]",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Phone Review Summary",
+        "url": "localhost:8080/spring-ai/rag-chat",
+        "method": "GET",
+        "headers": [],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "Summarize review of Google Pixel 10 Pro",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Clear User DB",
+        "url": "localhost:8080/spring-ai/clear-secure-rag-vector-db",
+        "method": "DELETE",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "none",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "User Data Ingestion",
+        "url": "http://localhost:8080/spring-ai/ingest-secure-document",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "[\n  {\n    \"content\": \"I like to play and watch Cricket\",\n    \"metaData\": {\n      \"id\": \"user-name-1\",\n      \"type\": \"USER\"\n    }\n  },\n  {\n    \"content\": \"I like to play and watch Football\",\n    \"metaData\": {\n      \"id\": \"user-name-2\",\n      \"type\": \"USER\"\n    }\n  }\n]",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Secure RAG Question — user 1",
+        "url": "localhost:8080/spring-ai/secure-rag-chat",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer user-token-1",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "What is the best place to live in the UK",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Secure RAG Question — user 2",
+        "url": "localhost:8080/spring-ai/secure-rag-chat",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer user-token-2",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "What is the best place to live in the UK",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      }
+    ]
+  }
+}
