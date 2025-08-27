@@ -810,6 +810,88 @@
             "variables": ""
           }
         }
+      },
+      {
+        "name": "Tool Calling - Get Real Time Info",
+        "url": "http://localhost:8080/spring-ai/rag-chat-tools-callback",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Accept",
+            "value": "text/plain",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "How many tickets are available for Avatar Movie? And what is the weather in London?",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "none",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Tool Calling - Take Real Time Action",
+        "url": "http://localhost:8080/spring-ai/rag-chat-tools-callback",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Accept",
+            "value": "text/plain",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "Book 3 tickets for Avatar Movie",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "none",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
       }
     ]
   }
