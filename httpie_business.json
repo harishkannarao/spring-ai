@@ -326,7 +326,189 @@
         }
       },
       {
-        "name": "Clear User DB",
+        "name": "Phone Spec Ingestion",
+        "url": "http://localhost:8080/spring-ai/ingest-document",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "[\n  {\n    \"content\": \"Specification: Google Pixel 10 Pro: 6.5 inch display. Supports eSIM and nano SIM. 2 nano SIM slots. Expandable microSD memory. USB-C charging. Wireless Charging. 8GB to 12GB RAM. 12 Core Processor. Android Auto.\",\n    \"metaData\": []\n  },\n  {\n    \"content\": \"Specification: Apple iPhone 14: 6.2 inch display. Supports eSIM only. USB-C charging. Wireless Charging. 12GB to 18GB RAM. Apple Silica Chip. Apple Carplay.\",\n    \"metaData\": []\n  }\n]",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Phone Spec Question",
+        "url": "localhost:8080/spring-ai/rag-chat",
+        "method": "GET",
+        "headers": [],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "Does Google Pixel 10 Pro support multiple SIMs?",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Travel Itinerary - Default",
+        "url": "localhost:8080/spring-ai/simple-chat",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "multipart/form-data",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": true,
+            "fields": [
+              {
+                "name": "input",
+                "value": "Build a Travel Itinerary for a Family of 2 Adults and 2 Kids for a Weekend in Paris, France.",
+                "enabled": true,
+                "type": "text"
+              }
+            ]
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Hotel Guest Promotion",
+        "url": "http://localhost:8080/spring-ai/ingest-document",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "[\n  {\n    \"content\": \"50% discount in entry ticket for Jardin d'Acclimatation Amusement Park. Amazing value deal for family holiday in Paris\",\n    \"metaData\": []\n  },\n  {\n    \"content\": \"Free entry at Palace of Versailles for a family of 4. Best deal for family visitors\",\n    \"metaData\": []\n  }\n]",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Travel Itinerary - RAG",
+        "url": "localhost:8080/spring-ai/rag-chat",
+        "method": "GET",
+        "headers": [],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "Build a Travel Itinerary for a Family of 2 Adults and 2 Kids for a Weekend in Paris, France.",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Clear Secure Vector DB",
         "url": "localhost:8080/spring-ai/clear-secure-rag-vector-db",
         "method": "DELETE",
         "headers": [],
@@ -445,6 +627,164 @@
           {
             "name": "q",
             "value": "What is the best place to live in the UK",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Store Sales Ingestion",
+        "url": "http://localhost:8080/spring-ai/ingest-secure-document",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "[\n  {\n    \"content\": \"Total sales of Store 01 in 2024 is £5000\",\n    \"metaData\": {\n      \"id\": \"store-01\",\n      \"type\": \"STORE\"\n    }\n  },\n  {\n    \"content\": \"Total sales of Store 02 in 2024 is £3000\",\n    \"metaData\": {\n      \"id\": \"store-02\",\n      \"type\": \"STORE\"\n    }\n  }\n]",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Secure RAG Question — store manager 1",
+        "url": "localhost:8080/spring-ai/secure-rag-chat",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer manager-token-1",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "What is the total sales in 2024?",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Secure RAG Question — store manager 2",
+        "url": "localhost:8080/spring-ai/secure-rag-chat",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer manager-token-2",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "What is the total sales in 2024?",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Secure RAG Question — regional manager",
+        "url": "localhost:8080/spring-ai/secure-rag-chat",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer region-manager-token-1",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "q",
+            "value": "What is the total sales in 2024?",
             "enabled": true
           }
         ],
