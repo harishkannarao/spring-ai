@@ -297,12 +297,12 @@
         "queryParams": [
           {
             "name": "sourceLang",
-            "value": "Tamil",
+            "value": "English",
             "enabled": true
           },
           {
             "name": "targetLang",
-            "value": "English",
+            "value": "Tamil",
             "enabled": true
           }
         ],
@@ -316,7 +316,7 @@
             "name": ""
           },
           "text": {
-            "value": "ஐம்பொறி வாயிலாக பிறக்கும் வேட்கைகளை அவித்த இறைவனுடைய பொய்யற்ற ஒழுக்க நெறியில் நின்றவர், நிலை பெற்ற நல்வாழ்க்கை வாழ்வர்",
+            "value": "That lore is vain which does not fall  At His good feet who knoweth all",
             "format": "application/json"
           },
           "form": {
@@ -1083,6 +1083,52 @@
           },
           "text": {
             "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Convert to QA Format",
+        "url": "localhost:8080/spring-ai/synthetic-data/convert-to-qa",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "text/plain",
+            "enabled": true
+          },
+          {
+            "name": "Accept",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [
+          {
+            "name": "numPairs",
+            "value": "5",
+            "enabled": true
+          }
+        ],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "This article was published on 23rd September 2025.\n\nThis article describes about character Kryapto in Indian Epic Mahabaratha.\n\nKryapto had was a might and brave warrior, who was extremely tall with long hair.\n\nAnd he was the oldest warrior to have fought in Kurukshetra war and one of he survivors after the war.",
             "format": "application/json"
           },
           "form": {
