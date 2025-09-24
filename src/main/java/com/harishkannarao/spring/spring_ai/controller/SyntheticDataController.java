@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -41,13 +42,17 @@ public class SyntheticDataController {
 		@RequestBody String content,
 		@RequestParam(name = "numPairs", defaultValue = "25") Integer numPairs) {
 		log.info("Generation {} qa pairs from content {}", numPairs, content);
-		BeanOutputConverter<QuestionAnswerWrapper> outputParser = new BeanOutputConverter<>(QuestionAnswerWrapper.class);
-		String format = outputParser.getFormat();
-		PromptTemplate promptTemplate = new PromptTemplate(qaGenerationResource);
-		promptTemplate.add("num_pairs", numPairs);
-		promptTemplate.add("text", content);
-		promptTemplate.add("format", format);
-		Prompt prompt = promptTemplate.create();
+		BeanOutputConverter<QuestionAnswerWrapper> outputParser =
+			new BeanOutputConverter<>(QuestionAnswerWrapper.class);
+		Prompt prompt = PromptTemplate.builder()
+			.resource(qaGenerationResource)
+			.variables(Map.ofEntries(
+				Map.entry("num_pairs", numPairs),
+				Map.entry("text", content),
+				Map.entry("format", outputParser.getFormat())
+			))
+			.build()
+			.create();
 		String response = chatClient.prompt(prompt)
 			.call()
 			.content();
