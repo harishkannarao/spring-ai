@@ -1,6 +1,7 @@
 package com.harishkannarao.spring.spring_ai.controller;
 
 import com.harishkannarao.spring.spring_ai.entity.AuthorResult;
+import com.harishkannarao.spring.spring_ai.entity.FineTuningFormat;
 import com.harishkannarao.spring.spring_ai.entity.QuestionAnswer;
 import com.harishkannarao.spring.spring_ai.entity.QuestionAnswerWrapper;
 import org.slf4j.Logger;
@@ -59,5 +60,22 @@ public class SyntheticDataController {
 		log.info("Response from LLM {}", response);
 		QuestionAnswerWrapper result = outputParser.convert(Objects.requireNonNull(response));
 		return ResponseEntity.ok(result);
+	}
+
+	@PostMapping(path = "/convert-to-ft",
+		consumes = MediaType.APPLICATION_JSON_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<FineTuningFormat>> convertToFt(
+		@RequestBody QuestionAnswerWrapper input) {
+		log.info("Received qa pairs {}", input);
+		List<FineTuningFormat> response = input.qaPairs().stream()
+			.map(qa -> new FineTuningFormat(List.of(
+				new FineTuningFormat.Content("You are a helpful assistant.", FineTuningFormat.Content.Role.system),
+				new FineTuningFormat.Content(qa.question(), FineTuningFormat.Content.Role.user),
+				new FineTuningFormat.Content(qa.answer(), FineTuningFormat.Content.Role.assistant)
+			)))
+			.toList();
+		log.info("Response as ft {}", response);
+		return ResponseEntity.ok(response);
 	}
 }

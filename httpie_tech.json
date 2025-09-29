@@ -1096,7 +1096,7 @@
         }
       },
       {
-        "name": "Convert to QA Format",
+        "name": "Convert Article to QA Format",
         "url": "localhost:8080/spring-ai/synthetic-data/convert-to-qa",
         "method": "POST",
         "headers": [
@@ -1129,6 +1129,46 @@
           },
           "text": {
             "value": "This article was published on 23rd September 2025.\n\nThis article describes about character Kryapto in Indian Epic Mahabaratha.\n\nKryapto had was a might and brave warrior, who was extremely tall with long hair.\n\nAnd he was the oldest warrior to have fought in Kurukshetra war and one of he survivors after the war.",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "Convert QA to FT Format",
+        "url": "localhost:8080/spring-ai/synthetic-data/convert-to-ft",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          },
+          {
+            "name": "Accept",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"qaPairs\": [\n    {\n      \"question\": \"When was the article published?\",\n      \"answer\": \"The article was published on 23rd September 2025.\"\n    },\n    {\n      \"question\": \"Which Indian epic features the character Kryapto?\",\n      \"answer\": \"The character Kryapto is featured in the Indian epic Mahabharata.\"\n    },\n    {\n      \"question\": \"What are the notable characteristics of Kryapto?\",\n      \"answer\": \"Kryapto was a mighty and brave warrior, extremely tall with long hair.\"\n    },\n    {\n      \"question\": \"What is significant about Kryapto's age during the Kurukshetra war?\",\n      \"answer\": \"Kryapto was the oldest warrior to have fought in the Kurukshetra war.\"\n    },\n    {\n      \"question\": \"What was Kryapto's status after the Kurukshetra war?\",\n      \"answer\": \"Kryapto was one of the survivors after the Kurukshetra war.\"\n    }\n  ]\n}",
             "format": "application/json"
           },
           "form": {

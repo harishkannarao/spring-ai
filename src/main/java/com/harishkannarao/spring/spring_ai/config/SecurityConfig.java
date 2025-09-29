@@ -74,7 +74,8 @@ public class SecurityConfig {
 			"/secure-rag-chat",
 			"/ingest-secure-document",
 			"/clear-secure-rag-vector-db",
-			"/synthetic-data/convert-to-qa"
+			"/synthetic-data/convert-to-qa",
+			"/synthetic-data/convert-to-ft"
 		).permitAll();
 
 		auth.anyRequest().denyAll();
