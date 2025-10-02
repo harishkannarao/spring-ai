@@ -4,14 +4,14 @@ spring:
       chat: "openai"
     vectorstore:
       pgvector:
-        dimensions: "1536"
+        dimensions: "1024"
     openai:
       api-key: "SAMPLE_SECRET_FROM_VAULT"
       base-url: "http://localhost:8000"
       chat:
         completions-path: "/v1/chat/completions"
         options:
-          model: "HuggingFaceH4/zephyr-7b-beta"
+          model: "openai/gpt-oss-20b"
 app:
   ai:
     chat:
@@ -20,6 +20,6 @@ app:
       provider: "openai"
       chunk-size: "10000"
     embedding:
-      provider: "openai"
+      provider: "ollama"
     image-extraction:
       provider: "openai"
