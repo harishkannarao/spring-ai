@@ -1,0 +1,25 @@
+spring:
+  ai:
+    model:
+      chat: "openai"
+    vectorstore:
+      pgvector:
+        dimensions: "1536"
+    openai:
+      api-key: "SAMPLE_SECRET_FROM_VAULT"
+      base-url: "http://localhost:8000"
+      chat:
+        completions-path: "/v1/chat/completions"
+        options:
+          model: "HuggingFaceH4/zephyr-7b-beta"
+app:
+  ai:
+    chat:
+      provider: "openai"
+    translator:
+      provider: "openai"
+      chunk-size: "10000"
+    embedding:
+      provider: "openai"
+    image-extraction:
+      provider: "openai"

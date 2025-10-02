@@ -190,6 +190,16 @@
 							<classpathScope>test</classpathScope>
 						</configuration>
 					</execution>
+					<execution>
+						<id>run-private-vllm</id>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>com.harishkannarao.spring.spring_ai.runner.ApplicationLocalPrivateVllmRunner</mainClass>
+							<classpathScope>test</classpathScope>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>

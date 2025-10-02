@@ -47,15 +47,15 @@ Restart dependencies
 
     ./mvnw clean install
 
-### Run application with maven
+### Run the application with maven
 
     ./mvnw clean spring-boot:run
 
-### Run application with maven local configuration against ollama
+### Run the application with maven local configuration against ollama
 
     ./mvnw clean test-compile exec:java@run-local
 
-### Run application with maven local configuration against AWS AI
+### Run the application with maven local configuration against AWS AI
 
     export AWS_AI_ACCESS_KEY_ID={aws_key_id}
 
@@ -63,11 +63,15 @@ Restart dependencies
 
     ./mvnw clean test-compile exec:java@run-local-aws
 
-### Run application with maven local configuration against Open AI
+### Run the application with maven local configuration against Open AI
 
     export OPEN_AI_KEY={open_ai_key}
 
     ./mvnw clean test-compile exec:java@run-local-openai
+
+### Run the application with maven local configuration against private vLLM
+
+    ./mvnw clean test-compile exec:java@run-private-vllm
 
 ### Run application with java
 
