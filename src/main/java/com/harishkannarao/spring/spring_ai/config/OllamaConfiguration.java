@@ -6,12 +6,16 @@ import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.management.ModelManagementOptions;
+import org.springframework.ai.ollama.management.PullModelStrategy;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
+import java.time.Duration;
 
 @Configuration
 public class OllamaConfiguration {
@@ -25,6 +29,11 @@ public class OllamaConfiguration {
 	) {
 		return OllamaChatModel.builder()
 			.ollamaApi(ollamaApi)
+			.modelManagementOptions(
+				ModelManagementOptions.builder()
+					.pullModelStrategy(PullModelStrategy.WHEN_MISSING)
+					.timeout(Duration.ofMinutes(5))
+					.build())
 			.defaultOptions(
 				OllamaOptions.builder()
 					.model(ollamaChatModel)
@@ -45,6 +54,11 @@ public class OllamaConfiguration {
 	) {
 		return OllamaChatModel.builder()
 			.ollamaApi(ollamaApi)
+			.modelManagementOptions(
+				ModelManagementOptions.builder()
+					.pullModelStrategy(PullModelStrategy.WHEN_MISSING)
+					.timeout(Duration.ofMinutes(5))
+					.build())
 			.defaultOptions(
 				OllamaOptions.builder()
 					.model(ollamaTranslatorModel)
@@ -65,6 +79,11 @@ public class OllamaConfiguration {
 	) {
 		return OllamaChatModel.builder()
 			.ollamaApi(ollamaApi)
+			.modelManagementOptions(
+				ModelManagementOptions.builder()
+					.pullModelStrategy(PullModelStrategy.WHEN_MISSING)
+					.timeout(Duration.ofMinutes(5))
+					.build())
 			.defaultOptions(
 				OllamaOptions.builder()
 					.model(ollamaImageExtractionModel)
@@ -85,6 +104,11 @@ public class OllamaConfiguration {
 	) {
 		return OllamaEmbeddingModel.builder()
 			.ollamaApi(ollamaApi)
+			.modelManagementOptions(
+				ModelManagementOptions.builder()
+					.pullModelStrategy(PullModelStrategy.WHEN_MISSING)
+					.timeout(Duration.ofMinutes(5))
+					.build())
 			.defaultOptions(
 				OllamaOptions.builder()
 					.model(ollamaEmbeddingModel)
