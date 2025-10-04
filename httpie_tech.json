@@ -1180,6 +1180,48 @@
             "variables": ""
           }
         }
+      },
+      {
+        "name": "Fine Tuned Question",
+        "url": "localhost:8080/spring-ai/simple-chat",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "multipart/form-data",
+            "enabled": true
+          }
+        ],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "form",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": true,
+            "fields": [
+              {
+                "name": "input",
+                "value": "Did Kryapto survive in Kurukshetra war?",
+                "enabled": true,
+                "type": "text"
+              }
+            ]
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
       }
     ]
   }
