@@ -43,6 +43,8 @@ Restart dependencies
 
     ollama pull llava:7b
 
+    ollama pull zongwei/gemma3-translator:4b
+
 ### Build command
 
     ./mvnw clean install
