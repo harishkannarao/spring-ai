@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.5</version>
+		<version>4.1.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.harishkannarao.spring</groupId>
@@ -14,8 +14,8 @@
 	<name>spring-ai</name>
 	<description>Demo project for Spring AI</description>
 	<properties>
-		<java.version>21</java.version>
-		<spring-ai.version>1.0.0</spring-ai.version>
+		<java.version>25</java.version>
+		<spring-ai.version>2.0.1</spring-ai.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -85,12 +85,12 @@
 		<dependency>
 			<groupId>dev.akkinoc.spring.boot</groupId>
 			<artifactId>logback-access-spring-boot-starter</artifactId>
-			<version>4.5.0</version>
+			<version>5.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback.access</groupId>
 			<artifactId>logback-access-tomcat</artifactId>
-			<version>2.0.6</version>
+			<version>2.0.15</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -110,7 +110,7 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>5.5.1</version>
+			<version>6.0.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -136,7 +136,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.2.2</version>
+				<version>3.5.6</version>
 				<configuration>
 					<environmentVariables>
 						<TESTCONTAINERS_RYUK_DISABLED>true</TESTCONTAINERS_RYUK_DISABLED>
@@ -147,7 +147,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>3.2.2</version>
+				<version>3.5.6</version>
 				<configuration>
 					<environmentVariables>
 						<TESTCONTAINERS_RYUK_DISABLED>true</TESTCONTAINERS_RYUK_DISABLED>
@@ -158,7 +158,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.6.3</version>
 				<executions>
 					<execution>
 						<id>run-local</id>
