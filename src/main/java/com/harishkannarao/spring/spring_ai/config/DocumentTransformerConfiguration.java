@@ -12,10 +12,10 @@ import java.util.List;
 @Configuration
 public class DocumentTransformerConfiguration {
 
-//	@Bean
-//	public TokenTextSplitter tokenTextSplitter() {
-//		return new TokenTextSplitter();
-//	}
+	@Bean
+	public TokenTextSplitter tokenTextSplitter() {
+		return TokenTextSplitter.builder().build();
+	}
 
 	@Bean
 	public KeywordMetadataEnricher keywordMetadataEnricher(ChatModel chatModel) {
