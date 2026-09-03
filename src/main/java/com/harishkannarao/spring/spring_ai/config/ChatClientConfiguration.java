@@ -71,12 +71,7 @@ public class ChatClientConfiguration {
 			"Sorry, I can't respond to this request",
 			0);
 		return ChatClient.builder(chatModel)
-			.defaultAdvisors(List.of(
-					safeGuardAdvisor,
-					vectorStoreChatMemoryAdvisor,
-					new SimpleLoggerAdvisor()
-				)
-			)
+			.defaultAdvisors(List.of(safeGuardAdvisor, vectorStoreChatMemoryAdvisor, new SimpleLoggerAdvisor()))
 			.defaultSystem("You are a helpful AI Assistant answering questions")
 			.build();
 	}
