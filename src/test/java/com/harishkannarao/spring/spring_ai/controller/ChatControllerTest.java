@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 public class ChatControllerTest {
 
-//	private static final ObjectMapper OBJECT_MAPPER = new Jackson2ObjectMapperBuilder().build();
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	private final ChatClient chatClient = mock();
 	private final ChatClient.ChatClientRequestSpec chatClientRequestSpec = mock();
@@ -38,32 +38,32 @@ public class ChatControllerTest {
 			.build();
 	}
 
-//	@Test
-//	public void chatWithContext_returns_response_successfully() throws Exception {
-//		QuestionWithContext input = new QuestionWithContext(
-//			"some-context" + UUID.randomUUID(), "some-question" + UUID.randomUUID());
-//		String inputJson = OBJECT_MAPPER.writeValueAsString(input);
-//		String expectedResponse = "some-response" + UUID.randomUUID();
-//
-//		when(chatClient.prompt(
-//			assertArg((Prompt prompt) -> assertThat(prompt.getContents())
-//				.contains(input.context())
-//				.contains(input.question()))
-//		)).thenReturn(chatClientRequestSpec);
-//		when(chatClientRequestSpec.call()).thenReturn(callResponseSpec);
-//		when(callResponseSpec.content()).thenReturn(expectedResponse);
-//
-//		MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders
-//				.post("/chat-with-context")
-//				.content(inputJson)
-//				.contentType(MediaType.APPLICATION_JSON_VALUE)
-//				.accept(MediaType.TEXT_PLAIN)
-//			)
-//			.andDo(print())
-//			.andReturn()
-//			.getResponse();
-//
-//		assertThat(response.getStatus()).isEqualTo(200);
-//		assertThat(response.getContentAsString()).isEqualTo(expectedResponse);
-//	}
+	@Test
+	public void chatWithContext_returns_response_successfully() throws Exception {
+		QuestionWithContext input = new QuestionWithContext(
+			"some-context" + UUID.randomUUID(), "some-question" + UUID.randomUUID());
+		String inputJson = OBJECT_MAPPER.writeValueAsString(input);
+		String expectedResponse = "some-response" + UUID.randomUUID();
+
+		when(chatClient.prompt(
+			assertArg((Prompt prompt) -> assertThat(prompt.getContents())
+				.contains(input.context())
+				.contains(input.question()))
+		)).thenReturn(chatClientRequestSpec);
+		when(chatClientRequestSpec.call()).thenReturn(callResponseSpec);
+		when(callResponseSpec.content()).thenReturn(expectedResponse);
+
+		MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders
+				.post("/chat-with-context")
+				.content(inputJson)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.accept(MediaType.TEXT_PLAIN)
+			)
+			.andDo(print())
+			.andReturn()
+			.getResponse();
+
+		assertThat(response.getStatus()).isEqualTo(200);
+		assertThat(response.getContentAsString()).isEqualTo(expectedResponse);
+	}
 }
