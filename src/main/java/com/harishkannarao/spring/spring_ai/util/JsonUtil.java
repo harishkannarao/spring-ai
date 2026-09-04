@@ -1,10 +1,9 @@
 package com.harishkannarao.spring.spring_ai.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 public class JsonUtil {
@@ -16,26 +15,14 @@ public class JsonUtil {
 	}
 
 	public String toJson(Object input) {
-		try {
-			return objectMapper.writeValueAsString(input);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
+		return objectMapper.writeValueAsString(input);
 	}
 
 	public  <T> T fromJson(String content, Class<T> valueType) {
-		try {
-			return objectMapper.readValue(content, valueType);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
+		return objectMapper.readValue(content, valueType);
 	}
 
 	public JsonNode toJsonNode(String content) {
-		try {
-			return objectMapper.readTree(content);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
+		return objectMapper.readTree(content);
 	}
 }

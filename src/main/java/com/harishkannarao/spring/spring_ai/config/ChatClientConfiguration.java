@@ -52,7 +52,7 @@ public class ChatClientConfiguration {
 		ChatModel chatModel,
 		List<ToolCallback> tools) {
 		return ChatClient.builder(chatModel)
-			.defaultToolCallbacks(tools)
+			.defaultTools(tools)
 			.defaultAdvisors(List.of(new SimpleLoggerAdvisor()))
 			.defaultSystem("You are a helpful AI Assistant answering questions")
 			.build();

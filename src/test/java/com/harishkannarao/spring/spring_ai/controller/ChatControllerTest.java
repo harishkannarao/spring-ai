@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+//import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 public class ChatControllerTest {
 
-	private static final ObjectMapper OBJECT_MAPPER = new Jackson2ObjectMapperBuilder().build();
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	private final ChatClient chatClient = mock();
 	private final ChatClient.ChatClientRequestSpec chatClientRequestSpec = mock();
