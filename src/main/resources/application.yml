@@ -28,7 +28,7 @@ spring:
       base-url: ${OPEN_AI_BASE_URL:https://api.openai.com/v1}
       chat:
         options:
-          model: ${OPEN_AI_CHAT_MODEL:gpt-4o}
+          model: ${OPEN_AI_CHAT_MODEL:gpt-5-mini}
     bedrock:
       aws:
         region: "${AI_BEDROCK_AWS_REGION:us-east-1}"
