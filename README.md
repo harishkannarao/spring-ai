@@ -5,7 +5,7 @@ This repository is a playground for learning and experimenting new ideas with AI
 [![Build Status](https://github.com/harishkannarao/spring-ai/workflows/CI-main/badge.svg)](https://github.com/harishkannarao/spring-ai/actions?query=workflow%3ACI-main)
 
 ### Required Software and Tools
-* Java Version: 21 (Execute **_java -version_** in command line after installation)
+* Java Version: 25 (Execute **_java -version_** in command line after installation)
 * Ollama: latest (Execute **ollama -v** in command line after installation)
 * Docker: latest (Execute **docker --version** in command line after installation)
 * Docker Compose: latest (Execute **docker compose version** in command line after installation)

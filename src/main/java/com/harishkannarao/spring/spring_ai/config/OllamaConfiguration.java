@@ -5,7 +5,8 @@ import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.ai.ollama.api.OllamaOptions;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
+import org.springframework.ai.ollama.api.OllamaEmbeddingOptions;
 import org.springframework.ai.ollama.management.ModelManagementOptions;
 import org.springframework.ai.ollama.management.PullModelStrategy;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +35,8 @@ public class OllamaConfiguration {
 					.pullModelStrategy(PullModelStrategy.WHEN_MISSING)
 					.timeout(Duration.ofMinutes(5))
 					.build())
-			.defaultOptions(
-				OllamaOptions.builder()
+			.options(
+				OllamaChatOptions.builder()
 					.model(ollamaChatModel)
 					.temperature(0.9)
 // runs this model forever. default is 5 minutes
@@ -59,8 +60,8 @@ public class OllamaConfiguration {
 					.pullModelStrategy(PullModelStrategy.WHEN_MISSING)
 					.timeout(Duration.ofMinutes(5))
 					.build())
-			.defaultOptions(
-				OllamaOptions.builder()
+			.options(
+				OllamaChatOptions.builder()
 					.model(ollamaTranslatorModel)
 					.temperature(0.9)
 // runs this model forever. default is 5 minutes
@@ -84,8 +85,8 @@ public class OllamaConfiguration {
 					.pullModelStrategy(PullModelStrategy.WHEN_MISSING)
 					.timeout(Duration.ofMinutes(5))
 					.build())
-			.defaultOptions(
-				OllamaOptions.builder()
+			.options(
+				OllamaChatOptions.builder()
 					.model(ollamaImageExtractionModel)
 					.temperature(0.9)
 // runs this model forever. default is 5 minutes
@@ -109,10 +110,9 @@ public class OllamaConfiguration {
 					.pullModelStrategy(PullModelStrategy.WHEN_MISSING)
 					.timeout(Duration.ofMinutes(5))
 					.build())
-			.defaultOptions(
-				OllamaOptions.builder()
+			.options(
+				OllamaEmbeddingOptions.builder()
 					.model(ollamaEmbeddingModel)
-					.temperature(0.9)
 // runs this model forever. default is 5 minutes
 //					.keepAlive("-1m")
 					.build()

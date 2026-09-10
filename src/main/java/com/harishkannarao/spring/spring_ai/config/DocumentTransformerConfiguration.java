@@ -14,7 +14,7 @@ public class DocumentTransformerConfiguration {
 
 	@Bean
 	public TokenTextSplitter tokenTextSplitter() {
-		return new TokenTextSplitter();
+		return TokenTextSplitter.builder().build();
 	}
 
 	@Bean
