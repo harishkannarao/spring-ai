@@ -10,7 +10,7 @@ import java.util.Properties;
 public class ApplicationLocalPrivateVllmRunner {
 	public static void main(String[] args) {
 		final Properties properties = new Properties();
-		properties.setProperty("spring.profiles.active", "local,private-vllm");
+		properties.setProperty("spring.profiles.active", "local,vllm");
 		String[] appArguments = properties.entrySet()
 			.stream()
 			.map(entry -> "--%s=%s".formatted(entry.getKey(), entry.getValue()))

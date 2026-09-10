@@ -92,15 +92,13 @@ app:
 vllm:
   chat:
     api-key: "${VLLM_CHAT_API_KEY:SAMPLE_SECRET_FROM_VAULT}"
-    base-url: "${VLLM_CHAT_API_BASE_URL:http://localhost:8000}"
+    base-url: "${VLLM_CHAT_API_BASE_URL:http://localhost:8000/v1}"
     timeout: "PT120S"
-    completions-path: "/v1/chat/completions"
     model: "${VLLM_CHAT_MODEL:openai/gpt-oss-20b}"
   embedding:
     api-key: "${VLLM_EMBEDDING_API_KEY:SAMPLE_SECRET_FROM_VAULT}"
-    base-url: "${VLLM_EMBEDDING_API_BASE_URL:http://localhost:8001}"
+    base-url: "${VLLM_EMBEDDING_API_BASE_URL:http://localhost:8001/v1}"
     timeout: "PT120S"
-    completions-path: "/v1/chat/completions"
     model: "${VLLM_EMBEDDING_MODEL:mixedbread-ai/mxbai-embed-large-v1}"
 
 logging:
