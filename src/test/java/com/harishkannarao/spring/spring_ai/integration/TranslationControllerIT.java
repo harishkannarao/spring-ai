@@ -25,6 +25,7 @@ public class TranslationControllerIT extends AbstractBaseIT {
 
 		assertThat(response.body().asString())
 			.containsAnyOf(
+				"Comment allez-vous ?",
 				"Comment es-tu ?",
 				"Comment êtes-vous ?",
 				"Comment vas-tu ?",
