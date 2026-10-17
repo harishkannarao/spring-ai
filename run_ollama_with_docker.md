@@ -15,6 +15,10 @@ Verify installation of docker engine and docker client using the commands
 
     docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama-engine ollama/ollama
 
+### Start Ollama engine with docker with higher context
+
+    docker run -d -v ollama:/root/.ollama --env OLLAMA_CONTEXT_LENGTH="32768" -p 11434:11434 --name ollama-engine ollama/ollama
+
 ### Run a LLM with interactive mode
 
     docker exec -it ollama-engine ollama run llama3.2:3b

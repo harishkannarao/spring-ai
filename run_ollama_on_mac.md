@@ -6,6 +6,12 @@ In first terminal execute the command and leave it running, press `Ctrl+C` to st
 
     ollama serve
 
+To increase context size, set the environment variable to higher value and start ollama
+
+    export OLLAMA_CONTEXT_LENGTH="32768"
+
+    ollama serve
+
 In second terminal, pull the LLM model
 
     ollama pull llama3.2:3b
